@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from accounts.models import  User, Teacher, Student, Institution_adm, Institution, Address, Program, Class, Course, Teacher, Student, Institution_adm
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+
 
 class UserSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -17,11 +20,13 @@ class UserSerializer(serializers.Serializer):
         is_student = validated_data.get('is_student')
         is_teacher = validated_data.get('is_teacher')
         is_institution_adm = validated_data.get('is_institution_adm')
+        content = {'res': 'criado com sucesso'}
+        
 
-        if is_student == True:              
+        if is_student == True: 
             user = User.objects._create_user(**validated_data) 
             Token.objects.create(user=user)
-            return Student.objects.create(user=user) 
+            return Student.objects.create(user=user)
         elif is_teacher == True:
             user = User.objects._create_user(**validated_data) 
             Token.objects.create(user=user)
@@ -33,4 +38,3 @@ class UserSerializer(serializers.Serializer):
         else:
             return User.objects._create_user(**validated_data)
             Token.objects.create(user=user) 
-        

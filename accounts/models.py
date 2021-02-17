@@ -8,25 +8,26 @@ class User(AbstractUser):
     is_institution_adm = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.username
+        return self.email
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #username = models.ForeignKey(User, on_delete=models,related_name='usernames')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Institution_adm(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Institution(models.Model):
     name = models.CharField(max_length=250)

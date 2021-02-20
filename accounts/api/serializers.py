@@ -6,15 +6,15 @@ from rest_framework.decorators import api_view, permission_classes
 
 
 class UserSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    email = serializers.EmailField()
-    password = serializers.CharField()
-    is_active = serializers.BooleanField(default=True)
-    is_student = serializers.BooleanField(default=False)
-    is_teacher = serializers.BooleanField(default=False)
-    is_institution_adm = serializers.BooleanField(default=False)
+    username = serializers.CharField(write_only=True)
+    first_name = serializers.CharField(write_only=True)
+    last_name = serializers.CharField(write_only=True)
+    email = serializers.EmailField(write_only=True)
+    password = serializers.CharField(write_only=True)
+    is_active = serializers.BooleanField(default=True,write_only=True)
+    is_student = serializers.BooleanField(default=False,write_only=True)
+    is_teacher = serializers.BooleanField(default=False,write_only=True)
+    is_institution_adm = serializers.BooleanField(default=False,write_only=True)
 
     def create(self, validated_data):
         is_student = validated_data.get('is_student')

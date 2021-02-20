@@ -12,19 +12,19 @@ class User(AbstractUser):
 
 class Student(models.Model):
     #username = models.ForeignKey(User, on_delete=models,related_name='usernames')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email
 
 class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email
 
 class Institution_adm(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email

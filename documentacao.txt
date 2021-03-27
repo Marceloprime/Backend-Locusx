@@ -1,0 +1,419 @@
+******************************************************************************
+Registro/ Sign up
+
+Descrição: Criação de um usuário no sistema.Com essa request é criado um novo usuario, e de acordo com o is_<tipo de user> 
+é criado umo novo professor, aluno ou um administrado de instituição.
+
+Metodo HTTP: Post
+
+URL: http://127.0.0.1:8000/users/
+
+
+Exemplo em javascript:
+
+const axios = require('axios');
+
+axios.post('http://127.0.0.1:8000/users/',{
+  "username": "",
+  "first_name": "",
+  "last_name": "",
+  "email": "",
+  "password": "",
+  "is_active": true,
+  "is_student": <false or true>,
+  "is_teacher": <false or true>,
+  "is_institution_adm": <false or true>
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+******************************************************************************
+Login
+
+Descrição: Autentificação de usuario. É retornado um token após a autentifcação.
+
+Metodo HTTP: Post
+
+URL: http://127.0.0.1:8000/auth/login/
+
+Exemplo em javascript:
+
+const axios = require('axios');
+
+axios.post('http://127.0.0.1:8000/auth/login/',{
+  "username": "",
+  "email": "",
+  "password": "",
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+******************************************************************************
+Logout
+
+Descrição: Realizar o logout no sistema
+
+Metodo HTTP: Post
+
+URL: http://127.0.0.1:8000/auth/logout/
+
+Exemplo em javascript:
+
+const axios = require('axios');
+
+axios.post('http://127.0.0.1:8000/auth/logout/',{
+
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+******************************************************************************
+Listar Cursos / Series - Intituição
+
+Descrição: É preciso ser admin para acessar esse endpoint. Somente os dados de cursos 
+pertencentes a sua instituição serão acessíveis
+
+Metodo HTTP: GET
+
+URL: http://127.0.0.1:8000/course/
+
+const axios = require('axios');
+
+Exemplo em javascript:
+let access_token = <token> 
+axios.get('http://127.0.0.1:8000/course/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response:
+[
+  {
+    adm: 1,
+    name: 'Sistemas de Informação',
+    description: '',
+    classes: [ 1, 2 ]
+  }
+]
+
+******************************************************************************
+Listar Cursos / Series - Teacher
+
+Descrição: É preciso ser Teacher para acessar esse endpoint. Somente dados de professores não ligados a uma instituição.
+
+
+Metodo HTTP: GET
+
+URL:http://127.0.0.1:8000/courseTeacher/
+
+const axios = require('axios');
+
+Exemplo em javascript:
+let access_token = <token> 
+axios.get('http://127.0.0.1:8000/courseTeacher/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response:
+[
+  {
+    id: 1,
+    classes: [ 1 ],
+    name: 'Matematica',
+    description: '',
+    created_at: '2021-03-26T22:55:43.509862Z',
+    modified_at: '2021-03-26T22:55:43.509932Z',
+    teacher: 1
+  }
+]
+******************************************************************************
+Informaçõe de uma classe de um curso de um Professor
+
+Descrição: É preciso ser Professor para acessar esse endpoint.
+
+
+Metodo HTTP: GET
+
+URL:http://127.0.0.1:8000/courseTeacher/
+
+const axios = require('axios');
+
+Exemplo em javascript:
+let access_token = '<token>' 
+axios.get('http://127.0.0.1:8000/courseTeacher/1/get_class', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+
+Response:
+{
+  id: 1,
+  name: 'Turma A',
+  description: '',
+  created_at: '2021-03-26 22:55:16.208185+00:00',
+  modified_at: '2021-03-26 22:55:16.208256+00:00',
+  teacher: {
+    username: 'user4',
+    email: 'user4@email.com',
+    first_name: 'user4',
+    lastname: 'user4',
+    id_teacher: 5,
+    id_user: 5
+  },
+  program: {
+    name: 'Fração',
+    description: 'Frações são números que expressamos pela razão de dois números inteiros, ou seja, podemos dizer que a fração de um número é representada de uma forma genérica como a razão onde a é o numerador e b o denominador e, por definição,'
+  }
+}
+
+******************************************************************************
+Informaçõe de uma classe de um curso de um Admin
+
+Descrição: É preciso ser Admin para acessar esse endpoint.
+
+
+Metodo HTTP: GET
+
+URL:http://127.0.0.1:8000/courseTeacher/
+
+const axios = require('axios');
+
+Exemplo em javascript:
+let access_token = '<token>' 
+axios.get('http://127.0.0.1:8000/course/<id>/get_class', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+
+Response:
+{
+  id: 1,
+  name: 'Turma A',
+  description: '',
+  created_at: '2021-03-25 21:56:05.342557+00:00',
+  modified_at: '2021-03-25 21:56:05.342624+00:00',
+  adm: {
+    username: 'user0',
+    email: 'user0@email.com',
+    first_name: 'user0',
+    lastname: 'user0',
+    id_adm: 2,
+    id_user: 2
+  },
+  program: { name: 'Algoritmos e Estruturas de Dados I', description: '' }
+}
+
+
+******************************************************************************
+Listar Programas - instituição
+
+Descrição: É preciso ser Admin para acessar esse endpoint.
+
+Metodo HTTP: GET
+
+URL:axios.get('http://127.0.0.1:8000/programs/', {
+
+
+const axios = require('axios');
+
+Exemplo em javascript:
+const axios = require('axios');
+
+let access_token = <token> 
+axios.get('http://127.0.0.1:8000/programs/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response:
+[
+  {
+    id: 1,
+    name: 'Algoritmos e Estruturas de Dados I',
+    description: '',
+    adm: 1,
+    institution: [ 1 ],
+    teachers: [ 1 ]
+  }
+]
+
+
+******************************************************************************
+Listar Programas - Teacher
+
+Descrição: É preciso ser Admin para acessar esse endpoint.
+
+Metodo HTTP: GET
+
+URL:axios.get('http://127.0.0.1:8000/programsTeacher/', {
+
+
+const axios = require('axios');
+
+Exemplo em javascript:
+const axios = require('axios');
+
+let access_token = <token> 
+axios.get('http://127.0.0.1:8000/programsTeacher/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response:
+[
+  {
+    id: 1,
+    name: 'Fração',
+    description: 'Frações são números que expressamos pela razão de dois números inteiros, ou seja, podemos dizer que a fração de um número é representada de uma forma genérica como a razão onde a é o numerador e b o denominador e, por definição,',
+    teacher: 1
+  }
+]
+
+******************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+******************************************************************************
+******************************************************************************
+
+
+Listar todos os usuarios de uma instituição
+
+É preciso ser admin para acessar esse endpoint.
+******************************************************************************
+Obter dados de usuario especifico da instituição
+
+É preciso ser admin para acessar esse endpoint.
+******************************************************************************
+Obter informações do usuario autenticado
+
+Esse endpoint é responsável por retornar as informações do usuário autenticado.
+******************************************************************************
+Aluno - Obter informações da Turma do Estudante autenticado.
+
+Esse endpoint é responsável por retornar as informações da Turma onde o aluno 
+autenticado está matriculado.Somente usuario do tipo aluno podem acessar.
+******************************************************************************
+Professor - Lista de turmas que o professor autenticado leciona.
+
+Esse endpoint é responsável por retornar uma lista com todas as Turmas onde 
+o professor autenticado leciona.Somente usuario do tipo professor podem acessar.
+******************************************************************************
+Professor - obter informações de uma Turma que o professor autenticado leciona.
+
+Esse endpoint é responsável por retornar objeto correspondente ao id de uma das 
+Turmas onde o professor autenticado leciona. 
+Exemplo: http://localhost:8000/my-classes/2/Somente usuario do tipo 
+professor podem acessar.
+******************************************************************************
+Professor - Obter lista de Cursos/Series do professor autenticado.
+
+Esse endpoint é responsável por retornar os cursos da Instituição onde o 
+professor autenticado leciona.Somente usuario do tipo professor podem acessar.
+******************************************************************************
+Professor - Obter informações de um Cursos/Series do professor autenticado.
+
+Esse endpoint é responsável por retornar objeto correspondente ao id de uma das 
+Cursos/Series que o professor autenticado faz parte. 
+Exemplo: http://localhost:8000/my-programs/1/Somente usuario do tipo 
+professor podem acessar.
+
+******************************************************************************
+Obter informações da Instituição do usuário autenticado
+
+Esse endpoint é responsável por retornar as informações da Instituição onde 
+o usuario autenticado está matriculado.
+******************************************************************************
+Aluno/Professor - Obter lista de Disciplinas do usuário autenticado
+
+Esse endpoint é responsável por retornar todas as matérias de um usuário 
+autenticado.Somente usuários do tipo professor e aluno podem acessar esse endpoint.
+Se o usuário, for do tipo Professor, o endpoint retornará todas as matérias que o 
+professor autenticado leciona.Se o usuário, for do tipo Estudante, 
+o endpoint retornará todas as matérias que o aluno está matriculado.
+
+******************************************************************************
+Aluno/Professor - obtendo informaçao de uma Disciplina
+
+Esse endpoint é responsável por retornar objeto correspondente ao id 
+de uma das Disciplinas que o professor autenticado leciona ou o aluno 
+autenticado estuda. Exemplo: http://localhost:8000/my-course/6/Somente 
+usuários do tipo professor e aluno podem acessar esse endpoint.
+******************************************************************************

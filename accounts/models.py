@@ -25,18 +25,16 @@ class Teacher(models.Model):
 
 class Institution_adm(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.user.email
 
 class Institution(models.Model):
+    user = models.ForeignKey('Institution_adm', on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
-    adms = models.ManyToManyField(Institution_adm)
-    
-    #created_at = models.DateTimeField()
-    #modified_at = models.DateTimeField()
-
+    teachers =  models.ManyToManyField(Teacher,blank=True)
+    student =  models.ManyToManyField(Student,blank=True)
     def __str__(self):
         return self.name
 
@@ -60,19 +58,21 @@ class Address(models.Model):
     def __str__(self):
        return self.institution.name
 
+###########################################################################
+#                       Instituicao                                       #
+
 class Program(models.Model):
+    adm = models.ForeignKey('Institution_adm', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
-    institution = models.ForeignKey(
-        Institution,
-        related_name="programs",
-        on_delete=models.CASCADE
-    )
+    institution = models.ManyToManyField(Institution,blank=True)
+    teachers =  models.ManyToManyField(Teacher,blank=True)
  
     def __str__(self):
         return self.name
 
 class Class(models.Model):
+    adm = models.ForeignKey('Institution_adm', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     program = models.ForeignKey(
@@ -83,26 +83,56 @@ class Class(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
-
     def __str__(self):
         return self.name
 
 class Course(models.Model):
+    adm = models.ForeignKey('Institution_adm', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
-    class_id = models.ForeignKey(
-        Class,
-        on_delete=models.CASCADE,
-        related_name="courses"
-    )
-    teacher = models.ForeignKey(
-        Teacher,
-        on_delete=models.CASCADE,
-        related_name="courses"
-    )
+    classes = models.ManyToManyField(Class)
     created_at = models.DateTimeField( auto_now_add=True)
     modified_at = models.DateTimeField( auto_now=True)
-
+    teachers =  models.ManyToManyField(Teacher,blank=True)
   
     def __str__(self):
         return self.name
+
+###########################################################################
+#                       Teacher                                           #
+
+class ProgramTeacher(models.Model):
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+ 
+    def __str__(self):
+        return self.name
+
+class ClassTeacher(models.Model):
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    program = models.ForeignKey(
+        ProgramTeacher,
+        on_delete=models.CASCADE,
+        related_name="classesteacher"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.name
+
+class CourseTeacher(models.Model):
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    classes = models.ManyToManyField(ClassTeacher)
+    created_at = models.DateTimeField( auto_now_add=True)
+    modified_at = models.DateTimeField( auto_now=True)
+  
+    def __str__(self):
+        return self.name
+###########################################################################

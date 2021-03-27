@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounts.models import  User, Teacher, Student, Institution_adm, Institution, Address, Program, Class, Course, Teacher, Student, Institution_adm
+from accounts.models import *
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
@@ -20,6 +20,7 @@ class UserSerializer(serializers.Serializer):
         is_student = validated_data.get('is_student')
         is_teacher = validated_data.get('is_teacher')
         is_institution_adm = validated_data.get('is_institution_adm')
+        emailinfo = validated_data.get('email')
         content = {'res': 'criado com sucesso'}
         
 
@@ -38,3 +39,47 @@ class UserSerializer(serializers.Serializer):
         else:
             return User.objects._create_user(**validated_data)
             Token.objects.create(user=user) 
+
+class TeacherSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = '__all__'
+
+#seriealizers da intituicao
+#######################################################################
+class ClassSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = Class
+        fields = '__all__'
+
+class CourseSerializers(serializers.ModelSerializer):
+    classes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        model = Course
+        fields = ['adm','name','description','classes','name','description']
+
+class ProgramSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Program
+        fields = '__all__'
+#######################################################################
+#seriealizers do professor
+#######################################################################
+class ClassTeacherSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = ClassTeacher
+        fields = '__all__'
+
+class CourseTeacherSerializers(serializers.ModelSerializer):
+    classes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        model = CourseTeacher
+        fields =  '__all__'
+
+class ProgramTeacherSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramTeacher
+        fields = '__all__'
+#######################################################################

@@ -34,11 +34,3 @@ class OnlyAdmin(permissions.BasePermission):
         if str(request.user) == 'AnonymousUser':
             return False
         return request.user.is_institution_adm
-
-class OnlyUsers(permissions.BasePermission):
-    message = 'Only users are allowed.'
-
-    def has_permission(self, request, view):
-        if str(request.user) == 'AnonymousUser':
-            return False
-        return request.user.is_institution_adm or request.user.is_teacher or request.user.is_student

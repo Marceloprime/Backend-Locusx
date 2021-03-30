@@ -3,3 +3,6 @@ __pycache__
 db.sqlite3
 migrations
 dev.txt
+*.*-
+.env
+.idea

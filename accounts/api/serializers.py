@@ -40,9 +40,19 @@ class UserSerializer(serializers.Serializer):
             return User.objects._create_user(**validated_data)
             Token.objects.create(user=user) 
 
+class Institution_admSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Institution_adm
+        fields = '__all__'
+
 class TeacherSerializers(serializers.ModelSerializer):
     class Meta:
         model = Teacher
+        fields = '__all__'
+
+class StudentSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Student
         fields = '__all__'
 
 #seriealizers da intituicao
@@ -83,3 +93,12 @@ class ProgramTeacherSerializers(serializers.ModelSerializer):
         model = ProgramTeacher
         fields = '__all__'
 #######################################################################
+class InstitutionSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Institution
+        fields = '__all__'
+
+class AddressSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__'

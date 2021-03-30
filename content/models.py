@@ -6,7 +6,7 @@ from time import time
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from accounts.models import Teacher, Student, Course, Class
+from accounts.models import *
 from location.models import Location
 
 
@@ -26,17 +26,83 @@ class Content(models.Model):
     def __str__(self):
         return self.title
 
-class GenericsQuestion(models.Model):
+
+class Question(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(_('description'), blank=True, null=True)
+    is_openQuestion = models.BooleanField(default=False)
+    is_multipleChoiceQuestion = models.BooleanField(default=False)
+    link_multimedia = models.TextField(_('link multimedia'), blank=True, null=True)
 
     def __str__(self):
         return self.title
 
+class OpenQuestion(models.Model):
+    question  = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="openquestion",
+        null=True
+    )
+    suggestionOfCorrectAnswer = models.TextField(_('description'), blank=True, null=True)
+
+    def __str__(self):
+        return self.question.title        
+
+class Alternative(models.Model):
+    letter =  models.TextField(_('letter'), blank=False)
+    description = models.TextField(_('description'))
+    
+    def __str__(self):
+        return self.letter
+
+
+class MultipleChoiceQuestion(models.Model):
+    question  = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="multipleChoiceQuestion",
+        null=True
+    )
+
+    alternative = models.ManyToManyField(Alternative, verbose_name="alternative")
+
+    def __str__(self):
+        return self.question.title        
+
 class Task(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(_('description'), blank=True, null=True)
-    taks = models.ManyToManyField(GenericsQuestion, verbose_name="question")
+    taks = models.ManyToManyField(Question, verbose_name="question")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="taks_location", null=True)
+
+    def __str__(self):
+        return self.title
+
+class ActivityTeacher(models.Model):
+    title = models.CharField(max_length=250)
+    description = models.TextField(_('description'), blank=True, null=True)
+    content = models.ForeignKey(
+        Content,
+        on_delete=models.CASCADE,
+        related_name="activitiesTeacher"
+    )
+    course = models.ForeignKey(
+        CourseTeacher,
+        on_delete=models.CASCADE,
+        related_name="activitiesTeacher",
+        null=True
+    )
+    class_id = models.ForeignKey(
+        ClassTeacher,
+        on_delete=models.CASCADE,
+        related_name="activitiesTeacher",
+        null=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    taks = models.ManyToManyField(Task, verbose_name="taks")
+
 
     def __str__(self):
         return self.title
@@ -44,29 +110,23 @@ class Task(models.Model):
 class Activity(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField(_('description'), blank=True, null=True)
-    location = models.ForeignKey(
-        Location,
-        on_delete=models.CASCADE,
-        related_name="activities"
-    )
     content = models.ForeignKey(
         Content,
         on_delete=models.CASCADE,
-        related_name="activities"
+        related_name="activitiesContent"
     )
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name="activities",
+        related_name="activitiesCourse",
         null=True
     )
     class_id = models.ForeignKey(
         Class,
         on_delete=models.CASCADE,
-        related_name="activities",
+        related_name="activitiesClass",
         null=True
     )
-    multimedia_required = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     taks = models.ManyToManyField(Task, verbose_name="taks")
@@ -76,7 +136,7 @@ class Activity(models.Model):
         return self.title
 
 
-class ActivityAnswer(models.Model):
+class ActivityRealization(models.Model):
     activity = models.ForeignKey(
         Activity,
         on_delete=models.CASCADE,
@@ -94,4 +154,52 @@ class ActivityAnswer(models.Model):
         db_table = 'activity_answer'
 
     def __str__(self):
-        return f'{self.student.full_name}: {self.google_drive_file_key}'
+        return f'{self.student.user.email}: {self.activity.title}'
+
+class ActivityRealizationTeacher(models.Model):
+    activity = models.ForeignKey(
+        ActivityTeacher,
+        on_delete=models.CASCADE,
+        related_name="ActivityRealizationTeacher"
+    )
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        related_name="ActivityRealizationTeacher"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'ActivityRealizationTeacher'
+
+    def __str__(self):
+        return f'{self.student.user.email}: {self.activity.title}'
+    
+class Answer(models.Model):
+    answer = models.TextField(_('description'), blank=True, null=True)
+    score = models.DecimalField(max_digits=2, decimal_places=2, default=0)
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="Answer"
+    )
+    activityRealization = models.ForeignKey(
+        ActivityRealization,
+        on_delete=models.CASCADE,
+        related_name="Answer"
+    )
+
+class AnswerTeacher(models.Model):
+    answer = models.TextField(_('description'), blank=True, null=True)
+    score = models.DecimalField(max_digits=2, decimal_places=2, default=0)
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="AnswerTeacher"
+    )
+    activityRealization = models.ForeignKey(
+        ActivityRealizationTeacher,
+        on_delete=models.CASCADE,
+        related_name="AnswerTeacher"
+    )

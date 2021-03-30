@@ -13,7 +13,6 @@ class User(AbstractUser):
 class Student(models.Model):
     #username = models.ForeignKey(User, on_delete=models,related_name='usernames')
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-
     def __str__(self):
         return self.user.email
 
@@ -80,6 +79,8 @@ class Class(models.Model):
         on_delete=models.CASCADE,
         related_name="classes"
     )
+    students = models.ManyToManyField(Student,blank=True)
+    teachers = models.ManyToManyField(Teacher,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -118,6 +119,7 @@ class ClassTeacher(models.Model):
         on_delete=models.CASCADE,
         related_name="classesteacher"
     )
+    students = models.ManyToManyField(Student,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

@@ -1,8 +1,17 @@
 from django.contrib import admin
-from .models import Activity, Content, ActivityAnswer, Task, GenericsQuestion
+from .models import *
 # Register your models here.
-admin.site.register(Activity)
 admin.site.register(Content)
-admin.site.register(ActivityAnswer)
+admin.site.register(Question)
+admin.site.register(OpenQuestion)
+admin.site.register(Alternative)
+
+admin.site.register(MultipleChoiceQuestion)
 admin.site.register(Task)
-admin.site.register(GenericsQuestion)
+admin.site.register(ActivityTeacher)
+admin.site.register(Activity)
+
+admin.site.register(ActivityRealization)
+admin.site.register(ActivityRealizationTeacher)
+admin.site.register(Answer)
+admin.site.register(AnswerTeacher)

@@ -9,17 +9,41 @@ from django.urls import path, include
 from django.conf.urls import  url
 #from accounts.socialLogin import  FacebookLogin
 from rest_framework import routers
-from accounts.api.viewsets import *
 
+from accounts.api.viewsets import *
+from content.api.viewsets import *
+from location.api.viewsets import *
+
+# Api router
 router = routers.DefaultRouter()
+
+#accounts
 router.register(r'users', UserViewSet)
 router.register(r'course', CourseViewSet, basename='Course')
 router.register(r'programs', ProgramViewSet, basename='Program')
 router.register(r'courseTeacher', CourseTeacherViewSet, basename='CourseTeacher')
 router.register(r'programsTeacher', ProgramTeacherViewSet, basename='ProgramTeacher')
+router.register(r'institution',InstitutionViewSet, basename='Institution')
+router.register(r'class', ClassViewset, basename='Class')
+router.register(r'classTeacher', ClassTeacherViewset, basename='ClassTeacher')
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+#content
+router.register(r'content', ContentViewSet, basename='Content')
+router.register(r'question', QuestionViewSet, basename='Question')
+router.register(r'openquestion', OpenQuestionViewSet, basename='OpenQuestion')
+router.register(r'alternative', AlternativeViewSet, basename='Alternative')
+router.register(r'multiplechoicequestion', MultipleChoiceQuestionViewSet, basename='MultipleChoiceQuestion')
+router.register(r'task', TaskViewSet, basename='Task')
+router.register(r'activityTeacher', ActivityTeacherViewSet, basename='ActivityTeacher')
+router.register(r'activity', ActivityViewSet, basename='Activity')
+router.register(r'activityrealization', ActivityRealizationViewSet, basename='ActivityRealization')
+router.register(r'activityrealizationteacher', ActivityRealizationTeacherViewSet, basename='ActivityRealizationTeacher')
+router.register(r'answer', AnswerViewSet, basename='Answer')
+router.register(r'answerteacher', AnswerTeacherViewSet, basename='AnswerTeacher')
+
+#location
+router.register(r'location', LocationViewSet, basename='LocationViewSet')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),

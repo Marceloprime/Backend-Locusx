@@ -1,0 +1,1 @@
+web: gunicorn locusx.wsgi --log-file -

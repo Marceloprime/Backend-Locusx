@@ -10,6 +10,30 @@ from location.api.serializers import *
 from .permissions import *
 
 class LocationViewSet(viewsets.ModelViewSet):
-  permission_classes = [OnlyTeachersOrStudents]
+  #permission_classes = [OnlyTeachersOrStudents]
   serializer_class = LocationSerializers
-  queryset = Location.objects.all()
+  
+  def get_queryset(self):
+    if str(self.request.user) != "AnonymousUser":
+      getUser = self.request.user
+      getteacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+      return  Location.objects.filter(teacher=getteacher)
+    else:
+      return Location.objects.none()
+
+  def create(self, request):
+    getUser = self.request.user
+    getteacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    ObjLocation = Location()
+    ObjLocation.name = request.data.get('name')
+    ObjLocation.teacher_id = getteacher
+    ObjLocation.latitude = request.data.get('latitude')
+    ObjLocation.longitude = request.data.get('longitude')
+    ObjLocation.save()
+    
+    responseJson = {
+      "name" : request.data.get('name'),
+      "latitude" : request.data.get('latitude'),
+      "longitude" : request.data.get('longitude')
+    }
+    return Response(responseJson)

@@ -598,58 +598,172 @@ Response:
 ]
 
 ******************************************************************************
+Obter informações da Instituição do usuário autenticado - Professor
 
-
-
-Professor - Obter lista de Cursos/Series do professor autenticado.
-
-Esse endpoint é responsável por retornar os cursos da Instituição onde o 
-professor autenticado leciona.Somente usuario do tipo professor podem acessar.
-******************************************************************************
-Professor - Obter informações de um Cursos/Series do professor autenticado.
-
-Esse endpoint é responsável por retornar objeto correspondente ao id de uma das 
-Cursos/Series que o professor autenticado faz parte. 
-Exemplo: http://localhost:8000/my-programs/1/Somente usuario do tipo 
-professor podem acessar.
-
-******************************************************************************
-Obter informações da Instituição do usuário autenticado
-
-Esse endpoint é responsável por retornar as informações da Instituição onde 
+Descrição: Esse endpoint é responsável por retornar as informações da Instituição onde 
 o usuario autenticado está matriculado.
+
+Metodo HTTP: GET
+
+URL: http://127.0.0.1:8000/teacher/get_institution/
+
+const axios = require('axios')
+
+let access_token = <token> 
+axios.get('http://127.0.0.1:8000/teacher/get_institution/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response: 
+[ { name: 'University of São Paulo', description: '' } ]
+******************************************************************************
+
+Obter informações da Instituição do usuário autenticado - Aluno
+
+Descrição: Esse endpoint é responsável por retornar as informações da Instituição onde 
+o usuario autenticado está matriculado.
+
+Metodo HTTP: GET
+
+URL: http://127.0.0.1:8000/student/get_institution/
+
+const axios = require('axios')
+
+let access_token = <token> 
+axios.get('http://127.0.0.1:8000/student/get_institution/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response: 
+[ { name: 'University of São Paulo', description: '' } ]
 ******************************************************************************
 Aluno/Professor - Obter lista de Disciplinas do usuário autenticado
 
-Esse endpoint é responsável por retornar todas as matérias de um usuário 
+
+Descrição: Esse endpoint é responsável por retornar todas as matérias de um usuário 
 autenticado.Somente usuários do tipo professor e aluno podem acessar esse endpoint.
 Se o usuário, for do tipo Professor, o endpoint retornará todas as matérias que o 
 professor autenticado leciona.Se o usuário, for do tipo Estudante, 
 o endpoint retornará todas as matérias que o aluno está matriculado.
 
+Metodo HTTP: GET
+
+URL: http://127.0.0.1:8000/student/get_program/
+URL: http://127.0.0.1:8000/teacher/get_program/
+
+Example:
+const axios = require('axios')
+
+let access_token = '0418e01a844989041f324e7333ddfb7536644021' 
+axios.get('http://127.0.0.1:8000/teacher/get_program/', {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+})
+.then((res) => {
+  console.log(res.data)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+Response:
+[ { name: 'Turma A', Program: 'Algoritmos e Estruturas de Dados I' } ]
 ******************************************************************************
-Aluno/Professor - obtendo informaçao de uma Disciplina
-
-Esse endpoint é responsável por retornar objeto correspondente ao id 
-de uma das Disciplinas que o professor autenticado leciona ou o aluno 
-autenticado estuda. Exemplo: http://localhost:8000/my-course/6/Somente 
-usuários do tipo professor e aluno podem acessar esse endpoint.
-******************************************************************************
-
-
-
-
-
-
-
-
-
-
 ******************************************************************************
 ******************************************************************************
 ******************************************************************************
 ******************************************************************************
 				LOCATION's Requests
 				
+Professor - Criar Localização
+
+Descrição: Para criar uma localização, basta enviar as coordenadas e rotulá-la com uma nome.
+
+Metodo HTTP: POST
+
+URL: http://127.0.0.1:8000/location/
+
+
+Example:
+const axios = require('axios')
+
+let access_token = <token>
+axios.post('http://127.0.0.1:8000/location/',{
+  "name": 'Ponto E',
+  "description": 'sdsada',
+  "latitude": 252,
+  "longitude": 25335,
+}, {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+Response:
+data: { name: 'Ponto E', latitude: 252, longitude: 25335 }
+
+******************************************************************************
+LOCATION's Requests
 				
+Professor - Recuperar Localização
+
+Descrição: Para criar uma localização, basta enviar as coordenadas e rotulá-la com uma nome.
+
+Metodo HTTP: GET
+
+URL: http://127.0.0.1:8000/location/
+
+
+Example:
+const axios = require('axios')
+
+let access_token = <token>
+axios.get('http://127.0.0.1:8000/location/',{
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+{
+  id: 18,
+  name: 'Ponto E',
+  description: null,
+  latitude: 252,
+  longitude: 25335,
+  created_at: '2021-04-02T03:18:43.906882Z',
+  modified_at: '2021-04-02T03:18:43.906952Z',
+  teacher: 1
+}
+
+******************************************************************************
+******************************************************************************
+******************************************************************************
+Content's Requests
 				

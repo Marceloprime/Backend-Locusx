@@ -40,7 +40,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class Institution_admViewSet(viewsets.ModelViewSet):
   permission_classes = [OnlyAdmin]
   serializer_class = Institution_admSerializers
-  queryset = Institution_adm.objects.all()
+  queryset = Institution_adm.objects.none()
 
   
 class TeacherViewSet(viewsets.ModelViewSet):
@@ -48,7 +48,80 @@ class TeacherViewSet(viewsets.ModelViewSet):
   serializer_class = TeacherSerializers
   queryset = Teacher.objects.all()
 
+  @action(methods=['get'],detail=False)
+  def get_institution(self, request):
+    getUser = self.request.user
+    getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    institutions = Institution.objects.filter(teachers=getTeacher)
+    data = []
 
+    for institution in institutions:
+      
+      aux = {
+        "name" : institution.name,
+        "description" : institution.description
+      }
+      data.append(aux)
+      
+    return Response(data)
+
+  @action(methods=['get'],detail=False)
+  def get_program(self, request):
+    getUser = self.request.user
+    getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    classes = Class.objects.filter(teachers=getTeacher)
+    data = []
+    
+    for classe in classes:
+      print(classe.program.description)
+      
+      aux = {
+        "name" : classe.name,
+        "Program" : classe.program.name,
+      }
+      data.append(aux)
+      
+    return Response(data)
+
+class StudentViewSet(viewsets.ModelViewSet):
+  permission_classes = [permissions.IsAuthenticated]
+  serializer_class = StudentSerializers
+  queryset = Student.objects.none()
+
+  @action(methods=['get'],detail=False)
+  def get_institution(self, request):
+    getUser = self.request.user
+    getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    institutions = Institution.objects.filter(teachers=getStudent)
+    data = []
+
+    for institution in institutions:
+      
+      aux = {
+        "name" : institution.name,
+        "description" : institution.description
+      }
+      data.append(aux)
+      
+    return Response(data)
+
+  @action(methods=['get'],detail=False)
+  def get_program(self, request):
+    getUser = self.request.user
+    getStuden = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    classes = Class.objects.filter(teachers=getStuden)
+    data = []
+    
+    for classe in classes:
+      print(classe.program.description)
+      
+      aux = {
+        "name" : classe.name,
+        "Program" : classe.program.name,
+      }
+      data.append(aux)
+      
+    return Response(data)
 ############################################################################################
 ###         instituicao
 class CourseViewSet(viewsets.ModelViewSet):

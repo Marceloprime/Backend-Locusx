@@ -19,6 +19,9 @@ router = routers.DefaultRouter()
 
 #accounts
 router.register(r'users', UserViewSet)
+router.register(r'institution_adm', Institution_admViewSet, basename='Institution_adm')
+router.register(r'teacher', TeacherViewSet, basename='Teacher')
+router.register(r'student', StudentViewSet, basename='Student')
 router.register(r'course', CourseViewSet, basename='Course')
 router.register(r'programs', ProgramViewSet, basename='Program')
 router.register(r'courseTeacher', CourseTeacherViewSet, basename='CourseTeacher')

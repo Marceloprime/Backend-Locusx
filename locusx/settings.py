@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'accounts',
     'content',
-    'location'
+    'location',
+    'bootstrap4'
 ]
 
 SITE_ID=1

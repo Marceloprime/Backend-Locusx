@@ -49,8 +49,8 @@ router.register(r'location', LocationViewSet, basename='LocationViewSet')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('site/', include('accounts.urls')),
+    path('api/', include(router.urls)),
+    path('', include('accounts.urls')),
     url(r'^auth/', include('rest_auth.urls')),#routar do login
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

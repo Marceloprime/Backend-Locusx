@@ -21,7 +21,6 @@ class UserViewSet(viewsets.ModelViewSet):
     def myprofile(self, request):
       
       if str(request.user) != "AnonymousUser":
-        list_json = serializers.serialize("json", User.objects.all())
         data = {
           "username":str(request.user.username),
           "email":str(request.user.email),

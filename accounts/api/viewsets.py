@@ -24,6 +24,8 @@ class UserViewSet(viewsets.ModelViewSet):
         data = {
           "username":str(request.user.username),
           "email":str(request.user.email),
+          "first_name":str(request.user.first_name),
+          "last_name":str(request.user.last_name),
           "is_student":str(request.user.is_student),
           "is_teacher":str(request.user.is_teacher),
           "is_institution_adm":str(request.user.is_institution_adm),

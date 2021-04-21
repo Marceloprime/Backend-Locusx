@@ -9,6 +9,7 @@ dj-static==0.0.6
 Django==2.2.13
 django-allauth==0.39.1
 django-bootstrap4==2.3.1
+dj-database-url==0.5.0
 django-node-assets==0.9.8
 django-cors-headers==3.0.2
 django-rest-swagger==2.2.0  
@@ -29,6 +30,7 @@ pycodestyle==2.5.0
 pylint==2.3.1
 python3-openid==3.1.0
 pytz==2019.1
+python-decouple==3.1
 requests==2.22.0
 requests-oauthlib==1.2.0
 six==1.12.0

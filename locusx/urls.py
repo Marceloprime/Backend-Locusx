@@ -13,7 +13,9 @@ from rest_framework import routers
 from accounts.api.viewsets import *
 from content.api.viewsets import *
 from location.api.viewsets import *
+from rest_framework_swagger.views import get_swagger_view
 
+schema_view = get_swagger_view(title='LocusX API')
 # Api router
 router = routers.DefaultRouter()
 
@@ -53,6 +55,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     url(r'^auth/', include('rest_auth.urls')),#routar do login
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'docs', schema_view)
 ]
 
 

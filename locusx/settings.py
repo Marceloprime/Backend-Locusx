@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'accounts',
     'content',
     'location',
-    'bootstrap4'
+    'bootstrap4',
+    'rest_framework_swagger',
+    'django_node_assets'
 ]
 
 SITE_ID=1
@@ -84,7 +86,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'locusx.wsgi.application'
-
+LOGIN_REDIRECT_URL = '/'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

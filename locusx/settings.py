@@ -92,13 +92,10 @@ LOGIN_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / "db.sqlite3"),
-    },
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
-
 
 
 # Password validation

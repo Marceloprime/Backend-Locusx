@@ -4,3 +4,4 @@ dev.txt
 *.*-
 .env
 .idea
+db.sqlite3

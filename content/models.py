@@ -192,7 +192,6 @@ class Answer(models.Model):
 
 class AnswerTeacher(models.Model):
     answer = models.TextField(_('description'), blank=True, null=True)
-    score = models.DecimalField(max_digits=2, decimal_places=2, default=0)
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
@@ -202,4 +201,40 @@ class AnswerTeacher(models.Model):
         ActivityRealizationTeacher,
         on_delete=models.CASCADE,
         related_name="AnswerTeacher"
+    )
+
+
+class AnswerMultipleChoice(models.Model):
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="AnswerMultipleChoice"
+    )
+    alternative = models.ForeignKey(
+        Alternative,
+        on_delete=models.CASCADE,
+        related_name="AnswerMultipleChoice"
+    )
+    activityRealization = models.ForeignKey(
+        ActivityRealization,
+        on_delete=models.CASCADE,
+        related_name="AnswerMultipleChoice"
+    )
+
+class AnswerTeacherMultipleChoice(models.Model):
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="AnswerTeacherMultipleChoice"
+    )
+
+    alternative = models.ForeignKey(
+        Alternative,
+        on_delete=models.CASCADE,
+        related_name="AnswerTeacherMultipleChoice"
+    )
+    activityRealization = models.ForeignKey(
+        ActivityRealizationTeacher,
+        on_delete=models.CASCADE,
+        related_name="AnswerTeacherMultipleChoice"
     )

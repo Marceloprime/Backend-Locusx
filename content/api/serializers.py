@@ -60,5 +60,15 @@ class AnswerSerializers(serializers.ModelSerializer):
 
 class AnswerTeacherSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Answer
+        model = AnswerTeacher
+        fields = '__all__'
+
+class AnswerMultipleChoiceSerializers(serializers.ModelSerializer):
+    class Meta:
+        model =  AnswerMultipleChoice
+        fields = '__all__'
+
+class AnswerTeacherMultipleChoiceSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerTeacherMultipleChoice
         fields = '__all__'

@@ -21,15 +21,83 @@ class UserViewSet(viewsets.ModelViewSet):
     def myprofile(self, request):
       
       if str(request.user) != "AnonymousUser":
-        data = {
-          "username":str(request.user.username),
-          "email":str(request.user.email),
-          "first_name":str(request.user.first_name),
-          "last_name":str(request.user.last_name),
-          "is_student":str(request.user.is_student),
-          "is_teacher":str(request.user.is_teacher),
-          "is_institution_adm":str(request.user.is_institution_adm),
-        }
+
+        if request.user.is_institution_adm == True:
+          getUser = self.request.user
+          getAdm = Institution_adm.objects.filter(user=getUser).values_list('id', flat = True)[0]
+          
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+            "adm_id": getAdm
+          }
+
+        elif request.user.is_teacher == True:
+          getUser = self.request.user
+          getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+
+          try:
+            institutions = Institution.objects.filter(teachers=getTeacher)
+          except:
+            institutions = False
+
+          try:
+            institutionsTeacher = Institution.objects.filter(teachers=getTeacher)
+            dataInstitution = []
+
+            for insti in institutionsTeacher:
+      
+              aux = {
+                "name" : insti.name,
+                "description" : insti.description
+              }
+              dataInstitution.append(aux)
+            dataInstitution =  json.dumps(dataInstitution,ensure_ascii=False).encode('utf8')
+          except:
+            dataInstitution = []
+
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+            "user_id": request.user.id,
+            "teacher_id" : getTeacher,
+            "institutions": dataInstitution
+          }
+
+        elif request.user.is_student == True:
+          getUser = self.request.user
+          getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+            "student_id": getStudent
+          }
+        else:
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+          }
+      
         return Response(data)
       else:
         print(request.user )

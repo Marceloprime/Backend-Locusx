@@ -69,3 +69,13 @@ class AnswerTeacherViewSet(viewsets.ModelViewSet):
   permission_classes = [permissions.IsAuthenticated]
   serializer_class = AnswerTeacherSerializers
   queryset = AnswerTeacher.objects.all()
+
+class AnswerMultipleChoiceViewSet(viewsets.ModelViewSet):
+  permission_classes = [permissions.IsAuthenticated]
+  serializer_class = AnswerMultipleChoiceSerializers
+  queryset = AnswerMultipleChoice.objects.all()
+
+class AnswerTeacherMultipleChoiceViewSet(viewsets.ModelViewSet):
+  permission_classes = [permissions.IsAuthenticated]
+  serializer_class = AnswerTeacherMultipleChoiceSerializers
+  queryset = AnswerTeacherMultipleChoice.objects.all()

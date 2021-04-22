@@ -6,14 +6,14 @@ Descrição: Criação de um usuário no sistema.Com essa request é criado um n
 
 Metodo HTTP: Post
 
-URL: http://127.0.0.1:8000/users/
+URL: https://locusx.herokuapp.com/api/users/
 
 
 Exemplo em javascript:
 
 const axios = require('axios');
 
-axios.post('http://127.0.0.1:8000/users/',{
+axios.post('https://locusx.herokuapp.com/api/users/',{
   "username": "",
   "first_name": "",
   "last_name": "",
@@ -36,13 +36,13 @@ Descrição: Autentificação de usuario. É retornado um token após a autentif
 
 Metodo HTTP: Post
 
-URL: http://127.0.0.1:8000/auth/login/
+URL: https://locusx.herokuapp.com/api/auth/login/
 
 Exemplo em javascript:
 
 const axios = require('axios');
 
-axios.post('http://127.0.0.1:8000/auth/login/',{
+axios.post('https://locusx.herokuapp.com/api/auth/login/',{
   "username": "",
   "email": "",
   "password": "",
@@ -60,13 +60,13 @@ Descrição: Realizar o logout no sistema
 
 Metodo HTTP: Post
 
-URL: http://127.0.0.1:8000/auth/logout/
+URL: https://locusx.herokuapp.com/api/auth/logout/
 
 Exemplo em javascript:
 
 const axios = require('axios');
 
-axios.post('http://127.0.0.1:8000/auth/logout/',{
+axios.post('https://locusx.herokuapp.com/api/auth/logout/',{
 
 }).then(function (response){
   console.log(response)
@@ -82,13 +82,13 @@ pertencentes a sua instituição serão acessíveis
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/course/
+URL: https://locusx.herokuapp.com/api/course/
 
 const axios = require('axios');
 
 Exemplo em javascript:
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/course/', {
+axios.get('https://locusx.herokuapp.com/api/course/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -118,13 +118,13 @@ Descrição: É preciso ser Teacher para acessar esse endpoint. Somente dados de
 
 Metodo HTTP: GET
 
-URL:http://127.0.0.1:8000/courseTeacher/
+URL:https://locusx.herokuapp.com/api/courseTeacher/
 
 const axios = require('axios');
 
 Exemplo em javascript:
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/courseTeacher/', {
+axios.get('https://locusx.herokuapp.com/api/courseTeacher/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -156,13 +156,13 @@ Descrição: É preciso ser Professor para acessar esse endpoint.
 
 Metodo HTTP: GET
 
-URL:http://127.0.0.1:8000/courseTeacher/
+URL:https://locusx.herokuapp.com/api/courseTeacher/
 
 const axios = require('axios');
 
 Exemplo em javascript:
 let access_token = '<token>' 
-axios.get('http://127.0.0.1:8000/courseTeacher/1/get_class', {
+axios.get('https://locusx.herokuapp.com/api/courseTeacher/1/get_class', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -204,13 +204,13 @@ Descrição: É preciso ser Admin para acessar esse endpoint.
 
 Metodo HTTP: GET
 
-URL:http://127.0.0.1:8000/courseTeacher/
+URL:https://locusx.herokuapp.com/api/courseTeacher/
 
 const axios = require('axios');
 
 Exemplo em javascript:
 let access_token = '<token>' 
-axios.get('http://127.0.0.1:8000/course/<id>/get_class', {
+axios.get('https://locusx.herokuapp.com/api/course/<id>/get_class', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -249,7 +249,7 @@ Descrição: É preciso ser Admin para acessar esse endpoint.
 
 Metodo HTTP: GET
 
-URL:axios.get('http://127.0.0.1:8000/programs/', {
+URL:axios.get('https://locusx.herokuapp.com/api/programs/', {
 
 
 const axios = require('axios');
@@ -258,7 +258,7 @@ Exemplo em javascript:
 const axios = require('axios');
 
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/programs/', {
+axios.get('https://locusx.herokuapp.com/api/programs/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -290,7 +290,7 @@ Descrição: É preciso ser Admin para acessar esse endpoint.
 
 Metodo HTTP: GET
 
-URL:axios.get('http://127.0.0.1:8000/programsTeacher/', 
+URL:axios.get('https://locusx.herokuapp.com/api/programsTeacher/', 
 
 
 const axios = require('axios');
@@ -299,7 +299,7 @@ Exemplo em javascript:
 const axios = require('axios');
 
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/programsTeacher/', {
+axios.get('https://locusx.herokuapp.com/api/programsTeacher/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -328,12 +328,12 @@ Descrição: É preciso ser Admin para acessar esse endpoint.
 
 Metodo HTTP: GET
 
-URL:axios.get('http://127.0.0.1:8000/institution/allusers', 
+URL:axios.get('https://locusx.herokuapp.com/api/institution/allusers', 
 
 const axios = require('axios');
 
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/institution/allusers', {
+axios.get('https://locusx.herokuapp.com/api/institution/allusers', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -412,12 +412,12 @@ professor previamente cadastrado.
 
 Metodo HTTP: PUT
 
-URL:axios.get('http://127.0.0.1:8000/institution/addteacher/', 
+URL:axios.get('https://locusx.herokuapp.com/api/institution/addteacher/', 
 
 const axios = require('axios');
 
 let access_token = <token> 
-axios.put('http://127.0.0.1:8000/institution/addteacher/',{ "email": <email> } ,{
+axios.put('https://locusx.herokuapp.com/api/institution/addteacher/',{ "email": <email> } ,{
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -444,12 +444,12 @@ Descrição: Esse endpoint é responsável por retornar as informações do usu�
 
 Metodo HTTP: GET
 
-URL:axios.get('http://127.0.0.1:8000/users/myprofile/', 
+URL:axios.get('https://locusx.herokuapp.com/api/users/myprofile/', 
 
 const axios = require('axios');
 
 let access_token = <token>
-axios.get('http://127.0.0.1:8000/users/myprofile/', {
+axios.get('https://locusx.herokuapp.com/api/users/myprofile/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -471,12 +471,12 @@ autenticado está matriculado.Somente usuario do tipo aluno podem acessar.
 
 Metodo HTTP: GET
  
-URL: http://127.0.0.1:8000/class/get_student_class/
+URL: https://locusx.herokuapp.com/api/class/get_student_class/
 
 const axios = require('axios')
 
 let access_token = '68dee336c890845a40bdfbb444b891438ee9871a' 
-axios.get('http://127.0.0.1:8000/class/get_student_class/', {
+axios.get('https://locusx.herokuapp.com/api/class/get_student_class/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -504,12 +504,12 @@ autenticado está matriculado.Somente usuario do tipo aluno podem acessar.
 
 Metodo HTTP: GET
  
-URL: http://127.0.0.1:8000/classTeacher/get_student_class/
+URL: https://locusx.herokuapp.com/api/classTeacher/get_student_class/
 
 const axios = require('axios')
 
 let access_token = '68dee336c890845a40bdfbb444b891438ee9871a' 
-axios.get('http://127.0.0.1:8000/classTeacher/get_student_class/', {
+axios.get('https://locusx.herokuapp.com/api/classTeacher/get_student_class/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -537,12 +537,12 @@ o professor autenticado leciona.Somente usuario do tipo professor podem acessar.
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/class/get_teacher_class/
+URL: https://locusx.herokuapp.com/api/class/get_teacher_class/
 
 const axios = require('axios')
 
 let access_token = '315a82dcd8a89fd0d91d555a688969d12d915337' 
-axios.get('http://127.0.0.1:8000/class/get_teacher_class/', {
+axios.get('https://locusx.herokuapp.com/api/class/get_teacher_class/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -570,12 +570,12 @@ o professor autenticado leciona.Somente usuario do tipo professor podem acessar.
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/classTeacher/get_teacher_class/
+URL: https://locusx.herokuapp.com/api/classTeacher/get_teacher_class/
 
 const axios = require('axios')
 
 let access_token = '315a82dcd8a89fd0d91d555a688969d12d915337' 
-axios.get('http://127.0.0.1:8000/classTeacher/get_teacher_class/', {
+axios.get('https://locusx.herokuapp.com/api/classTeacher/get_teacher_class/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -605,12 +605,12 @@ o usuario autenticado está matriculado.
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/teacher/get_institution/
+URL: https://locusx.herokuapp.com/api/teacher/get_institution/
 
 const axios = require('axios')
 
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/teacher/get_institution/', {
+axios.get('https://locusx.herokuapp.com/api/teacher/get_institution/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -633,12 +633,12 @@ o usuario autenticado está matriculado.
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/student/get_institution/
+URL: https://locusx.herokuapp.com/api/student/get_institution/
 
 const axios = require('axios')
 
 let access_token = <token> 
-axios.get('http://127.0.0.1:8000/student/get_institution/', {
+axios.get('https://locusx.herokuapp.com/api/student/get_institution/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -664,14 +664,14 @@ o endpoint retornará todas as matérias que o aluno está matriculado.
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/student/get_program/
-URL: http://127.0.0.1:8000/teacher/get_program/
+URL: https://locusx.herokuapp.com/api/student/get_program/
+URL: https://locusx.herokuapp.com/api/teacher/get_program/
 
 Example:
 const axios = require('axios')
 
 let access_token = '0418e01a844989041f324e7333ddfb7536644021' 
-axios.get('http://127.0.0.1:8000/teacher/get_program/', {
+axios.get('https://locusx.herokuapp.com/api/teacher/get_program/', {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -698,14 +698,14 @@ Descrição: Para criar uma localização, basta enviar as coordenadas e rotulá
 
 Metodo HTTP: POST
 
-URL: http://127.0.0.1:8000/location/
+URL: https://locusx.herokuapp.com/api/location/
 
 
 Example:
 const axios = require('axios')
 
 let access_token = <token>
-axios.post('http://127.0.0.1:8000/location/',{
+axios.post('https://locusx.herokuapp.com/api/location/',{
   "name": 'Ponto E',
   "description": 'sdsada',
   "latitude": 252,
@@ -732,14 +732,14 @@ Descrição: Para criar uma localização, basta enviar as coordenadas e rotulá
 
 Metodo HTTP: GET
 
-URL: http://127.0.0.1:8000/location/
+URL: https://locusx.herokuapp.com/api/location/
 
 
 Example:
 const axios = require('axios')
 
 let access_token = <token>
-axios.get('http://127.0.0.1:8000/location/',{
+axios.get('https://locusx.herokuapp.com/api/location/',{
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -764,6 +764,41 @@ Response:
 
 ******************************************************************************
 ******************************************************************************
-******************************************************************************
 Content's Requests
+******************************************************************************
 				
+Professor - Criação de content
+
+Descrição: Permite o professor criar conteúdos
+
+Metodo HTTP: POST
+
+URL: https://locusx.herokuapp.com/api/location/
+
+
+Example:
+const axios = require('axios')
+
+let access_token = <token>
+axios.get('https://locusx.herokuapp.com/api/location/',{
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+{
+  id: 18,
+  name: 'Ponto E',
+  description: null,
+  latitude: 252,
+  longitude: 25335,
+  created_at: '2021-04-02T03:18:43.906882Z',
+  modified_at: '2021-04-02T03:18:43.906952Z',
+  teacher: 1
+}

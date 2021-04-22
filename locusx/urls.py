@@ -45,6 +45,8 @@ router.register(r'activityrealization', ActivityRealizationViewSet, basename='Ac
 router.register(r'activityrealizationteacher', ActivityRealizationTeacherViewSet, basename='ActivityRealizationTeacher')
 router.register(r'answer', AnswerViewSet, basename='Answer')
 router.register(r'answerteacher', AnswerTeacherViewSet, basename='AnswerTeacher')
+router.register(r'answerMultipleChoice', AnswerMultipleChoiceViewSet, basename='AnswerMultipleChoice')
+router.register(r'answerteacherMultipleChoice', AnswerTeacherMultipleChoiceViewSet, basename=' AnswerTeacherMultipleChoice')
 
 #location
 router.register(r'location', LocationViewSet, basename='LocationViewSet')

@@ -58,7 +58,33 @@ class ActivityRealizationViewSet(viewsets.ModelViewSet):
 class ActivityRealizationTeacherViewSet(viewsets.ModelViewSet):
   permission_classes = [permissions.IsAuthenticated]
   serializer_class = ActivityRealizationTeacherSerializers
-  queryset = ActivityRealizationTeacher.objects.all()
+  queryset = ActivityRealizationTeacher.objects.none()
+
+  def list(self, request):
+    getUser = self.request.user
+
+    if getUser.is_student == True:
+      getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+      try:
+        activities =  ActivityRealizationTeacher.objects.filter(student=getStudent)
+        data = []
+
+        for count in activities:
+          aux = {
+            "id" : count.id,
+            "activity": str(count.activity),
+            "activity_id": count.activity.id,
+            "student": str(count.student),
+            "student_id": count.student.id
+          }
+          data.append(aux)
+      except:
+        data = []
+
+      return Response(data)
+    else:
+      return Response({"Data":[]})
+
 
 class AnswerViewSet(viewsets.ModelViewSet):
   permission_classes = [permissions.IsAuthenticated]

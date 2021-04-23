@@ -766,21 +766,22 @@ Response:
 ******************************************************************************
 Content's Requests
 ******************************************************************************
-				
-Professor - Criação de content
+Aluno - Activity Realization Teacher
 
 Descrição: Permite o professor criar conteúdos
 
 Metodo HTTP: POST
 
-URL: https://locusx.herokuapp.com/api/location/
+URL: https://locusx.herokuapp.com/api/activityrealizationteacher/
 
 
 Example:
 const axios = require('axios')
 
-let access_token = <token>
-axios.get('https://locusx.herokuapp.com/api/location/',{
+axios.post('https://locusx.herokuapp.com/api/activityrealizationteacher/',{
+    "activity": null,
+    "student": null
+}, {
   headers: {
     'Authorization': `token ${access_token}`
   }
@@ -792,13 +793,50 @@ axios.get('https://locusx.herokuapp.com/api/location/',{
 
 
 Response:
-{
-  id: 18,
-  name: 'Ponto E',
-  description: null,
-  latitude: 252,
-  longitude: 25335,
-  created_at: '2021-04-02T03:18:43.906882Z',
-  modified_at: '2021-04-02T03:18:43.906952Z',
-  teacher: 1
-}
+    {
+        "id": 1,
+        "created_at": "2021-04-22T05:09:16.772833Z",
+        "modified_at": "2021-04-22T05:09:16.772898Z",
+        "activity": 1,
+        "student": 2
+    }
+******************************************************************************
+
+******************************************************************************
+Professor - Criação de content
+
+Descrição: Permite o professor criar conteúdos
+
+Metodo HTTP: POST
+
+URL: https://locusx.herokuapp.com/api/content/
+
+
+Example:
+const axios = require('axios')
+
+axios.post('https://locusx.herokuapp.com/api/content/',{
+  "title": "Historia",
+  "description": "Estudo do periodo colonial",
+  "teacher": 2
+}, {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+  data: {
+    id: 3,
+    title: 'Historia',
+    description: 'Estudo do periodo colonial',
+    created_at: '2021-04-22T19:02:13.698023Z',
+    modified_at: '2021-04-22T19:02:13.698094Z',
+    teacher: 2
+  }
+******************************************************************************

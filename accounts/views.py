@@ -1,10 +1,34 @@
 from django.shortcuts import render
-from django.views.generic.base import TemplateView
+from django.contrib.auth import authenticate, login
+from .models import *
+def index(request):
+    try:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, email=username, password=password)
+        if user.is_authenticated == True:
+            # Redirect to a success page.
+            ...
+            return home(request,user)
+        else:
+            # Return an 'invalid login' error message.
+            ...
+            return render(request, 'erro.html')
 
-class LoginPageView(TemplateView):
+    except:
+        return render(request, 'index.html')
 
-    template_name = "index.html"
+    return render(request, 'index.html')
 
-class HomePageView(TemplateView):
 
-    template_name = "home.html"
+def home(request,user):
+
+    userData = User.objects.filter(email=user)
+    context = {
+        'user' : userData
+    }
+    return render(request, 'home.html',context)
+
+
+def erro(request):
+    return render(request, 'erro.html')

@@ -4,7 +4,7 @@ para a produção de material didático visando a
 aprendizagem com base no contexto de localização
 do aluno</h2>
 <h3>Para ter acesso</h3>
-<a href="https://locusx.herokuapp.com/">Site Locus X</a>
+<a href="https://locusx.herokuapp.com/" target="_blank">Site Locus X</a>
 <h3>Contexto e Motivação</h3>
     Aulas de campo podem oferecer diversos benefícios para o processo de aprendizagem
 do aluno, permitindo ampliar suas habilidades de observação, descoberta e assimilação da realidade com o objeto de aprendizagem estudado em seu ambiente natural,

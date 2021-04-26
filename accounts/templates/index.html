@@ -23,18 +23,20 @@
     <body>
       <div class="container">
         <header>
-          <h1 id="title">Locus X</h1>
+          <h1 id="title">Locus X &#127758;</h1>
           <h2>Conhecimento sem fronteira</h2>
         </header>
         <main id="main-holder">
 
           <form id="login-form" method="post" >
             {% csrf_token %}
-            <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
-            <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+            <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Email">
+            <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Senha">
             <input type="submit" value="Login" id="login-form-submit">
           </form>
-          
+          <a href="#">Esqueci minha senha</a>
+          <button id="btn-singUP" type="button">Não tenho conta</button>
+
           <div id="login-error-msg-holder">
             <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
           </div>

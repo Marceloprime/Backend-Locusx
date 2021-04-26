@@ -93,21 +93,21 @@ WSGI_APPLICATION = 'locusx.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 """
 #Para Teste
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(BASE_DIR / "db.sqlite3"),
     },
 }
-"""
 
-"""
 """
 #Para Produção
 default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
     'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -149,7 +149,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
@@ -177,3 +176,5 @@ AUTHENTICATION_BACKENDS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+LOGIN_URL = ''
+LOGIN_REDIRECT_URL = 'home/'

@@ -82,6 +82,7 @@ header{
 #login-form-submit {
     width: 100%;
     padding: 7px;
+    margin-top: 22px;
     border: none;
     border-radius: 5px;
     color: white;
@@ -90,3 +91,25 @@ header{
     cursor: pointer;
     outline: none;
 }
+
+a{
+    position: absolute;
+    border: none;
+    font-weight: bold;
+    text-decoration: none;
+    top: 54.5%;
+    padding-left: 0%;
+}
+#btn-singUP{
+    width: 100%;
+    padding: 7px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: green;
+    cursor: pointer;
+    outline: none;
+}
+

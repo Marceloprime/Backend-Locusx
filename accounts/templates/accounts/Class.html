@@ -1,0 +1,27 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UFT-8" >
+        <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
+        <title>Classes</title>
+        {% bootstrap_css %}
+    </head>
+    <body>
+        <div class="container">
+            <h1>Classes</h1>
+            {% bootstrap_messages %}
+            <form action="{% url 'class' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        Salvar
+                    </button> 
+                {% endbuttons %}
+            </form>
+        </div>
+    </body>
+    {% bootstrap_javascript jquery='full' %}
+</html>

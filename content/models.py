@@ -10,7 +10,6 @@ from accounts.models import *
 from location.models import Location
 
 
-
 class Content(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField(_('description'), blank=True, null=True)

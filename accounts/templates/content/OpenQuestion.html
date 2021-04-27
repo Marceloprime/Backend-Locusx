@@ -5,14 +5,14 @@
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
-        <title>Classes</title>
+        <title>openQuestion</title>
         {% bootstrap_css %}
     </head>
     <body>
         <div class="container">
-            <h1>Classes</h1>
+            <h1>openQuestion</h1>
             {% bootstrap_messages %}
-            <form action="{% url 'classTeacher' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+            <form action="{% url 'openQuestion' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}

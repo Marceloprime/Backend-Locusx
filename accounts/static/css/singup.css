@@ -21,11 +21,11 @@ header{
     left: 0%;
     margin: 0;
     text-align: center;
-    padding-top: 7%;
+    padding-top: 4%;
 }
 
 #title{
-    font-size: 90px;
+    font-size: 50px;
     font-weight: bold
 }
 
@@ -73,13 +73,14 @@ header{
 .login-form-field {
     border: none;
     border-bottom: 1px solid #3a3a3a;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     border-radius: 3px;
     outline: none;
     padding: 0px 0px 7px 7px;
     width: 100%;
 }
   
+
 #login-form-submit {
     width: 100%;
     padding: 7px;

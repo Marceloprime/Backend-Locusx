@@ -1,8 +1,9 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
 from .models import *
+from .forms import *
+
 def index(request):
     if(str(request.user) != "AnonymousUser"):
         return redirect('home/')
@@ -30,16 +31,43 @@ def home(request):
     try:
 
         context = {
-            'user' : request.user
+            'user' : User.objects.filter(email=request.user)
         }
     except:
         context = {
             'user' : "não deu bom"
         }
 
-    print(request.user)
     return render(request, 'home.html',context)
 
 
-def erro(request):
-    return render(request, 'erro.html')
+def singup(request):
+    print(request.POST)
+    try:
+        username = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        type_user = request.POST['type_user']
+
+        return render(request, 'singup.html')
+    except:
+        print("erro")
+        return render(request, 'singup.html')
+
+def Institution(request):
+    if str(request.method) == 'POST':
+        form = InstitutionModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Instituição salvo com sucesso')
+            form = InstitutionModelForm()
+        else:
+            messages.error(request, 'Erro ao salvar Instituição')
+    else:
+        form = InstitutionModelForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/Institution.html',context)

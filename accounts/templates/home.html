@@ -21,6 +21,14 @@
         <div class="container">
           <div class="side">
             <ul>
+              <li style="
+                background-color: red;
+                padding: 7px;
+                ">     
+                <a href="{% url 'logout' %}" >
+                  Logout
+                </a>
+              </li>
               <li>     
                 <a href="{% url 'institution' %}" >
                   institution
@@ -279,8 +287,137 @@
               </div>
             </div>
           {% elif user.is_student %}
-
-          <p>Estudante</p>  
+          <header>
+            <h1>Locus X - Estudante</h1>
+          </header>
+          <div class="container">
+            <div class="side">
+              <ul>
+                <li style="
+                  background-color: red;
+                  padding: 7px;
+                  ">     
+                  <a href="{% url 'logout' %}" >
+                    Logout
+                  </a>
+                </li>
+                <li>     
+                  <a href="{% url 'institution' %}" >
+                    institution
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'address' %}"  >
+                    address
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'program' %}"  >
+                    program
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'class' %}"  >
+                    class
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'course' %}"  >
+                    course
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'programTeacher' %}"  >
+                    programTeacher
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'classTeacher' %}"  >
+                    classTeacher
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'courseTeacher' %}"  >
+                    courseTeacher
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'location' %}"  >
+                    location
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'content' %}"  >
+                    content
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'question' %}"  >
+                    question
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'openQuestion' %}"  >
+                    openQuestion
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'alternative' %}"  >
+                    alternative
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'multipleChoiceQuestion' %}"  >
+                    multipleChoiceQuestion
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'task' %}"  >
+                    task
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'activityTeacher' %}"  >
+                    activityTeacher
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'activity' %}"  >
+                    activity
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'activityRealization' %}"  >
+                    activityRealization
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'activityRealizationTeacher' %}"  >
+                    activityRealizationTeacher
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'answer' %}"  >
+                    answer
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'answerTeacher' %}"  >
+                    answerTeacher
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'answerMultipleChoice' %}"  >
+                    answerMultipleChoice
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'answerMultipleChoice' %}"  >
+                    answerTeacherMultipleChoice
+                  </a>
+                </li>
+              </ul>
+            </div> 
 
           {% else %}
           <p>Outro</p> 

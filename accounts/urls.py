@@ -5,7 +5,8 @@ from content.views import *
 
 urlpatterns = [
     path('', index ,name='index'),
-    path('home/', home ,name='home'),
+    path(r'logout/',logout_view,name='logout'),
+    path(r'home/', home ,name='home'),
     path(r'singup/', singup ,name='singup'),
     path(r'institution/', InstitutionView ,name='institution'),
     path(r'address/', AddressView ,name='address'),

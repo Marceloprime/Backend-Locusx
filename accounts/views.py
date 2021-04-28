@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
@@ -27,17 +27,100 @@ def index(request):
     return render(request, 'index.html')
 
 @login_required
+def logout_view(request):
+    print("oi")
+    logout(request)
+    # Redirect to a success page
+    return redirect('home/')
+
+@login_required
 def home(request):
     try:
+        if request.user.is_institution_adm == True:
+          getUser = request.user
+          getAdm = Institution_adm.objects.filter(user=getUser).values_list('id', flat = True)[0]
+          
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+            "adm_id": getAdm
+          }
+
+        elif request.user.is_teacher == True:
+          getUser = request.user
+          getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+
+          try:
+            institutions = Institution.objects.filter(teachers=getTeacher)
+          except:
+            institutions = False
+
+          try:
+            institutionsTeacher = Institution.objects.filter(teachers=getTeacher)
+            dataInstitution = []
+
+            for insti in institutionsTeacher:
+      
+              aux = {
+                "name" : insti.name,
+                "description" : insti.description
+              }
+              dataInstitution.append(aux)
+            dataInstitution =  json.dumps(dataInstitution,ensure_ascii=False).encode('utf8')
+          except:
+            dataInstitution = []
+
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+            "user_id": request.user.id,
+            "teacher_id" : getTeacher,
+            "institutions": dataInstitution
+          }
+
+        elif request.user.is_student == True:
+          getUser = request.user
+          getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+            "student_id": getStudent
+          }
+        else:
+          data = {
+            "username":str(request.user.username),
+            "email":str(request.user.email),
+            "first_name":str(request.user.first_name),
+            "last_name":str(request.user.last_name),
+            "is_student": request.user.is_student,
+            "is_teacher": request.user.is_teacher,
+            "is_institution_adm": request.user.is_institution_adm,
+        }
 
         context = {
-            'user' : User.objects.filter(email=request.user)
+            'user' : data
         }
     except:
         context = {
-            'user' : "não deu bom"
+            'user' : "NOT FOUND"
         }
 
+    print(context)
     return render(request, 'home.html',context)
 
 

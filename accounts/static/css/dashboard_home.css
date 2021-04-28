@@ -1,26 +1,4 @@
-.home-cards a {
-    text-decoration: none;
-}
-
-.home-cards i {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-} 
-
-.home-cards:hover {
-    border-left: 0.25rem solid #fdbf43 !important;
-}
-
-.home-cards:hover .text-md-center,
-.home-cards:hover .text-primary,
-.home-cards:hover a {
-    color: #fff !important;
-}
-
-.border-left-primary.home-cards:hover{
-    background-color: #4e73df;
-}
-
-.border-left-info.home-cards:hover {
-    background-color: #36b9cc;
+.containerMain{
+    display: flex;
+    background-color: aquamarine;
 }

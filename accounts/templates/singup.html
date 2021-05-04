@@ -26,10 +26,9 @@
             <main id="main-holder">
                 <form id="login-form" method="post" >
                     {% csrf_token %}
-                    <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+                    <input type="text" name="email" id="username-field" class="login-form-field" placeholder="Email">
                     <input type="text" name="first_name" id="username-field" class="login-form-field" placeholder="Primeiro Nome">
                     <input type="text" name="last_name" id="username-field" class="login-form-field" placeholder="Sobrenome">
-                    <input type="text" name="email" id="username-field" class="login-form-field" placeholder="Email">
                     <select name="type_user" id="username-field" class="login-form-field">
                       <option value="is_student">Estudante</option>
                       <option value="is_teacher">Professor(a)</option>
@@ -39,6 +38,7 @@
                     <input type="submit" value="Criar" id="login-form-submit">
                 </form>
             </main>
+            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;">Menu inicial</h5></a>
         </div>
     </body>
 </html>

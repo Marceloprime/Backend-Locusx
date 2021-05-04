@@ -116,3 +116,8 @@ header{
     outline: none;
 }
 
+#link{
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}

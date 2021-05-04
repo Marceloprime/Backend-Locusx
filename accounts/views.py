@@ -1,6 +1,7 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from rest_framework.authtoken.models import Token
 from .models import *
 from .forms import *
 
@@ -125,18 +126,50 @@ def home(request):
 
 
 def singup(request):
-    print(request.POST)
-    try:
-        username = request.POST['username']
+    if request.POST:
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['email']
+        password = request.POST['password']
         type_user = request.POST['type_user']
+        is_active = True
+        username = email
+        
+        if type_user == 'is_student':
+            is_student = True
+            is_teacher = False
+            is_institution_adm = False
+        elif type_user == 'is_teacher':
+            is_student = False
+            is_teacher = True
+            is_institution_adm = False
+        elif type_user == 'is_institution_adm':
+            is_student = False
+            is_teacher = True
+            is_institution_adm = False
+        
+
+        if is_student == True: 
+            user = User.objects._create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password,is_active=is_active,is_student=is_student,is_teacher=is_teacher,is_institution_adm=is_institution_adm)
+            Token.objects.create(user=user)
+            Student.objects.create(user=user)
+        elif is_teacher == True:
+            user = User.objects._create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password,is_active=is_active,is_student=is_student,is_teacher=is_teacher,is_institution_adm=is_institution_adm)
+            Token.objects.create(user=user)
+            Teacher.objects.create(user=user) 
+        elif is_institution_adm == True:
+            user = User.objects._create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password,is_active=is_active,is_student=is_student,is_teacher=is_teacher,is_institution_adm=is_institution_adm)
+            Token.objects.create(user=user)
+            Institution_adm.objects.create(user=user) 
+        else:
+            User.objects._create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password,is_active=is_active,is_student=is_student,is_teacher=is_teacher,is_institution_adm=is_institution_adm)
+            Token.objects.create(user=user) 
 
         return render(request, 'singup.html')
-    except:
-        print("erro")
+    else:
         return render(request, 'singup.html')
+
+
 
 def InstitutionView(request):
     if str(request.method) == 'POST':

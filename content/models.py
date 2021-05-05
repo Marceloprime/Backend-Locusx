@@ -21,6 +21,7 @@ class Content(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    belongs_to_an_institution = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -32,6 +33,12 @@ class Question(models.Model):
     is_openQuestion = models.BooleanField(default=False)
     is_multipleChoiceQuestion = models.BooleanField(default=False)
     link_multimedia = models.TextField(_('link multimedia'), blank=True, null=True)
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name="question",
+        null=True
+    )
 
     def __str__(self):
         return self.title
@@ -49,6 +56,12 @@ class OpenQuestion(models.Model):
         return self.question.title        
 
 class Alternative(models.Model):
+    question  = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="Alternative",
+        null=True
+    )
     letter =  models.TextField(_('letter'), blank=False)
     description = models.TextField(_('description'))
     
@@ -72,9 +85,14 @@ class MultipleChoiceQuestion(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(_('description'), blank=True, null=True)
-    taks = models.ManyToManyField(Question, verbose_name="question")
+    questions = models.ManyToManyField(Question, verbose_name="question")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="taks_location", null=True)
-
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name="task",
+        null=True
+    )
     def __str__(self):
         return self.title
 
@@ -98,10 +116,16 @@ class ActivityTeacher(models.Model):
         related_name="activitiesTeacher",
         null=True
     )
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name="activitiesTeacher",
+        null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     taks = models.ManyToManyField(Task, verbose_name="taks")
-
+    belongs_to_an_institution = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -129,7 +153,13 @@ class Activity(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     taks = models.ManyToManyField(Task, verbose_name="taks")
-
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name="activities",
+        null=True
+    )
+    belongs_to_an_institution = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

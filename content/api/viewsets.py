@@ -11,21 +11,60 @@ from .permissions import *
 
 
 class ContentViewSet(viewsets.ModelViewSet):
-  #permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
   serializer_class = ContentSerializers
-  queryset = Content.objects.all()
+  queryset = Content.objects.all()# até o momento não há problemas em deixa isso aberto
+
+  @action(methods=['get'],detail=False)
+  def get_Content(self, request):
+    getUser = self.request.user
+    getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    contents = Content.objects.filter(teacher=getTeacher)
+    data = []
+
+    for content in contents:
+      
+      aux = {
+        "name" : content.title,
+        "description" : content.description
+      }
+
+      data.append(aux)
+      
+    return Response(data)
 
 class QuestionViewSet(viewsets.ModelViewSet):
-  #permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
   serializer_class = QuestionSerializers
   queryset = Question.objects.all()
 
-class OpenQuestionViewSet(viewsets.ModelViewSet):
-  #permission_classes = [permissions.IsAuthenticated]
+  @action(methods=['get'],detail=False)
+  def get_Question(self, request):
+    getUser = self.request.user
+    getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    questions =  Question.objects.filter(teacher=getTeacher)
+    data = []
+
+    for question in questions:
+      
+      aux = {
+        "id": question.id,
+        "title": question.title,
+        "description": question.description,
+        "is_openQuestion": question.is_openQuestion,
+        "is_multipleChoiceQuestion": question.is_multipleChoiceQuestion,
+        "link_multimedia": question.link_multimedia,
+      }
+
+      data.append(aux)
+    return Response(data)
+
+class OpenQuestionViewSet(viewsets.ModelViewSet):#OK
+  permission_classes = [permissions.IsAuthenticated]
   serializer_class = OpenQuestionSerializers
   queryset = OpenQuestion.objects.all()
 
-class AlternativeViewSet(viewsets.ModelViewSet):
+class AlternativeViewSet(viewsets.ModelViewSet):#OK
   #permission_classes = [permissions.IsAuthenticated]
   serializer_class = AlternativeSerializers
   queryset = Alternative.objects.all()

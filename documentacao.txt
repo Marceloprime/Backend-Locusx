@@ -839,4 +839,167 @@ Response:
     modified_at: '2021-04-22T19:02:13.698094Z',
     teacher: 2
   }
+
+******************************************************************************
+Professor - Listar conteúdo
+
+Descrição:  Permite busca conteúdo já criado
+
+Metodo HTTP: GET
+
+URL: https://locusx.herokuapp.com/api/content/get_Content/
+
+
+Example:
+const axios = require('axios')
+
+axios.get('https://locusx.herokuapp.com/api/content/get_Content/',{
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+  data: [
+    { name: 'Funções de primeiro Grau', description: 'dsafdsafdf' },
+    { name: 'Historia', description: 'Estudo do periodo colonial' },
+    { name: 'Historia', description: 'Estudo do periodo colonial' }
+  ]
+
+******************************************************************************
+Professor - Listar questões
+
+Descrição:  Permite busca as questões já criadas.
+
+Metodo HTTP: GET
+
+URL: https://locusx.herokuapp.com/api/question/get_Question/
+
+
+Example:
+const axios = require('axios')
+
+let access_token = '0ae50feeb1c8e3112cb48ff5fd7058ebdb6aea51' 
+
+axios.get('http://127.0.0.1:8000/api/question/get_Question/',{
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+Response:
+  data: [
+    {
+      id: 1,
+      title: 'Funções',
+      description: 'dasdsad',
+      is_openQuestion: true,
+      is_multipleChoiceQuestion: false,
+      link_multimedia: 'fsafdsaf'
+    }
+  ]
+
+******************************************************************************
+******************************************************************************
+Professor - Criar questões
+
+Descrição:  Permite criar questões.
+
+Metodo HTTP: POST
+
+URL: https://locusx.herokuapp.com/api/question/
+
+
+Example:
+const axios = require('axios')
+
+axios.post('https://locusx.herokuapp.com/api/question/',{
+    "title": "",
+    "description": "",
+    "is_openQuestion": false,
+    "is_multipleChoiceQuestion": false,
+    "link_multimedia": "",
+    "teacher": null
+}, {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+
+******************************************************************************
+******************************************************************************
+Professor - Criar questão aberta
+
+Descrição:  Permite criar questões abertas.
+
+Metodo HTTP: POST
+
+URL: https://locusx.herokuapp.com/api/openquestion/
+
+
+Example:
+const axios = require('axios')
+
+axios.post('https://locusx.herokuapp.com/api/openquestion/',{
+    "suggestionOfCorrectAnswer": "",
+    "question": null
+}, {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+
+******************************************************************************
+******************************************************************************
+Professor - Criar alternativa
+
+Descrição:  Permite criar alternativas.
+
+Metodo HTTP: POST
+
+URL: https://locusx.herokuapp.com/api/alternative/
+
+
+Example:
+const axios = require('axios')
+
+axios.post('https://locusx.herokuapp.com/api/alternative/',{
+    "letter": "",
+    "description": "",
+    "question": null
+}, {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
 ******************************************************************************

@@ -32,7 +32,7 @@ def logout_view(request):
     print("oi")
     logout(request)
     # Redirect to a success page
-    return redirect('home/')
+    return redirect('index')
 
 @login_required
 def home(request):

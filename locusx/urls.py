@@ -57,7 +57,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     url(r'^auth/', include('rest_auth.urls')),#routar do login
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'docs', schema_view)
+    path(r'docs/', schema_view)
 ]
 
 

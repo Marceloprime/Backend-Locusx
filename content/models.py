@@ -84,6 +84,7 @@ class MultipleChoiceQuestion(models.Model):
 
 class Task(models.Model):
     title = models.CharField(max_length=150)
+    status = models.BooleanField(default=True)
     description = models.TextField(_('description'), blank=True, null=True)
     questions = models.ManyToManyField(Question, verbose_name="question")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="taks_location", null=True)

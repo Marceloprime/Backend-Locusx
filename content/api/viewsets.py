@@ -1,4 +1,6 @@
 from content.models import *
+from accounts.models import *
+from location.models import *
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.decorators import action
@@ -34,7 +36,7 @@ class ContentViewSet(viewsets.ModelViewSet):
     return Response(data)
 
 class QuestionViewSet(viewsets.ModelViewSet):
-  permission_classes = [permissions.IsAuthenticated]
+  #permission_classes = [permissions.IsAuthenticated]
   serializer_class = QuestionSerializers
   queryset = Question.objects.all()
 
@@ -44,9 +46,19 @@ class QuestionViewSet(viewsets.ModelViewSet):
     getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
     questions =  Question.objects.filter(teacher=getTeacher)
     data = []
+    alternatives = []
 
     for question in questions:
-      
+      multipleChoiceQuestions = Alternative.objects.filter(question=question.id)
+
+      for multipleChoiceQuestion in multipleChoiceQuestions:
+        collect = {
+          "id": multipleChoiceQuestion.id,
+          "letter": multipleChoiceQuestion.letter,
+          "description": multipleChoiceQuestion.description,
+        }
+        alternatives.append(collect)
+      alternatives = json.dumps(alternatives)
       aux = {
         "id": question.id,
         "title": question.title,
@@ -54,6 +66,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
         "is_openQuestion": question.is_openQuestion,
         "is_multipleChoiceQuestion": question.is_multipleChoiceQuestion,
         "link_multimedia": question.link_multimedia,
+        "alternatives": alternatives
       }
 
       data.append(aux)
@@ -65,12 +78,12 @@ class OpenQuestionViewSet(viewsets.ModelViewSet):#OK
   queryset = OpenQuestion.objects.all()
 
 class AlternativeViewSet(viewsets.ModelViewSet):#OK
-  #permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
   serializer_class = AlternativeSerializers
   queryset = Alternative.objects.all()
 
 class MultipleChoiceQuestionViewSet(viewsets.ModelViewSet):
-  #permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
   serializer_class = MultipleChoiceQuestionSerializers
   queryset = MultipleChoiceQuestion.objects.all()
 
@@ -78,6 +91,63 @@ class TaskViewSet(viewsets.ModelViewSet):
   #permission_classes = [permissions.IsAuthenticated]
   serializer_class = TaskSerializers
   queryset = Task.objects.all()
+
+  @action(methods=['get'],detail=False)
+  def get_TaskStudent(self, request):
+    getUser = self.request.user
+    getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+    classes = Class.objects.filter(students=getStudent).values_list('teachers', flat = True)[0]
+    getTeacher = Teacher.objects.filter(id=classes).values_list('id', flat = True)[0]
+    getTasks = Task.objects.filter(teacher=getTeacher)
+   
+    data = []
+ 
+
+    for task in getTasks:
+      if task.status == False:
+        continue
+
+      questions = Task.objects.get(id=task.id).questions.all()
+      questionData = []
+      for question in questions:
+
+        multipleChoiceQuestions = Alternative.objects.filter(question=question.id)
+        alternatives = []
+        for multipleChoiceQuestion in multipleChoiceQuestions:
+          collect = {
+            "id": str(multipleChoiceQuestion.id),
+            "letter": str(multipleChoiceQuestion.letter),
+            "description":str(multipleChoiceQuestion.description),
+          }
+          alternatives.append(collect)
+
+        aux = {
+          "id": question.id,
+          "title": question.title,
+          "description": question.description,
+          "is_openQuestion": question.is_openQuestion,
+          "is_multipleChoiceQuestion": question.is_multipleChoiceQuestion,
+          "link_multimedia": question.link_multimedia,
+          "alternatives": alternatives
+        }
+
+        questionData.append(aux)
+      questionData = json.dumps(questionData, ensure_ascii=False).encode('utf8')
+      aux = {
+        "title" : task.title,
+        "description" : task.description,
+        "questions" : questionData,
+        "location":str({
+          "id": str(task.location.id),
+          "name": str(task.location.name),
+          "description": str(task.location.description),
+          "latitude": str(task.location.latitude),
+          "longitude": str(task.location.longitude),
+        })
+      }
+      
+      data.append(aux)
+    return Response(data)
 
 class ActivityTeacherViewSet(viewsets.ModelViewSet):
   #permission_classes = [permissions.IsAuthenticated]
@@ -99,7 +169,8 @@ class ActivityRealizationTeacherViewSet(viewsets.ModelViewSet):
   serializer_class = ActivityRealizationTeacherSerializers
   queryset = ActivityRealizationTeacher.objects.none()
 
-  def list(self, request):
+  @action(methods=['get'],detail=False)
+  def get_ActivityRealizationTeacher(self, request):
     getUser = self.request.user
 
     if getUser.is_student == True:

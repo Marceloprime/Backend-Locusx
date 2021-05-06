@@ -1003,3 +1003,32 @@ axios.post('https://locusx.herokuapp.com/api/alternative/',{
 
 Response:
 ******************************************************************************
+Professor - Criar questões de multipla escolha
+OBS: Só pode ser criada a questão de multipla escolha
+apenas após a criaçõ de todas as alternativas
+Descrição:  Criar questões de multipla escolha.
+
+Metodo HTTP: POST
+
+URL: https://locusx.herokuapp.com/api/multiplechoicequestion/
+
+
+Example:
+const axios = require('axios')
+
+axios.post('https://locusx.herokuapp.com/api/multiplechoicequestion/',{
+    "question": null,
+    "alternative": []
+}, {
+  headers: {
+    'Authorization': `token ${access_token}`
+  }
+}).then(function (response){
+  console.log(response)
+}).catch(function (error){
+  console.log(error)
+})
+
+
+Response:
+******************************************************************************

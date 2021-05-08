@@ -83,7 +83,7 @@ class AlternativeViewSet(viewsets.ModelViewSet):#OK
   queryset = Alternative.objects.all()
 
 class MultipleChoiceQuestionViewSet(viewsets.ModelViewSet):
-  permission_classes = [permissions.IsAuthenticated]
+  #permission_classes = [permissions.IsAuthenticated]
   serializer_class = MultipleChoiceQuestionSerializers
   queryset = MultipleChoiceQuestion.objects.all()
 

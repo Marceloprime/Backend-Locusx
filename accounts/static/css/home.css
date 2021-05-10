@@ -1,6 +1,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(77, 133, 218);
+  background-color: rgb(116, 165, 240);
   margin: 0%;
 }
 
@@ -17,18 +17,19 @@ header{
 .container{
   position: absolute;
   display: flex;
-  width: 100%;
-  height: 400px;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
+
 .side{
-  position: absolute;
-  display: flex;
-  background-color: rgb(79, 150, 216);
-  width: 15%;
+  background-color: rgb(67, 147, 223);
   flex-direction: column;
   margin: 0;
+  height: 100%;
 }
 
 ul {
@@ -37,9 +38,11 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  padding-right: 7px;
 }
 
 a{
+  display: flex;
   text-decoration: none;
   color: #fff;
 }
@@ -52,6 +55,8 @@ li{
   margin-left: 1px;
   padding-top: 4px;
   padding-bottom: 4px;
+  padding-left: 7px;
+
 }
 
 li:hover{
@@ -69,4 +74,42 @@ li:hover{
 
 iframe{
   width: 50%;
+}
+
+#container-content{
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  flex-direction: column;
+}
+
+.label{
+  display: flex;
+  background-color: rgb(162, 207, 233);
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 4px;
+}
+
+.attribute{
+  font-weight: bold;
+  font-family: ubuntu;
+}
+
+#showContent{
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 4px;
+}
+
+.showContent-content{
+  display: flex;
+  background-color: rgb(88, 235, 132);
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 4px;
 }

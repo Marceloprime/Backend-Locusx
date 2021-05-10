@@ -5,22 +5,69 @@
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
-        <title>activityTeacher</title>
+        <link rel="StylesSheets"  href="{% static 'css/location.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <title>Atividades</title>
         {% bootstrap_css %}
     </head>
     <body>
+        <header style="    
+        background-color: rgb(24, 62, 121);
+        width: 100%;
+        height: 50px;
+        color: #fff;
+        margin: 0;
+        padding-left: 10px;
+        padding-top: 12px;
+        top: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;">
+        <a href="{% url 'home' %}" style="  
+            text-decoration: none;
+            color: #fff;
+            margin: 0;
+            top: 25px;
+            padding: 0;
+            align-items: flex-end;
+            ">
+            <p>Home</p>
+        </a>  
+        </header>
         <div class="container">
-            <h1>activityTeacher</h1>
+            <h1>Atividade</h1>
             {% bootstrap_messages %}
-            <form action="{% url 'activityTeacher' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">
-                        Salvar
-                    </button> 
-                {% endbuttons %}
-            </form>
+            <div class="row align-items-start">
+                <div class="col">
+                    <form action="{% url 'activityTeacher' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">
+                                Salvar
+                            </button> 
+                        {% endbuttons %}
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <div>
+                        <i class="bi-plus"></i>
+                    </div>
+                    <div>
+                        <i class="bi-plus"></i>
+                    </div>
+                    <div>
+                        <i class="bi-plus"></i>
+                    </div>
+                    <div>
+                        <i class="bi-plus"></i>
+                    </div>
+                    <div style="margin-top: 4360%;font-weight: bold;">
+                        <i class="bi-plus"></i>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </body>
     {% bootstrap_javascript jquery='full' %}

@@ -11,8 +11,10 @@
 
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
         <link rel="Stylesheet" href="{% static 'css/home.css' %}">
-
-    </head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+      </head>
     <body>
         {% if user.is_institution_adm %}
         <header>
@@ -157,256 +159,144 @@
             <div class="container">
               <div class="side">
                 <ul>
-                  <li style="
-                    background-color: red;
-                    padding: 7px;
+                  <li style=" 
+                    background-color: rgb(182, 51, 51);
+                    padding-top: 7px;
+                    font-weight: bold;
+                    margin-left: 0;
                     ">     
                     <a href="{% url 'logout' %}" >
+                      <i class="fa fa fa-sign-out"></i>
                       Logout
+                    </a>
+                    </li>
+                    <li>     
+                      <a href="{% url 'location' %}" >
+                        <i style="margin-left: 7px;margin-right: 12px;" class="fa fa fa-map-marker"></i>
+                        Localização
+                      </a>
+                  </li>
+                  <li>     
+                    <a href="{% url 'classTeacher' %}" >
+                      <i style="margin-left: 3px;margin-right: 6px;" class="fa fa 	fa fa-mortar-board"></i>
+                      Alunos
                     </a>
                   </li>
                   <li>     
-                    <a href="{% url 'institution' %}" >
-                      institution
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'address' %}"  >
-                      address
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'program' %}"  >
-                      program
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'class' %}"  >
-                      class
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'course' %}"  >
-                      course
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'programTeacher' %}"  >
-                      programTeacher
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'classTeacher' %}"  >
-                      classTeacher
-                    </a>
-                  </li>
-                  <li>
                     <a href="{% url 'courseTeacher' %}"  >
-                      courseTeacher
+                      <i  style="margin-left: 7px;margin-right: 12px;" class="fa fa fa-bookmark"></i>
+                      Disciplinas
                     </a>
                   </li>
-                  <li>
-                    <a href="{% url 'location' %}"  >
-                      location
+                  <li>     
+                    <a href="{% url 'content' %}">
+                      <i  style="margin-left: 7px;margin-right: 12px;" class="fa fa fa-object-group"></i>
+                      Conteúdos
                     </a>
                   </li>
-                  <li>
-                    <a href="{% url 'content' %}"  >
-                      content
+                  <li>     
+                    <a href="{% url 'task' %}" >
+                      <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-plus-square"></i>
+                      Tarefa
                     </a>
                   </li>
-                  <li>
-                    <a href="{% url 'question' %}"  >
-                      question
+                  <li>     
+                    <a href="{% url 'activityTeacher' %}" >
+                      <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-plus-square"></i>
+                      Atividades
                     </a>
                   </li>
-                  <li>
-                    <a href="{% url 'openQuestion' %}"  >
-                      openQuestion
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'alternative' %}"  >
-                      alternative
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'multipleChoiceQuestion' %}"  >
-                      multipleChoiceQuestion
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'task' %}"  >
-                      task
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'activityTeacher' %}"  >
-                      activityTeacher
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'activity' %}"  >
-                      activity
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'activityRealization' %}"  >
-                      activityRealization
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'activityRealizationTeacher' %}"  >
-                      activityRealizationTeacher
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'answer' %}"  >
-                      answer
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'answerTeacher' %}"  >
-                      answerTeacher
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'answerMultipleChoice' %}"  >
-                      answerMultipleChoice
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'answerMultipleChoice' %}"  >
-                      answerTeacherMultipleChoice
+                  <li>     
+                    <a href="#" >
+                      <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-question-circle"></i>
+                      Correção
                     </a>
                   </li>
                 </ul>
               </div>
-              <div class="frames">
-                <iframe src="{% url 'location' %}" title="location">
+              <div id="container-content">
+                <div class="label">
+                  <p class="attribute">Email:</p>
+                  <p>{{user.email}} </p>
+                </div>
+                <div class="label">
+                  <p class="attribute">Nome:</p>
+                  <p>{{user.first_name}} {{user.last_name}}</p>
+                </div>
+                <div>
+                  <ul style="display: flex;flex-direction: row;padding-left: 5px;">
+                      <li onclick="showlocations()">     
+                        <p style="  display: flex;
+                        font-weight: bold;
+                        color: #fff;
+                        cursor: pointer;">
+                          <i style="margin-left: 7px;margin-right: 12px;" class="fa fa fa-map-marker"></i>
+                          Localização
+                        </p>
+                    </li>
+                    <li>     
+                      <p style="  display: flex;
+                      font-weight: bold;
+                      color: #fff;
+                      cursor: pointer;" >
+                        <i style="margin-left: 3px;margin-right: 6px;" class="fa fa 	fa fa-mortar-board"></i>
+                        Alunos
+                      </p>
+                    </li>
+                    <li>     
+                      <p style="  display: flex;
+                      font-weight: bold;
+                      color: #fff;
+                      cursor: pointer;" >
+                        <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-plus-square"></i>
+                        Atividades
+                      </p>
+                    </li>
+                    <li>     
+                      <p style="  display: flex;
+                      font-weight: bold;
+                      color: #fff;
+                      cursor: pointer;" >
+                        <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-question-circle"></i>
+                        Correção
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div id="showContent" onclick="hiddenLocation()">
+                    <div class="showContent-content" style="font-weight: bold;justify-content: space-around;background-color:rgb(39, 155, 74);">
+                      <p>Nome</p>
+                      <p>Descrição</p>
+                      <p>Latitude</p>
+                      <p>Longitude</p>
+                    </div>
+                    {% for location in user.locations %}
+                    <div class="showContent-content">
+                      <p>{{location.name}}</p>
+                      <p>{{location.description}}</p>
+                      <p>{{location.latitude}}</p>
+                      <p>{{location.longitude}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
               </div>
             </div>
           {% elif user.is_student %}
           <header>
             <h1>Locus X - Estudante</h1>
           </header>
-          <div class="container">
-            <div class="side">
-              <ul>
-                <li style="
-                  background-color: red;
-                  padding: 7px;
-                  ">     
-                  <a href="{% url 'logout' %}" >
-                    Logout
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'program' %}"  >
-                    program
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'class' %}"  >
-                    class
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'course' %}"  >
-                    course
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'programTeacher' %}"  >
-                    programTeacher
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'classTeacher' %}"  >
-                    classTeacher
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'courseTeacher' %}"  >
-                    courseTeacher
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'content' %}"  >
-                    content
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'question' %}"  >
-                    question
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'openQuestion' %}"  >
-                    openQuestion
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'alternative' %}"  >
-                    alternative
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'multipleChoiceQuestion' %}"  >
-                    multipleChoiceQuestion
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'task' %}"  >
-                    task
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'activityTeacher' %}"  >
-                    activityTeacher
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'activity' %}"  >
-                    activity
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'activityRealization' %}"  >
-                    activityRealization
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'activityRealizationTeacher' %}"  >
-                    activityRealizationTeacher
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'answer' %}"  >
-                    answer
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'answerTeacher' %}"  >
-                    answerTeacher
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'answerMultipleChoice' %}"  >
-                    answerMultipleChoice
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url 'answerMultipleChoice' %}"  >
-                    answerTeacherMultipleChoice
-                  </a>
-                </li>
-              </ul>
-            </div> 
-
           {% else %}
           <p>Outro</p> 
           <a href="{% url 'logout' %}">Sign out</a>
           {% endif %}
     </body>
+    <script>
+      function showlocations(){
+        let elem = document.getElementById("showContent").style.display = "flex"
+      }
+
+      function hiddenLocation(){
+        let elem = document.getElementById("showContent").style.display = "none"
+      }
+    </script>
 </html>

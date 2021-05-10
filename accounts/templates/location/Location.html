@@ -5,12 +5,38 @@
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
+        <link rel="StylesSheets"  href="{% static 'css/location.css' %}">
         <title>Localização</title>
         {% bootstrap_css %}
     </head>
     <body>
+
+        <header style="    
+        background-color: rgb(24, 62, 121);
+        width: 100%;
+        height: 50px;
+        color: #fff;
+        margin: 0;
+        padding-left: 10px;
+        padding-top: 12px;
+        top: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;">
+        <a href="{% url 'home' %}" style="  
+            text-decoration: none;
+            color: #fff;
+            margin: 0;
+            top: 25px;
+            padding: 0;
+            align-items: flex-end;
+            ">
+            <p>Home</p>
+        </a>  
+        </header>
         <div class="container">
             <h1>Localização</h1>
+       
             {% bootstrap_messages %}
             <form action="{% url 'location' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
                 {% csrf_token %}

@@ -1,7 +1,9 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
+from location.models import Location
 from .models import *
 from .forms import *
 
@@ -29,13 +31,20 @@ def index(request):
 
 @login_required
 def logout_view(request):
-    print("oi")
     logout(request)
     # Redirect to a success page
     return redirect('index')
 
 @login_required
 def home(request):
+    locations = []
+    program = []
+    programTeacher = []
+    classes = []
+    classesTeacher = []
+    course = []
+    courseTeacher = []
+
     try:
         if request.user.is_institution_adm == True:
           getUser = request.user
@@ -55,6 +64,17 @@ def home(request):
         elif request.user.is_teacher == True:
           getUser = request.user
           getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
+
+          locations = Location.objects.filter(teacher=getTeacher)
+
+          classes = Class.objects.filter(teachers=getTeacher)
+          classesTeacher = ClassTeacher.objects.filter(teacher=getTeacher)
+
+          program = Program.objects.filter(teachers=getTeacher)
+          programTeacher = ProgramTeacher.objects.filter(teacher=getTeacher)
+
+          course = Course.objects.filter(teachers=getTeacher)
+          courseTeacher = CourseTeacher.objects.filter(teacher=getTeacher)
 
           try:
             institutions = Institution.objects.filter(teachers=getTeacher)
@@ -86,7 +106,14 @@ def home(request):
             "is_institution_adm": request.user.is_institution_adm,
             "user_id": request.user.id,
             "teacher_id" : getTeacher,
-            "institutions": dataInstitution
+            "institutions": dataInstitution,
+            "locations": locations,
+            "classes": classes,
+            "classesTeacher": classesTeacher,
+            "program":program,
+            "programTeacher":programTeacher,
+            "course":course,
+            "courseTeacher": courseTeacher
           }
 
         elif request.user.is_student == True:
@@ -112,7 +139,7 @@ def home(request):
             "is_teacher": request.user.is_teacher,
             "is_institution_adm": request.user.is_institution_adm,
         }
-
+        print(data)
         context = {
             'user' : data
         }
@@ -165,7 +192,7 @@ def singup(request):
             User.objects._create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password,is_active=is_active,is_student=is_student,is_teacher=is_teacher,is_institution_adm=is_institution_adm)
             Token.objects.create(user=user) 
 
-        return render(request, 'singup.html')
+        return render(request, 'index.html')
     else:
         return render(request, 'singup.html')
 

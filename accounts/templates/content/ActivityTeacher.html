@@ -7,6 +7,7 @@
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
         <link rel="StylesSheets"  href="{% static 'css/location.css' %}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <title>Atividades</title>
         {% bootstrap_css %}
     </head>
@@ -49,25 +50,57 @@
                         {% endbuttons %}
                     </form>
                 </div>
-                <div class="col-auto">
-                    <div>
+                <div class="col-auto" style="font-weight: bold;font-size: 30px;">
+                    <div style="margin-top: 1275%;font-weight: bold;cursor: pointer;" onclick="document.getElementById('id01').style.display='block'">
                         <i class="bi-plus"></i>
                     </div>
-                    <div>
+                    <div style="font-weight: bold;cursor: pointer;margin-top: 120%;" onclick="document.getElementById('id02').style.display='block'">
                         <i class="bi-plus"></i>
                     </div>
-                    <div>
+                    <div style="font-weight: bold;cursor: pointer;margin-top: 120%;" onclick="document.getElementById('id03').style.display='block'">
                         <i class="bi-plus"></i>
                     </div>
-                    <div>
-                        <i class="bi-plus"></i>
-                    </div>
-                    <div style="margin-top: 4360%;font-weight: bold;">
+                    <div style="font-weight: bold;cursor: pointer;margin-top: 440%;" onclick="document.getElementById('id04').style.display='block'")">
                         <i class="bi-plus"></i>
                     </div>
                 </div>
             </div>
-
+            <div id="id01" class="w3-modal">
+                <div class="w3-modal-content">
+                  <div class="w3-container">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'content' %}" title="Conteúdos"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="id02" class="w3-modal">
+                <div class="w3-modal-content">
+                  <div class="w3-container">
+                    <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'courseTeacher' %}" title="Disciplinas"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="id03" class="w3-modal">
+                <div class="w3-modal-content">
+                  <div class="w3-container">
+                    <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'classTeacher' %}" title="Classe"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="id04" class="w3-modal">
+                <div class="w3-modal-content">
+                  <div class="w3-container">
+                    <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'task' %}" title="Tarefa"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
     </body>
     {% bootstrap_javascript jquery='full' %}

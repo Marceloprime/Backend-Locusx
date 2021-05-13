@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
 from location.models import Location
+from content.models import *
 from .models import *
 from .forms import *
 
@@ -44,6 +45,7 @@ def home(request):
     classesTeacher = []
     course = []
     courseTeacher = []
+    atividades = []
 
     try:
         if request.user.is_institution_adm == True:
@@ -75,6 +77,11 @@ def home(request):
 
           course = Course.objects.filter(teachers=getTeacher)
           courseTeacher = CourseTeacher.objects.filter(teacher=getTeacher)
+
+          try:
+            atividades = ActivityTeacher.objects.filter(teacher=getTeacher)
+          except:
+            atividades = []
 
           try:
             institutions = Institution.objects.filter(teachers=getTeacher)
@@ -113,7 +120,8 @@ def home(request):
             "program":program,
             "programTeacher":programTeacher,
             "course":course,
-            "courseTeacher": courseTeacher
+            "courseTeacher": courseTeacher,
+            "atividades": atividades
           }
 
         elif request.user.is_student == True:

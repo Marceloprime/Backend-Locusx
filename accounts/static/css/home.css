@@ -26,7 +26,7 @@ header{
 
 
 .side{
-  background-color: rgb(67, 147, 223);
+  background-color: rgb(31, 159, 182);
   flex-direction: column;
   margin: 0;
   height: 100%;
@@ -105,6 +105,14 @@ iframe{
   margin-bottom: 4px;
 }
 
+#showContent2{
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 4px;
+}
+
 .showContent-content{
   display: flex;
   background-color: rgb(88, 235, 132);
@@ -112,4 +120,20 @@ iframe{
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 4px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

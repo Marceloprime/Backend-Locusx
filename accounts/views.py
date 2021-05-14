@@ -16,7 +16,7 @@ from .forms import *
 
 def index(request):
     if(str(request.user) != "AnonymousUser"):
-        return redirect('home/')
+        return redirect('home')
     
     try:
         username = request.POST['username']
@@ -25,7 +25,7 @@ def index(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return redirect('home/')
+            return redirect('home')
         else:
             # Return an 'invalid login' error message.
             ...
@@ -212,7 +212,18 @@ def singup(request):
                 User.objects._create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password,is_active=is_active,is_student=is_student,is_teacher=is_teacher,is_institution_adm=is_institution_adm)
                 Token.objects.create(user=user) 
 
-            messages.error(request, 'Bem vindo' + first_name)
+            try:
+                user = authenticate(request, email=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    # Redirect to a success page.
+                    return redirect('home')
+                else:
+                    # Return an 'invalid login' error message.
+                    messages.error(request, 'Campos inválidos')
+                    return render(request, 'singup.html')
+            except:
+                return render(request, 'singup.html')
         except:
             messages.error(request, 'Campos inválidos')
     else:

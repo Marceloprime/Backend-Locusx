@@ -1,0 +1,25 @@
+.home-page-brand img {
+    margin-bottom: 0;
+    margin-right: 5px;
+    height: 40px;
+    width: 40px;
+}
+
+.img-profile {
+    color: black;
+}
+
+.profile-foto {
+    height: 200px !important;
+    width: 200px  !important;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.trash {
+    color: rgb(197, 30, 30);
+}
+
+.edit {
+    color: green;
+}

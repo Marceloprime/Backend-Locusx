@@ -1,14 +1,15 @@
 from django.db import models
+from django.utils.translation import  gettext_lazy as _
 
 from accounts.models import Teacher
 
 class Location(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(_('name'),max_length=250)
     teacher = models.ForeignKey(
         Teacher,
         on_delete=models.CASCADE
     )
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(_('description'),blank=True, null=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)

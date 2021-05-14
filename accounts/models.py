@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import  gettext_lazy as _
 
 # Create your models here.
 class User(AbstractUser):
@@ -30,15 +31,15 @@ class Institution_adm(models.Model):
 
 class Institution(models.Model):
     user = models.ForeignKey('Institution_adm', on_delete=models.CASCADE)
-    name = models.CharField(max_length=250)
-    description = models.TextField(blank=True, null=True)
+    name = models.CharField(_('name'),max_length=250)
+    description = models.TextField(_('description'),blank=True, null=True)
     teachers =  models.ManyToManyField(Teacher,blank=True)
     student =  models.ManyToManyField(Student,blank=True)
     def __str__(self):
         return self.name
 
 class Address(models.Model):
-    state = models.CharField(max_length=2)
+    state = models.CharField(_('state'),max_length=2)
     city = models.CharField( max_length=100)
     street = models.CharField( max_length=250)
     neighborhood = models.CharField( max_length=100)

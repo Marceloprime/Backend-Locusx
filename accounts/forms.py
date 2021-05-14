@@ -1,11 +1,12 @@
 from django import forms
 from django.core.mail import  EmailMessage
+from django.utils.translation import  gettext, gettext_lazy as _
 from .models import *
 
 class InstitutionModelForm(forms.ModelForm):
     class Meta:
         model = Institution
-        fields = '__all__'
+        fields = _('__all__')
 
 class AddressModelForm(forms.ModelForm):
     class Meta:

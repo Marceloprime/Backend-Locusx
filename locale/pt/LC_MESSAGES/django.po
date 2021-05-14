@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-14 02:54+0000\n"
+"PO-Revision-Date: 2021-05-13 23:51-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: accounts/forms.py:9
+msgid "__all__"
+msgstr ""
+
+#: accounts/models.py:34 location/models.py:7
+msgid "name"
+msgstr "nome"
+
+#: accounts/models.py:35 content/models.py:15 content/models.py:32
+#: content/models.py:53 content/models.py:66 content/models.py:88
+#: content/models.py:102 content/models.py:136 content/models.py:210
+#: content/models.py:224 location/models.py:12
+msgid "description"
+msgstr "Descrição"
+
+#: accounts/models.py:42
+#, fuzzy
+msgid "state"
+msgstr "estado"
+
+#: accounts/templates/home.html:177
+msgid "Localização"
+msgstr ""
+
+#: accounts/templates/home.html:183
+msgid "Alunos"
+msgstr ""
+
+#: accounts/templates/home.html:189
+msgid "Disciplinas"
+msgstr ""
+
+#: accounts/templates/home.html:195
+msgid "Conteúdos"
+msgstr ""
+
+#: accounts/templates/home.html:200
+msgid "Tarefa"
+msgstr ""
+
+#: accounts/templates/home.html:206
+msgid "Atividades"
+msgstr ""
+
+#: accounts/templates/home.html:212
+msgid "Correção"
+msgstr ""
+
+#: content/models.py:14
+msgid "title"
+msgstr "Título"
+
+#: content/models.py:35
+msgid "link multimedia"
+msgstr ""
+
+#: content/models.py:65
+msgid "letter"
+msgstr "letra"

@@ -3,6 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
+from django.utils.translation import gettext as _
+from django.utils import translation
+
+import json
+
+# My models
 from location.models import Location
 from content.models import *
 from .models import *
@@ -46,6 +52,9 @@ def home(request):
     course = []
     courseTeacher = []
     atividades = []
+
+    lang = translation.get_language()
+    translation.activate(lang)
 
     try:
         if request.user.is_institution_adm == True:
@@ -149,11 +158,13 @@ def home(request):
         }
         print(data)
         context = {
-            'user' : data
+            'user' : data,
+            'lang': lang
         }
     except:
         context = {
-            'user' : "NOT FOUND"
+            'user' : "NOT FOUND",
+            'lang': lang
         }
 
     print(context)
@@ -203,8 +214,6 @@ def singup(request):
         return render(request, 'index.html')
     else:
         return render(request, 'singup.html')
-
-
 
 def InstitutionView(request):
     if str(request.method) == 'POST':

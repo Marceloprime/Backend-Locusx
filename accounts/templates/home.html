@@ -1,6 +1,7 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ lang }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -153,7 +154,7 @@
           </div>
         </div> 
           {% elif user.is_teacher %}
-            <header>
+            <header style="display: flex;flex-direction: row;">
               <h1>Locus X - Professor(a): {{user.first_name}} {{user.last_name}}</h1>
             </header>
             <div class="container">
@@ -173,46 +174,46 @@
                     <li>     
                       <a href="{% url 'location' %}" >
                         <i style="margin-left: 7px;margin-right: 12px;" class="fa fa fa-map-marker"></i>
-                        Localização
+                        {% trans 'Localização' %}
                       </a>
                   </li>
                   <li>     
                     <a href="{% url 'classTeacher' %}" >
                       <i style="margin-left: 3px;margin-right: 6px;" class="fa fa 	fa fa-mortar-board"></i>
-                      Alunos
+                      {% trans  'Alunos' %}
                     </a>
                   </li>
                   <li>     
                     <a href="{% url 'courseTeacher' %}"  >
                       <i  style="margin-left: 7px;margin-right: 12px;" class="fa fa fa-bookmark"></i>
-                      Disciplinas
+                      {% trans 'Disciplinas' %}
                     </a>
                   </li>
                   <li>     
                     <a href="{% url 'content' %}">
                       <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-object-group"></i>
-                      Conteúdos
-                    </a>
+                      {% trans 'Conteúdos' %}
                   </li>
                   <li>     
                     <a href="{% url 'task' %}" >
                       <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-plus-square"></i>
-                      Tarefa
+                      {% trans 'Tarefa' %}
                     </a>
                   </li>
                   <li>     
                     <a href="{% url 'activityTeacher' %}" >
                       <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-plus-square"></i>
-                      Atividades
+                      {% trans 'Atividades' %}
                     </a>
                   </li>
                   <li>     
                     <a href="#" >
                       <i  style="margin-left: 7px;margin-right: 6px;" class="fa fa fa-question-circle"></i>
-                      Correção
+                      {% trans 'Correção' %}
                     </a>
                   </li>
                 </ul>
+                
               </div>
               <div id="container-content">
                 <div class="label">

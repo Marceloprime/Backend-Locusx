@@ -15,18 +15,13 @@ def LocationView(request):
 
         name = request.POST['name']
         description = request.POST['description']
-        latitude = request.POST['latitude']
-        longitude = request.POST['longitude']
- 
+        coordinates = request.POST['coordinates'].split(', ')
 
-        if name == '' or description == '' or latitude == '' or longitude == '':
+        try:
+            Location.objects.create(name=name,teacher=teacher,description=description,latitude=float(coordinates[0]),longitude=float(coordinates[1]))
+            messages.success(request,"Localização criada com sucesso")
+        except:
             messages.error(request,"Campos inválidos")
-        else:
-            try:
-                Location.objects.create(name=name,teacher=teacher,description=description,latitude=float(latitude),longitude=float(longitude))
-                messages.success(request,"Localização criada com sucesso")
-            except:
-                messages.error(request,"Campos inválidos")
 
         return render(request, 'location/Location.html')
     else:

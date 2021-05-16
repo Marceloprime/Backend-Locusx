@@ -6,16 +6,17 @@
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="StylesSheets"  href="{% static 'css/location.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Localização</title>
         {% bootstrap_css %}
     </head>
-    <body>
-
+    <body style="background-color: rgb(220, 234, 247);">
         <header style="    
             background-color: rgb(24, 62, 121);
             width: 100%;
-            height: 50px;
+            height: 60px;
             color: #fff;
             margin: 0;
             padding-left: 10px;
@@ -23,32 +24,53 @@
             top: 0;
             display: flex;
             flex-direction: row;
-            align-items: center;">
+            justify-content: space-between;">
+            <h2 style="                
+                margin: 0;
+                top: 25px;
+                padding: 0;
+                font-weight: bold;
+                align-items: flex-end;">
+                Localização
+            </h2>
             <a href="{% url 'home' %}" style="  
                 text-decoration: none;
                 color: #fff;
                 margin: 0;
+                margin-right: 5%;
                 top: 25px;
                 padding: 0;
                 align-items: flex-end;
                 ">
-                <p>Home</p>
+                <h2>
+                    <i class="fa fa fa-home"></i>
+                </h2>
             </a>  
         </header>
-        <div class="container">
-            <h1>Localização</h1>
-       
-            {% bootstrap_messages %}
-            <form action="{% url 'location' %}" method="POST"  enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="text" name="name"  placeholder="Nome">
-                <input type="text" name="description"  placeholder="Descrição">
-                <input type="number" name="latitude"  placeholder="Latitude">
-                <input type="number" name="longitude"  placeholder="Longitude">
-                <input type="submit" value="Criar" >
-            </form>
+        {% bootstrap_messages %}
+        <div  class="row align-items-start" style="margin-top: 2%;background-color: rgb(220, 234, 247);" >
+            <div class="col" style="margin-top: 2%;">
+                <form style="display: flex;flex-direction: column;margin: 0;" action="{% url 'location' %}" method="POST"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                        Crie um nome ou apelido a essa localização. De preferência com algo relacionado a ela, como por exemplo: Jaula do Leão, Estátua do Dom Pedro etc.
+                    </label>
+                    <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="name" id="name"  placeholder="Nome" required>
+                    <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;" class="form-label">
+                        Use esse campo para descrever características que podem ser relevantes para sua tarefa ou aluno.
+                    </label>
+                    <input style="margin-bottom: 5%;height: 100px;width: 70%;margin-left: 2%;"  class="form-control" type="text" name="description"  placeholder="Descrição">
+                    <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                        Use o mapa ao lado para encontrar as coordenadas geográficas, clique em “Visualizar mapa ampliado” , será aberto em outra guia o Google Maps, use ele para encontrar a região da sua atividade, em seguida com a seta do mouse sobre a localização escolhida clique com o botão direito do mouse, será aberto uma janelinha clique na coordenada , ela será copiada para a área de transferência e em seguida volte para o Locus e cole no campo coordenadas.
+                    </label>
+                    <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="coordinates"  placeholder="Coordenadas" required>
+                    <input class="btn btn-primary" style="width: 20%;margin-left: 2%;" type="submit" value="Criar" >
+                </form>
+            </div>
+            <div  class="col-auto"  style="margin-right: 2%;">
+                <div class="mapouter"><div class="gmap_canvas"><iframe width="379" height="550" id="gmap_canvas" src="https://maps.google.com/maps?q=USP%20S%C3%A3o%20Carlos&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.online-timer.net"></a><br><style>.mapouter{position:relative;text-align:right;height:550px;width:379px;}</style><a href="https://www.embedgooglemap.net">google maps code generator</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:550px;width:379px;}</style></div>
+            </div>
         </div>
-        <iframe  embedded=true src="https://www.google.com.br/maps/"></iframe>
     </body>
     {% bootstrap_javascript jquery='full' %}
 </html>

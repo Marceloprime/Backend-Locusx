@@ -76,7 +76,7 @@ def home(request):
           getUser = request.user
           getTeacher = Teacher.objects.filter(user=getUser).values_list('id', flat = True)[0]
 
-          locations = Location.objects.filter(teacher=getTeacher)
+          locations = Location.objects.filter(teacher=getTeacher).order_by('-modified_at')
 
           classes = Class.objects.filter(teachers=getTeacher)
           classesTeacher = ClassTeacher.objects.filter(teacher=getTeacher)
@@ -229,6 +229,7 @@ def singup(request):
     else:
         return render(request, 'singup.html')
 
+@login_required
 def InstitutionView(request):
     if str(request.method) == 'POST':
         form = InstitutionModelForm(request.POST)
@@ -246,6 +247,7 @@ def InstitutionView(request):
     }
     return render(request, 'accounts/Institution.html',context)
 
+@login_required
 def AddressView(request):
     if str(request.method) == 'POST':
         form = AddressModelForm(request.POST)
@@ -265,7 +267,7 @@ def AddressView(request):
 
 ###########################################################################
 #                       Instituicao                                       #
-
+@login_required
 def ProgramView(request):
     if str(request.method) == 'POST':
         form = ProgramModelForm(request.POST)
@@ -283,6 +285,7 @@ def ProgramView(request):
     }
     return render(request, 'accounts/Program.html',context)
 
+@login_required
 def ClassView(request):
     if str(request.method) == 'POST':
         form = ClassModelForm(request.POST)
@@ -300,6 +303,7 @@ def ClassView(request):
     }
     return render(request, 'accounts/Class.html',context)
 
+@login_required
 def CourseView(request):
     if str(request.method) == 'POST':
         form = CourseModelForm(request.POST)
@@ -318,7 +322,9 @@ def CourseView(request):
     return render(request, 'accounts/Course.html',context)
 
 ###########################################################################
-#                       Teacher                                           #
+#                       Teacher   
+# @login_required
+@login_required                                        #
 def ProgramTeacherView(request):
     if str(request.method) == 'POST':
         form = ProgramTeacherModelForm(request.POST)
@@ -336,6 +342,7 @@ def ProgramTeacherView(request):
     }
     return render(request, 'accounts/ProgramTeacher.html',context)
 
+@login_required
 def ClassTeacherView(request):
     if str(request.method) == 'POST':
         form = ClassTeacherModelForm(request.POST)
@@ -353,6 +360,7 @@ def ClassTeacherView(request):
     }
     return render(request, 'accounts/ClassTeacher.html',context)
 
+@login_required
 def CourseTeacherView(request):
     if str(request.method) == 'POST':
         form = CourseTeacherModelForm(request.POST)

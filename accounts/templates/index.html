@@ -1,3 +1,4 @@
+{% load socialaccount %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -14,6 +15,7 @@
         
         <!--Styles-->
         <link href="{% static 'css/index.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!--Scripts-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
@@ -33,9 +35,11 @@
             <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Senha">
             <input type="submit" value="Login" id="login-form-submit">
           </form>
-          <a id="reset-password" href="#">Esqueci minha senha</a>
+          <!--a id="reset-password" href="#">Esqueci minha senha</a-->
+          <a style="color: white;" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-twitter">
+            <span class="btn-social-icon fa fa-google"></span> Sign in with Google
+          </a>
           <button id="btn-singUP" onclick="redirect()" type="button" >Não tenho conta</button>
-
           <div id="login-error-msg-holder">
             <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
           </div>

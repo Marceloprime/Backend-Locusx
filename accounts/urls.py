@@ -1,4 +1,4 @@
-from django.urls import  path
+from django.urls import  path, include
 from .views import *
 from location.views import LocationView
 from content.views import *
@@ -35,4 +35,6 @@ urlpatterns = [
     path(r'answerTeacher/', AnswerTeacherView ,name='answerTeacher'), 
     path(r'answerMultipleChoice/', AnswerMultipleChoiceView ,name='answerMultipleChoice'), 
     path(r'answerTeacherMultipleChoice/', AnswerTeacherMultipleChoiceView ,name='answerTeacherMultipleChoice'), 
+
+    path('accounts/', include('allauth.urls')),
 ]

@@ -1,5 +1,7 @@
 {% load static %}
 {% load i18n %}
+{% load bootstrap4 %}
+
 <!DOCTYPE html>
 <html lang="{{ lang }}">
     <head>
@@ -285,9 +287,37 @@
           <header>
             <h1>Locus X - Estudante</h1>
           </header>
+          <a style="color: white;" href="{% url 'logout' %}">Sign out</a>
           {% else %}
-          <p>Outro</p> 
-          <a href="{% url 'logout' %}">Sign out</a>
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <header style="display: flex;flex-direction: row;justify-content: space-between;">
+            <h1 style="margin-left: 2%;" >Locus X</h1>
+            <h3 style="text-decoration: none;margin-right: 2%;">
+              <a style="color: white;" href="{% url 'logout' %}">Sign out</a>
+            </h3>
+          </header>
+ 
+          <!-- The Modal -->
+          <div id="id01" style="display: block;" class="w3-modal">
+            <div class="w3-modal-content">
+              <div class="w3-container" style="display: flex;flex-direction: column;">
+                <span style="background-color: rgb(231, 127, 127);" onclick="document.getElementById('id01').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+                <form id="login-form" style="margin-top: 10%;margin-bottom: 5%;display: flex;flex-direction: column;" method="post" >
+                  {% csrf_token %}
+                  <label style="display: flex;justify-content: center;font-weight: bold;"  class="form-label">
+                    Escolhar um tipo de usuário para você:
+                  </label>
+                  <select name="type_user"  style="margin-top: 3%;margin-bottom: 3%;" id="username-field" class="login-form-field">
+                    <option value="is_student">Sou Estudante</option>
+                    <option value="is_teacher">Sou Professor(a)</option>
+                    <option value="is_institution_adm">Sou Administrador de instituição</option>
+                  </select>
+                  <input style="background-color: rgb(28, 173, 173);cursor: pointer;" type="submit" value="Criar" id="login-form-submit">
+              </form>
+              </div>
+            </div>
+          </div>
           {% endif %}
     </body>
     <script>
@@ -307,6 +337,19 @@
 
       function hiddenAtividade(){
         //let elem = document.getElementById("showContent2").style.display = "none"
+      }
+
+      function HiddenModal(){
+        document.getElementById("exampleModalCenter").style.display = "none"
+      }
+
+      function ShowModal(){
+        alert(document.getElementById("exampleModalCenter").style.display = "block")
+        document.getElementById("exampleModalCenter").style.display = "block"
+      }
+
+      function hiddenLocation(){
+        //document.getElementById("showContent").style.display = "none"
       }
     </script>
 </html>

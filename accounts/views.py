@@ -44,6 +44,36 @@ def logout_view(request):
 
 @login_required
 def home(request):
+    if request.POST:
+        type_user = request.POST['type_user']
+        if type_user == 'is_student':
+            is_student = True
+            is_teacher = False
+            is_institution_adm = False
+        elif type_user == 'is_teacher':
+            is_student = False
+            is_teacher = True
+            is_institution_adm = False
+        elif type_user == 'is_institution_adm':
+            is_student = False
+            is_teacher = True
+            is_institution_adm = False
+
+        if is_student == True: 
+            user = User.objects.filter(email=request.user).update(is_student=True)
+            Token.objects.create(user=request.user)
+            Student.objects.create(user=request.user)
+        elif is_teacher == True:
+            user = User.objects.filter(email=request.user).update(is_teacher=True)
+            Token.objects.create(user=request.user)
+            Teacher.objects.create(user=request.user) 
+        elif is_institution_adm == True:
+            user = User.objects.filter(email=request.user).update(is_institution_adm=True)
+            Token.objects.create(user=request.user)
+            Institution_adm.objects.create(user=request.user) 
+
+        return redirect('index')
+    
     locations = []
     program = []
     programTeacher = []

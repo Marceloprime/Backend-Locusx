@@ -18,7 +18,6 @@ from rest_framework_swagger.views import get_swagger_view
 schema_view = get_swagger_view(title='LocusX API')
 # Api router
 router = routers.DefaultRouter()
-
 #accounts
 router.register(r'users', UserViewSet)
 router.register(r'institution_adm', Institution_admViewSet, basename='Institution_adm')
@@ -48,6 +47,7 @@ router.register(r'answerteacher', AnswerTeacherViewSet, basename='AnswerTeacher'
 router.register(r'answerMultipleChoice', AnswerMultipleChoiceViewSet, basename='AnswerMultipleChoice')
 router.register(r'answerteacherMultipleChoice', AnswerTeacherMultipleChoiceViewSet, basename=' AnswerTeacherMultipleChoice')
 
+
 #location
 router.register(r'location', LocationViewSet, basename='LocationViewSet')
 
@@ -57,7 +57,6 @@ urlpatterns = [
     path('', include('accounts.urls')),
     url(r'^auth/', include('rest_auth.urls')),#routar do login
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path(r'docs/', schema_view)
 ]
 
 

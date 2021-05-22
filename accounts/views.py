@@ -56,8 +56,8 @@ def home(request):
             is_institution_adm = False
         elif type_user == 'is_institution_adm':
             is_student = False
-            is_teacher = True
-            is_institution_adm = False
+            is_teacher = False
+            is_institution_adm = True
 
         if is_student == True: 
             user = User.objects.filter(email=request.user).update(is_student=True)
@@ -222,8 +222,8 @@ def singup(request):
                 is_institution_adm = False
             elif type_user == 'is_institution_adm':
                 is_student = False
-                is_teacher = True
-                is_institution_adm = False
+                is_teacher = False
+                is_institution_adm = True
             
 
             if is_student == True: 
@@ -374,19 +374,23 @@ def ProgramTeacherView(request):
 
 @login_required
 def ClassTeacherView(request):
-    if str(request.method) == 'POST':
-        form = ClassTeacherModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Classe salvo com sucesso')
-            form = ClassTeacherModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar Classe')
-    else:
-        form = ClassTeacherModelForm()
+    user = request.user
+    getTeacher = Teacher.objects.filter(user=user).values_list('id', flat = True)[0]
+    classesTeacher = ClassTeacher.objects.filter(teacher=getTeacher)
+    students = []
+    classrom = []
+    for classe in classesTeacher:
+        classrom = []
+        studentsClass = ClassTeacher.objects.filter(id=classe.id).values_list('students',flat=True)
+        for objects in studentsClass:
+            aux = Student.objects.filter(id=objects).values_list('user',flat=True)[0]
+            user = User.objects.filter(id=aux)[0]
+            classrom.append(user)
+        students.append(classrom)
 
     context = {
-        'form': form
+        'classes': classesTeacher,
+        'students': students
     }
     return render(request, 'accounts/ClassTeacher.html',context)
 

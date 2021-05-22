@@ -1,26 +1,139 @@
 {% load bootstrap4 %}
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="{{ lang }}">
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="StylesSheets"  href="{% static 'css/classes.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <title>Classes</title>
         {% bootstrap_css %}
     </head>
-    <body>
-        <div class="container">
-            <h1>Classes</h1>
-            {% bootstrap_messages %}
-            <form action="{% url 'classTeacher' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">
-                        Salvar
-                    </button> 
-                {% endbuttons %}
-            </form>
+    <body onload="init()" style="background-color: rgb(31, 159, 182);">
+        <script>
+            function init(){
+                let lis = document.getElementsByClassName('classe')
+                let tables = document.getElementsByClassName('idtable')
+                let count = 0
+                let elem 
+                let elem2
+                for(li in lis){
+                    elem = document.getElementsByClassName('classe')[li]
+                    elem2 = document.getElementsByClassName('idtable')[count]
+                    elem.setAttribute('id',count.toString());
+                    elem2.setAttribute('id','t'+count.toString());
+                    count += 1
+                }
+
+                window.count = count
+            }
+
+
+            window.event = function event(event){
+                let elem = document.getElementById('t'+event.id).style.display
+                let tables = document.getElementsByClassName('table').length
+             
+                if(elem === 'block'){//hidden 
+
+                    for(let i=0;i<tables;i++){
+                        document.getElementById('t'+i.toString()).style.display = 'none'
+
+                    }
+                    document.getElementById('t'+event.id).style.display = 'none'
+                }
+                else{ //show
+  
+                    for(let i=0;i<tables;i++){
+                        document.getElementById('t'+i.toString()).style.display = 'none'
+                    }
+                    document.getElementById('t'+event.id).style.display = 'block'
+                }
+            }
+        </script>
+        <header style="    
+            background-color: rgb(24, 62, 121);
+            width: 100%;
+            height: 60px;
+            color: #fff;
+            margin: 0;
+            padding-left: 10px;
+            padding-top: 12px;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;">
+            <h2 style="                
+                margin: 0;
+                top: 25px;
+                padding: 0;
+                font-weight: bold;
+                align-items: flex-end;">
+                Alunos
+            </h2>
+            <a href="{% url 'home' %}" style="  
+                text-decoration: none;
+                color: #fff;
+                margin: 0;
+                margin-right: 5%;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                ">
+                <h2>
+                    <i class="fa fa fa-home"></i>
+                </h2>
+            </a>  
+        </header>
+        <div class="container-fluid" style="background-color:rgb(31, 159, 182);">
+            <div style="display: flex;flex-direction: row;">
+                <div class="col-sm-2" style="background-color: rgb(31, 159, 182);margin-right: 1%;">
+                    <ul style="
+                        color: white;
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                    ">
+                        <li style="font-weight: bold;padding-top: 2%;background-color: rgb(25, 175, 38);text-align: center;">
+                            <p>Suas Classes</p>
+                        </li>
+                        {% for classe in classes %}
+                            <li class="classe" onclick="window.event(this)" style="cursor:pointer;border-style: ridge;  border: 2px solid rgb(98, 223, 245); border-radius: 8px;display: flex;justify-content: center;">
+                                <p style="margin-top: 2.5%;margin-bottom: 2.5%;">{{classe.name}}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul style="
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                    ">
+                        <li style="font-weight: bold;padding-top: 0.5%;background-color: rgb(25, 175, 38);text-align: center;color: white;font-size: 20px;">
+                            <p>Alunos</p>
+                        </li>
+                    </ul>
+                    
+                    {% for sala in students %}
+                        <table class="table idtable"  style="background-color: rgb(174, 238, 238);display: none;">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                            </tr>
+                            {% for student in sala %}
+                            <tr>
+                                <td>{{student.first_name}} {{student.last_name}}</td>
+                                <td>{{student.email}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </body>
     {% bootstrap_javascript jquery='full' %}

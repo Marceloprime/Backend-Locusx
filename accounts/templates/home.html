@@ -20,142 +20,14 @@
       </head>
     <body>
         {% if user.is_institution_adm %}
-        <header>
-          <h1>Locus X - Adm(a)</h1>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <header style="display: flex;flex-direction: row;justify-content: space-between;">
+          <h1 style="margin-left: 2%;" >Locus X - Adm(a): {{user.first_name}} {{user.last_name}}</h1>
+          <h3 style="text-decoration: none;margin-right: 2%;">
+            <a style="color: white;" href="{% url 'logout' %}">Sign out</a>
+          </h3>
         </header>
-        <div class="container">
-          <div class="side">
-            <ul>
-              <li style="
-                background-color: red;
-                padding: 7px;
-                ">     
-                <a href="{% url 'logout' %}" >
-                  Logout
-                </a>
-              </li>
-              <li>     
-                <a href="{% url 'institution' %}" >
-                  institution
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'address' %}"  >
-                  address
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'program' %}"  >
-                  program
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'class' %}"  >
-                  class
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'course' %}"  >
-                  course
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'programTeacher' %}"  >
-                  programTeacher
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'classTeacher' %}"  >
-                  classTeacher
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'courseTeacher' %}"  >
-                  courseTeacher
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'location' %}"  >
-                  location
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'content' %}"  >
-                  content
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'question' %}"  >
-                  question
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'openQuestion' %}"  >
-                  openQuestion
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'alternative' %}"  >
-                  alternative
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'multipleChoiceQuestion' %}"  >
-                  multipleChoiceQuestion
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'task' %}"  >
-                  task
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'activityTeacher' %}"  >
-                  activityTeacher
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'activity' %}"  >
-                  activity
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'activityRealization' %}"  >
-                  activityRealization
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'activityRealizationTeacher' %}"  >
-                  activityRealizationTeacher
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'answer' %}"  >
-                  answer
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'answerTeacher' %}"  >
-                  answerTeacher
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'answerMultipleChoice' %}"  >
-                  answerMultipleChoice
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'answerMultipleChoice' %}"  >
-                  answerTeacherMultipleChoice
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="frames">
-            <iframe src="{% url 'location' %}" title="location">
-          </div>
-        </div> 
-          {% elif user.is_teacher %}
+        {% elif user.is_teacher %}
             <header style="display: flex;flex-direction: row;">
               <h1>Locus X - Professor(a): {{user.first_name}} {{user.last_name}}</h1>
             </header>
@@ -284,10 +156,23 @@
               </div>
             </div>
           {% elif user.is_student %}
-          <header>
-            <h1>Locus X - Estudante</h1>
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <header style="display: flex;flex-direction: row;justify-content: space-between;">
+            <h1 style="margin-left: 2%;" >Locus X - Estudante: {{user.first_name}} {{user.last_name}}</h1>
+            <h3 style="text-decoration: none;margin-right: 2%;">
+              <a style="color: white;" href="{% url 'logout' %}">Sign out</a>
+            </h3>
           </header>
-          <a style="color: white;" href="{% url 'logout' %}">Sign out</a>
+          <!-- The Modal -->
+          <div id="id01" style="display: block;" class="w3-modal">
+            <div class="w3-modal-content">
+              <div class="w3-container" style="display: flex;flex-direction: column;">
+                <span style="background-color: rgb(231, 127, 127);" onclick="document.getElementById('id01').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+                  <p>Acesse nosso aplicativo para usar o Locus X</p>
+              </div>
+            </div>
+          </div>          
           {% else %}
           <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
           <header style="display: flex;flex-direction: row;justify-content: space-between;">

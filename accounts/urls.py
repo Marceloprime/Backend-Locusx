@@ -15,6 +15,7 @@ urlpatterns = [
     path(r'course/', CourseView ,name='course'),
     path(r'programTeacher/', ProgramTeacherView ,name='programTeacher'),
     path(r'classTeacher/', ClassTeacherView ,name='classTeacher'),
+    path(r'CreateclassTeacher/', CreateclassTeacherView ,name='CreateclassTeacher'),
     path(r'courseTeacher/', CourseTeacherView ,name='courseTeacher'),
 
     #location

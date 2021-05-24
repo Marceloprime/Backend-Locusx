@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
 from django.utils.translation import gettext as _
 from django.utils import translation
-
+from django.http  import HttpResponse
 import json
 
 # My models
@@ -373,7 +373,35 @@ def ProgramTeacherView(request):
     return render(request, 'accounts/ProgramTeacher.html',context)
 
 @login_required
+def CreateclassTeacherView(request):
+    return render(request, 'accounts/CreateClassTeacher.html')
+
+@login_required
 def ClassTeacherView(request):
+    if request.POST:
+        email = request.POST['email']
+        class_id = request.POST['classe']
+        try:
+            user = User.objects.filter(email=email)[0]
+            try:
+                student = Student.objects.filter(user=user)[0]
+                
+                if student == None:
+                    messages.error(request, 'Usuário não é estudante na base Locus X')
+                else:
+                    already_exists = ClassTeacher.objects.filter(id=class_id,students=student)[0]
+                    if already_exists == None:
+                        classe = ClassTeacher.objects.filter(id=class_id)[0]
+                        classe.students.add(student)
+                    else:
+                        messages.error(request, 'Usuário já cadastrado')
+            except:
+                messages.error(request, 'Usuário não é estudante na base Locus X')
+        except:
+            messages.error(request, 'Usuário não cadastrado na base Locus X')
+
+        #messages.error(request, 'Usuário não cadastrado na base Locus X')
+
     user = request.user
     getTeacher = Teacher.objects.filter(user=user).values_list('id', flat = True)[0]
     classesTeacher = ClassTeacher.objects.filter(teacher=getTeacher)

@@ -13,7 +13,7 @@
         <title>Classes</title>
         {% bootstrap_css %}
     </head>
-    <body onload="init()" style="background-color: rgb(31, 159, 182);">
+    <body onload="init()" style="background-color: rgb(109, 236, 236);">
         <script>
             function init(){
                 let lis = document.getElementsByClassName('classe')
@@ -53,52 +53,69 @@
                     document.getElementById('t'+event.id).style.display = 'block'
                 }
             }
+
         </script>
         <header style="    
-            background-color: rgb(24, 62, 121);
-            width: 100%;
-            height: 60px;
+        background-color: rgb(24, 62, 121);
+        width: 100%;
+        height: 60px;
+        color: #fff;
+        margin: 0;
+        padding-left: 10px;
+        padding-top: 12px;
+        top: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;">
+        <div  style="  
+            width: 100%;            
+            margin: 0;
+            top: 25px;
+            padding: 0;
+            align-items: flex-end;
+            display: flex;
+            justify-content: center;
+            ">
+            <h1 style="font-weight: bold;">
+                Alunos
+            </h1>
+        </div>
+        <a href="{% url 'home' %}" style="  
+            text-decoration: none;
             color: #fff;
             margin: 0;
-            padding-left: 10px;
-            padding-top: 12px;
-            top: 0;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;">
-            <h2 style="                
-                margin: 0;
-                top: 25px;
-                padding: 0;
-                font-weight: bold;
-                align-items: flex-end;">
-                Alunos
+            margin-right: 5%;
+            top: 25px;
+            padding: 0;
+            align-items: flex-end;
+            ">
+            <h2>
+                <i class="fa fa fa-home"></i>
             </h2>
-            <a href="{% url 'home' %}" style="  
-                text-decoration: none;
-                color: #fff;
-                margin: 0;
-                margin-right: 5%;
-                top: 25px;
-                padding: 0;
-                align-items: flex-end;
-                ">
-                <h2>
-                    <i class="fa fa fa-home"></i>
-                </h2>
-            </a>  
-        </header>
-        <div class="container-fluid" style="background-color:rgb(31, 159, 182);">
+        </a>  
+    </header>
+        <div class="container-fluid" style="background-color:rgb(109, 236, 236);">
             <div style="display: flex;flex-direction: row;">
-                <div class="col-sm-2" style="background-color: rgb(31, 159, 182);margin-right: 1%;">
+                <div class="col-sm-2" style="background-color: rgb(31, 159, 182);margin-right: 1%;padding-bottom: 30%;">
                     <ul style="
                         color: white;
                         list-style-type: none;
                         margin: 0;
                         padding: 0;
                     ">
-                        <li style="font-weight: bold;padding-top: 2%;background-color: rgb(25, 175, 38);text-align: center;">
+                        <li style="font-weight: bold;margin-bottom: 3%;padding-left: 2%;padding-top: 2%;background-color: rgb(25, 175, 38);display: flex;flex-direction: row;justify-content: space-between;">
                             <p>Suas Classes</p>
+                            <a href="{% url 'CreateclassTeacher' %}" style="  
+                                text-decoration: none;
+                                color: #fff;
+                                margin: 0;
+                                margin-right: 5%;
+                                top: 15px;
+                                padding: 0;
+                                align-items: flex-end;
+                                ">
+                                <i class="fa fa fa-plus-square"></i>
+                            </a>
                         </li>
                         {% for classe in classes %}
                             <li class="classe" onclick="window.event(this)" style="cursor:pointer;border-style: ridge;  border: 2px solid rgb(98, 223, 245); border-radius: 8px;display: flex;justify-content: center;">
@@ -113,8 +130,42 @@
                         margin: 0;
                         padding: 0;
                     ">
-                        <li style="font-weight: bold;padding-top: 0.5%;background-color: rgb(25, 175, 38);text-align: center;color: white;font-size: 20px;">
-                            <p>Alunos</p>
+                        <li style="background-color: rgb(25, 175, 38);color: white;padding: 0;margin: 0;">
+                            <div  style="    
+                                width: 100%;  
+                                color: #fff;
+                                margin: 0;
+                                top: 0;
+                                bottom: 0;
+                                display: flex;
+                                flex-direction: row;
+                                ">
+                                <div  style="  
+                                    width: 100%;            
+                                    margin: 0;
+                                    padding: 0;
+                                    align-items: flex-end;
+                                    display: flex;
+                                    justify-content: center;
+                                    ">
+                                    <h2 style="font-weight: bold;">
+                                        Alunos
+                                    </h2>
+                                </div>
+                                <div onclick="document.getElementById('id01').style.display = 'block'" style="  
+                                    text-decoration: none;
+                                    color: #fff;
+                                    margin: 0;
+                                    margin-right: 5%;
+                                    padding: 0;
+                                    align-items: flex-end;
+                                    ">
+                                    <h2>
+                                        <i class="fa fa fa-plus-square"></i>
+                                    </h2>
+                                </div>
+                            </div>      
+                            {% bootstrap_messages %}                    
                         </li>
                     </ul>
                     
@@ -133,6 +184,27 @@
                         </table>
                     {% endfor %}
                 </div>
+            </div>
+            <div id="id01" class="w3-modal">
+                <div class="w3-modal-content">
+                  <div class="w3-container">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <form style="display: flex;flex-direction: column;margin: 0;" action="{% url 'classTeacher' %}" method="POST"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                        Coloque o email do aluno no campo abaixo. Obs: Ele deve ser cadastrar no Locus X primeiro.
+                        </label>
+                        <select name="classe" style="margin-bottom: 2%;width: 70%;margin-left: 2%;" id="username-field" class="login-form-field">
+                            {% for classe in classes %}
+                                <option value={{classe.id}}>{{classe.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="email" id="email"  placeholder="Email" required>
+                        <input class="btn btn-primary" style="width: 20%;margin-left: 2%;margin-bottom: 2%;" type="submit" value="Cadastrar" >
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </body>

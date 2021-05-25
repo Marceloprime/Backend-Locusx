@@ -374,6 +374,21 @@ def ProgramTeacherView(request):
 
 @login_required
 def CreateclassTeacherView(request):
+    if request.POST:
+        try:
+            teacher = Teacher.objects.filter(user=request.user)[0]
+            programName = request.POST['programName']
+            programDescription = request.POST['programDescription']
+            className = request.POST['className'] 
+            classDescription = request.POST['classDescription']
+
+            program = ProgramTeacher.objects.create(teacher=teacher,name=programName,description=programDescription)
+            
+            ClassTeacher.objects.create(teacher=teacher,name=className,description=classDescription,program=program)
+
+            messages.success(request, 'Turma criada com sucesso, volte a página de aluno, para adicionar os estudantes.')
+        except:
+            messages.error(request, 'Erro na criação da Turma')
     return render(request, 'accounts/CreateClassTeacher.html')
 
 @login_required
@@ -381,6 +396,7 @@ def ClassTeacherView(request):
     if request.POST:
         email = request.POST['email']
         class_id = request.POST['classe']
+
         try:
             user = User.objects.filter(email=email)[0]
             try:
@@ -389,10 +405,15 @@ def ClassTeacherView(request):
                 if student == None:
                     messages.error(request, 'Usuário não é estudante na base Locus X')
                 else:
-                    already_exists = ClassTeacher.objects.filter(id=class_id,students=student)[0]
+                    try:
+                        already_exists = ClassTeacher.objects.filter(id=class_id,students=student)[0]
+                    except:
+                        already_exists = None
+
                     if already_exists == None:
                         classe = ClassTeacher.objects.filter(id=class_id)[0]
                         classe.students.add(student)
+                        messages.success(request, 'Usuário cadastrado')
                     else:
                         messages.error(request, 'Usuário já cadastrado')
             except:
@@ -400,7 +421,7 @@ def ClassTeacherView(request):
         except:
             messages.error(request, 'Usuário não cadastrado na base Locus X')
 
-        #messages.error(request, 'Usuário não cadastrado na base Locus X')
+        #messages.error(request, 'Usuário não cadastrado na base Locus X')    
 
     user = request.user
     getTeacher = Teacher.objects.filter(user=user).values_list('id', flat = True)[0]
@@ -410,10 +431,15 @@ def ClassTeacherView(request):
     for classe in classesTeacher:
         classrom = []
         studentsClass = ClassTeacher.objects.filter(id=classe.id).values_list('students',flat=True)
-        for objects in studentsClass:
-            aux = Student.objects.filter(id=objects).values_list('user',flat=True)[0]
-            user = User.objects.filter(id=aux)[0]
-            classrom.append(user)
+        if studentsClass != None:
+            for objects in studentsClass:
+                try:
+                    aux = Student.objects.filter(id=objects).values_list('user',flat=True)[0]
+                    user = User.objects.filter(id=aux)[0]
+                    classrom.append(user)
+                except:
+                    continue
+
         students.append(classrom)
 
     context = {

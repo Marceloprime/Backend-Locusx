@@ -53,6 +53,23 @@
                 </h2>
             </a>  
         </header>
+        <div class="container">
+            {% bootstrap_messages %}                    
+            <form style="display: flex;flex-direction: column;margin: 0;" action="{% url 'CreateclassTeacher' %}" method="POST"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                    <h2>Disciplina:</h2>
+                </label>
+                <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="programName" id="email"  placeholder="Nome" required>
+                <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="programDescription" id="email"  placeholder="Descrição" >
 
+                <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                    <h2>Turma:</h2>
+                </label>
+                <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="className" id="className"  placeholder="Nome da Turma" required>
+                <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="classDescription" id="classDescription"  placeholder="Descrição da Turma" >
+                <input class="btn btn-primary" style="width: 20%;margin-left: 2%;margin-bottom: 2%;" type="submit" value="Criar" >
+            </form>
+        </div>
     </body>
 </html>

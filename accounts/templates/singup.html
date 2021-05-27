@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="{{ lang }}">
@@ -17,6 +18,7 @@
 
         <!--Scripts-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="container">
@@ -25,6 +27,11 @@
                 <h2>Novo Usuário</h2>
             </header>
             <main id="main-holder">
+                <a style="color: rgb(18, 18, 100);" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-twitter">
+                    <h3>
+                        <span class="btn-social-icon fa fa-google"></span> Criar conta com o Google                        
+                    </h3>
+                </a>
                 <form id="login-form" method="post" >
                     {% csrf_token %}
                     <input type="text" name="email" id="username-field" class="login-form-field" placeholder="Email">
@@ -39,7 +46,7 @@
                     <input type="submit" value="Criar" id="login-form-submit">
                 </form>
             </main>
-            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;">Menu inicial</h5></a>
+            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;color:rgb(18, 18, 100) ;">Menu inicial</h5></a>
         </div>
     </body>
 </html>

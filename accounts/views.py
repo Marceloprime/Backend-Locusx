@@ -197,7 +197,6 @@ def home(request):
             'lang': lang
         }
 
-    print(context)
     return render(request, 'home.html',context)
 
 

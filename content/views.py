@@ -6,36 +6,73 @@ from .models import *
 from .forms import *
 
 def ContentView(request):
-    if str(request.method) == 'POST':
-        form = ContentModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Content salvo com sucesso')
-            form = ContentModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar Content')
-    else:
-        form = ContentModelForm()
+    email = request.user
+    user = User.objects.filter(email=email)[0]
+    teacher = Teacher.objects.filter(user=user)[0]
+    if request.POST:
+        name = request.POST['Name']
+        description = request.POST['Description']
+        try:
+            Content.objects.create(title=name,description=description,teacher=teacher)
+            messages.success(request,'Conteúdo criado com sucesso.')
+        except:
+            messages.error(request,'Erro ao criar conteúdo.')
+
+    contents = Content.objects.filter(teacher=teacher)
 
     context = {
-        'form': form
+        'contents': contents
     }
+
     return render(request, 'content/Content.html',context)
-
+    
+@login_required                                        #
 def QuestionView(request):
-    if str(request.method) == 'POST':
-        form = QuestionModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Question salvo com sucesso')
-            form = QuestionModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar Question')
-    else:
-        form = QuestionModelForm()
+    teacher = Teacher.objects.filter(user=request.user)[0]
+    if request.POST:
+        title = request.POST['title']
+        description = request.POST['Description']
+        type_question = request.POST['type_question']
+        letter_A = request.POST['a']
+        letter_B = request.POST['b']
+        letter_C = request.POST['c']
+        letter_D = request.POST['d']
 
+
+    questions = Question.objects.filter(teacher=teacher)
+    data = []
+
+    for question in questions:
+        if question.is_openQuestion:
+            aux = OpenQuestion.objects.filter(question=question.id)[0]
+            dirQuestion = {
+                "title" : question.title,
+                "is_openQuestion" : question.is_openQuestion,
+                "description": question.description,
+                "link_multimedia": question.link_multimedia,
+                "suggestionOfCorrectAnswer": aux.suggestionOfCorrectAnswer
+            }
+            data.append(dirQuestion)
+        else:
+            multipleChoices = []
+            alternatives = Alternative.objects.filter(question=question.id)
+            for alternative in alternatives:
+                aux = {
+                    "letter": alternative.letter,
+                    "description" : alternative.description
+                }
+                multipleChoices.append(aux)
+            dirQuestion = {
+                "title" : question.title,
+                "is_multipleChoiceQuestion" : question.is_multipleChoiceQuestion,
+                "description": question.description,
+                "link_multimedia": question.link_multimedia,
+                "multipleChoices": multipleChoices
+            }
+            data.append(dirQuestion)    
+    print(data)
     context = {
-        'form': form
+        'questions': data
     }
     return render(request, 'content/Question.html',context)
 

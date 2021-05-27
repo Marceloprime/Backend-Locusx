@@ -6,22 +6,168 @@
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
-        <title>question</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Locus x</title>
         {% bootstrap_css %}
     </head>
-    <body>
-        <div class="container">
-            <h1>question</h1>
-            {% bootstrap_messages %}
-            <form action="{% url 'question' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">
-                        Salvar
-                    </button> 
-                {% endbuttons %}
-            </form>
+    <body style="background-color: rgb(220, 234, 247);">
+        <header style="    
+            background-color: rgb(24, 62, 121);
+            width: 100%;
+            height: 60px;
+            color: #fff;
+            margin: 0;
+            padding-left: 10px;
+            padding-top: 12px;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;">
+            <div  style="  
+                width: 100%;            
+                margin: 0;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                display: flex;
+                justify-content: center;
+                ">
+                <h1 style="font-weight: bold;">
+                    Questões
+                </h1>
+            </div>
+            <a href="{% url 'home' %}" style="  
+                text-decoration: none;
+                color: #fff;
+                margin: 0;
+                margin-right: 5%;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                ">
+                <h2>
+                    <i class="fa fa fa-home"></i>
+                </h2>
+            </a>  
+        </header>
+        {% bootstrap_messages %}
+        <div class="row align-items-start">
+            <div class="col" style="margin-top: 0.2%;">
+                <form style="margin-top: 5%;"  action="{% url 'question' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label style="margin-bottom: 2%;width: 70%;margin-left: 2%;">Titulo ou nome do conteúdo. Exemplos: Fração, Conjugação verbal, etc</label>
+                    <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="title" id="title"  placeholder="Titulo" required>
+                    <textarea style="margin-bottom: 2%;width: 70%;margin-left: 2%;"  class="form-control" name="Description" id="Description" rows="3" placeholder="Descrição" required></textarea>
+                    <input type="radio" id="is_openQuestion" name="type_question" value="is_openQuestion">
+                    <label for="is_openQuestion">Discursivas</label><br>
+                    <input type="radio" id="is_multipleChoiceQuestion" name="type_question" value="is_multipleChoiceQuestion">
+                    <label for="is_multipleChoiceQuestion">Múltipla escolha</label><br>
+                    <textarea style="margin-bottom: 2%;width: 70%;margin-left: 2%;"  class="form-control" name="suggestionOfCorrectAnswer" id="suggestionOfCorrectAnswer" rows="3" placeholder="Sugestão de questão correta"></textarea>
+                    
+                    <label>Alternativas:</label><br>
+                    <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="a" id="a"  placeholder="Alternativa A">
+                    <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="b" id="b"  placeholder="Alternativa B">
+                    <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="c" id="c"  placeholder="Alternativa C">
+                    <input style="margin-bottom: 2%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="d" id="d"  placeholder="Alternativa D">
+
+
+                    <input class="btn btn-primary" style="width: 20%;margin-left: 2%;margin-bottom: 2%;" type="submit" value="Criar" >
+                </form>
+            </div>
+            <div class="col" style="margin-top: 0.2%;display: flex;flex-direction: column;">
+                <div style="            
+                    background-color: rgb(31, 91, 182);
+                    width: 100%;
+                    height: 30px;
+                    color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    font: bold;
+                    margin-bottom: 1%;
+                    ">
+                    <h3>Seus Conteúdos</h3>
+                </div>
+                {% for question in questions %}
+                    {% if question.is_openQuestion %}
+                        <div style="width: 95%;margin-left: 2.5% ;border-radius: 3px;border: rgb(20, 19, 19) solid 1.2px; margin-bottom: 1%;">
+                            <div style="width: 100%;display: flex;justify-content: center;">
+                                <p style="
+                                    color: #0f6fc5;
+                                    background-color: transparent;
+                                    font-weight: bold;
+                                    font-size: 20px;
+                                ">{{question.title}}</p>
+                            </div>
+                            <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                                <p>{{question.description}}</p>
+                            </div>
+                            <h4 style="display: flex;justify-content: center;">Resposta</h4>
+                            <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                                <p style="color: green;">{{question.suggestionOfCorrectAnswer}}</p>
+                            </div>
+                            <div style="width: 100%;display: flex;justify-content: center;">
+                                <a style="
+                                    text-decoration: none;
+                                    width: 70%;
+                                    margin-bottom: 2%;
+                                    background-color: #ffb752;
+                                    border-color: #ffb752;
+                                    color: #22405a;
+                                    cursor: pointer;
+                                    display: inline-block;
+                                    font-weight: 400;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+                                " href="{%  url 'task' %}">
+                                    Criar tarefas
+                                </a>
+                            </div>
+
+                        </div>
+                    {% else %}
+                    <div style="width: 95%;margin-left: 2.5% ;border-radius: 3px;border: rgb(20, 19, 19) solid 1.2px; margin-bottom: 1%;">
+                        <div style="width: 100%;display: flex;justify-content: center;">
+                            <p style="
+                                color: #0f6fc5;
+                                background-color: transparent;
+                                font-weight: bold;
+                                font-size: 20px;
+                            ">{{question.title}}</p>
+                        </div>
+                        <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                            <p>{{question.description}}</p>
+                        </div>
+                        <h4 style="display: flex;justify-content: center;">Resposta</h4>
+                        <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;flex-direction: column;">
+                            {% for alternative in question.multipleChoices %}
+                            <p>{{alternative.letter}} - {{alternative.description}}</p>
+                            {% endfor %}
+                        </div>
+                        <div style="width: 100%;display: flex;justify-content: center;">
+                            <a style="
+                                text-decoration: none;
+                                width: 70%;
+                                margin-bottom: 2%;
+                                background-color: #ffb752;
+                                border-color: #ffb752;
+                                color: #22405a;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-weight: 400;
+                                text-align: center;
+                                vertical-align: middle;
+                                transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+                            " href="{%  url 'task' %}">
+                                Criar tarefas
+                            </a>
+                        </div>
+
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </body>
     {% bootstrap_javascript jquery='full' %}

@@ -33,11 +33,21 @@ def QuestionView(request):
         title = request.POST['title']
         description = request.POST['Description']
         type_question = request.POST['type_question']
+        suggestionOfCorrectAnswer = request.POST['suggestionOfCorrectAnswer']
         letter_A = request.POST['a']
         letter_B = request.POST['b']
         letter_C = request.POST['c']
         letter_D = request.POST['d']
 
+        if type_question == 'is_openQuestion':
+            question = Question.objects.create(title=title,description=description,is_openQuestion=True,is_multipleChoiceQuestion=False,teacher=teacher)
+            OpenQuestion.objects.create(question=question,suggestionOfCorrectAnswer=suggestionOfCorrectAnswer)
+        else:
+            question = Question.objects.create(title=title,description=description,is_openQuestion=False,is_multipleChoiceQuestion=True,teacher=teacher)
+            Alternative.objects.create(question=question,letter='A',description=letter_A)
+            Alternative.objects.create(question=question,letter='B',description=letter_B)
+            Alternative.objects.create(question=question,letter='C',description=letter_C)
+            Alternative.objects.create(question=question,letter='D',description=letter_D)
 
     questions = Question.objects.filter(teacher=teacher)
     data = []

@@ -449,18 +449,23 @@ def ClassTeacherView(request):
 
 @login_required
 def CourseTeacherView(request):
-    if str(request.method) == 'POST':
-        form = CourseTeacherModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Curso salvo com sucesso')
-            form = CourseTeacherModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar Curso')
-    else:
-        form = CourseTeacherModelForm()
+    teacher = Teacher.objects.filter(user=request.user)[0]
+
+    if request.POST:
+        title = request.POST['title']
+        description = request.POST['description']
+
+        type_classe = request.POST['type_classe']
+        classe = ClassTeacher.objects.filter(pk=type_classe)[0]
+
+        course = CourseTeacher.objects.create(teacher=teacher,name=title,description=description)
+        course.classes.add(classe)
+
+    classes = ClassTeacher.objects.filter(teacher=teacher).order_by('-id')
+    courses = CourseTeacher.objects.filter(teacher=teacher).order_by('-id')
 
     context = {
-        'form': form
+        'classes': classes,
+        'courses': courses
     }
     return render(request, 'accounts/CourseTeacher.html',context)

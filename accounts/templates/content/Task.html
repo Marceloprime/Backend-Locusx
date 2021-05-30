@@ -9,62 +9,134 @@
         <title>Tarefas</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="StylesSheets"  href="{% static 'css/location.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         {% bootstrap_css %}
     </head>
     <body>
         <header style="    
-        background-color: rgb(24, 62, 121);
-        width: 100%;
-        height: 50px;
-        color: #fff;
-        margin: 0;
-        padding-left: 10px;
-        padding-top: 12px;
-        top: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;">
-        <a href="{% url 'home' %}" style="  
-            text-decoration: none;
+            background-color: rgb(24, 62, 121);
+            width: 100%;
+            height: 60px;
             color: #fff;
             margin: 0;
-            top: 25px;
-            padding: 0;
-            align-items: flex-end;
-            ">
-            <p>Home</p>
-        </a>  
-        </header>
-        <div class="container">
-            <h1>Tarefa</h1>
-            {% bootstrap_messages %}
-            <div class="row align-items-start">
-                <div class="col">
-                    <form action="{% url 'task' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary">
-                                Salvar
-                            </button> 
-                        {% endbuttons %}
-                    </form>
-                </div>
-                <div class="col-auto" style="font-weight: bold;font-size: 30px;">
-                    <div style="margin-top: 1475%;font-weight: bold;cursor: pointer;" onclick="document.getElementById('id01').style.display='block'">
-                        <i class="bi-plus"></i>
-                    </div>
-                </div>
+            padding-left: 10px;
+            padding-top: 12px;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;">
+            <div  style="  
+                width: 100%;            
+                margin: 0;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                display: flex;
+                justify-content: center;
+                ">
+                <h1 style="font-weight: bold;">
+                    Tarefa
+                </h1>
             </div>
-            <div id="id01" class="w3-modal">
-                <div class="w3-modal-content">
-                  <div class="w3-container">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'question' %}" title="Questões"></iframe>
-                  </div>
+            <a href="{% url 'home' %}" style="  
+                text-decoration: none;
+                color: #fff;
+                margin: 0;
+                margin-right: 5%;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                ">
+                <h2>
+                    <i class="fa fa fa-home"></i>
+                </h2>
+            </a>  
+        </header>
+        {% bootstrap_messages %}
+        <div class="row align-items-start">
+            <div class="col">
+                <div style="width: 100%;display: flex;justify-content: center;margin-top: 2%;">
+                    <h2 style="
+                        color: #0f6fc5;
+                        background-color: transparent;
+                        font-weight: bold;
+                        font-size: 20px;
+                    ">Criar Tarefa</h2>
                 </div>
-              </div>
+                <form action="{% url 'task' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input style="margin-bottom: 2%;width: 80%;margin-left: 10%;" class="form-control"  type="text" name="title" id="title"  placeholder="Titulo" required>
+                    <textarea style="margin-bottom: 2%;width: 80%;margin-left: 10%;"  class="form-control" name="description" id="description" rows="3" placeholder="Descrição"></textarea>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_location" id="type_location">
+                        {% for location in locations %}
+                            <option value={{location.id}}>{{location.name}} Lat:{{location.latitude}}  Lon:{{location.longitude}} </option>
+                        {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Você pode associar até 3 questões por localização</label>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Questão 1:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_question" id="type_question" required>
+                        <option value=""></option>
+                        {% for question in questions %}
+                            <option value={{question.id}}>{{question.title}}</option>
+                        {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Questão 2:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_question2" id="type_question2" >
+                        <option value=""></option>
+                        {% for question in questions %}
+                            <option value={{question.id}}>{{question.title}}</option>
+                        {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Questão 3:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_question3" id="type_question3" >
+                        <option value=""></option>
+                        {% for question in questions %}
+                            <option value={{question.id}}>{{question.title}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    <input class="btn btn-primary" style="width: 20%;margin-left: 40%;margin-bottom: 2%;" type="submit" value="Criar" >
+                </form>
+            </div>
+            <div class="col" style="margin-top: 0.2%;display: flex;flex-direction: column;">
+                {% for task in tasks %}
+                    <div style="width: 95%;margin-left: 2.5% ;border-radius: 3px;border: rgb(20, 19, 19) solid 1.2px; margin-bottom: 1%;">
+                        <div style="width: 100%;display: flex;justify-content: center;">
+                            <p style="
+                                color: #0f6fc5;
+                                background-color: transparent;
+                                font-weight: bold;
+                                font-size: 20px;
+                            ">{{task.title}}</p>
+                        </div>
+                        <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                            <p>{{task.location}}</p>
+                        </div>
+                        <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                            <p>{{task.description}}</p>
+                        </div>
+                        <div style="width: 100%;display: flex;justify-content: center;">
+                            <a style="
+                                text-decoration: none;
+                                width: 70%;
+                                margin-bottom: 2%;
+                                background-color: #ffb752;
+                                border-color: #ffb752;
+                                color: #22405a;
+                                cursor: pointer;
+                                display: inline-block;
+                                font-weight: 400;
+                                text-align: center;
+                                vertical-align: middle;
+                                transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+                            " href="{%  url 'activityTeacher' %}">
+                                Criar Atividades
+                            </a>
+                        </div>
+
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </body>

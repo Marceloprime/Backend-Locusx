@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 
+@login_required                                        #
 def ContentView(request):
     email = request.user
     user = User.objects.filter(email=email)[0]
@@ -18,7 +19,7 @@ def ContentView(request):
         except:
             messages.error(request,'Erro ao criar conteúdo.')
 
-    contents = Content.objects.filter(teacher=teacher)
+    contents = Content.objects.filter(teacher=teacher).order_by('-id')
 
     context = {
         'contents': contents
@@ -80,12 +81,13 @@ def QuestionView(request):
                 "multipleChoices": multipleChoices
             }
             data.append(dirQuestion)    
-    print(data)
+    #print(data)
     context = {
         'questions': data
     }
     return render(request, 'content/Question.html',context)
 
+@login_required                                        #
 def OpenQuestionView(request):
     if str(request.method) == 'POST':
         form = OpenQuestionModelForm(request.POST)
@@ -103,6 +105,7 @@ def OpenQuestionView(request):
     }
     return render(request, 'content/OpenQuestion.html',context)
 
+@login_required                                        #
 def AlternativeView(request):
     if str(request.method) == 'POST':
         form = AlternativeModelForm(request.POST)
@@ -120,6 +123,7 @@ def AlternativeView(request):
     }
     return render(request, 'content/Alternative.html',context)
     
+@login_required                                        #
 def MultipleChoiceQuestionView(request):
     if str(request.method) == 'POST':
         form = MultipleChoiceQuestionModelForm(request.POST)
@@ -137,38 +141,116 @@ def MultipleChoiceQuestionView(request):
     }
     return render(request, 'content/MultipleChoiceQuestion.html',context)
 
+@login_required                                        #
 def TaskView(request):
-    if str(request.method) == 'POST':
-        form = TaskModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Task salvo com sucesso')
-            form = TaskModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar Task')
-    else:
-        form = TaskModelForm()
+    teacher = Teacher.objects.filter(user=request.user)[0]
+    if request.POST:
+        title = request.POST['title']
+        description = request.POST['description']
+        type_question = request.POST['type_question']
+        type_question2 = request.POST['type_question2']
+        type_question3 = request.POST['type_question3']
+        type_location = request.POST['type_location']
+        location = Location.objects.filter(pk=type_location)[0]
+        task =  Task.objects.create(title=title,description=description,location=location,teacher=teacher)
+        if type_question != '':
+            question = Question.objects.filter(pk=type_question)[0]
+            task.questions.add(question)
+        if type_question2 != '':
+            question = Question.objects.filter(pk=type_question2)[0]
+            task.questions.add(question)
+        if type_question3 != '':
+            question = Question.objects.filter(pk=type_question3)[0]
+            task.questions.add(question)        
+
+
+    locations = Location.objects.filter(teacher=teacher)
+    questions = Question.objects.filter(teacher=teacher)
+    tasks = Task.objects.filter(teacher=teacher).order_by('-id')
+    print(tasks[0].questions.all())
 
     context = {
-        'form': form
+        'teacher': teacher,
+        'locations': locations,
+        'questions': questions,
+        'tasks': tasks
     }
     return render(request, 'content/Task.html',context)
     
 def ActivityTeacherView(request):
-    if str(request.method) == 'POST':
-        form = ActivityTeacherModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'ActivityTeacher salvo com sucesso')
-            form = ActivityTeacherModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar ActivityTeacher')
-    else:
-        form = ActivityTeacherModelForm()
+    teacher = Teacher.objects.filter(user=request.user)[0]
+    if request.POST:
+        title = request.POST['title']
+        description = request.POST['description']
+
+        type_course = request.POST['type_course']
+        course = CourseTeacher.objects.filter(pk=type_course)[0]
+
+        type_classe = request.POST['type_classe']
+        classe = ClassTeacher.objects.filter(pk=type_classe)[0]
+
+        type_content = request.POST['type_content']
+        content = Content.objects.filter(pk=type_content)[0]
+
+        type_task = request.POST['type_task']
+        type_task2 = request.POST['type_task2']
+        type_task3 = request.POST['type_task3']
+        type_task4 = request.POST['type_task4']
+        type_task5 = request.POST['type_task5']
+        type_task6 = request.POST['type_task6']
+        type_task7 = request.POST['type_task7']
+        type_task8 = request.POST['type_task8']
+        type_task9 = request.POST['type_task9']
+        type_task10 = request.POST['type_task10']
+
+        activity = ActivityTeacher.objects.create(title=title,description=description,course=course,class_id=classe,content=content,teacher=teacher)
+
+        if type_task != '':
+            task = Task.objects.filter(pk=type_task)[0]
+            activity.tasks.add(task)
+        if type_task2 != '':
+            task = Task.objects.filter(pk=type_task2)[0]
+            activity.tasks.add(task)
+        if type_task3 != '':
+            task = Task.objects.filter(pk=type_task3)[0]
+            activity.tasks.add(task)
+        if type_task4 != '':
+            task = Task.objects.filter(pk=type_task4)[0]
+            activity.tasks.add(task)                                    
+        if type_task5 != '':
+            task = Task.objects.filter(pk=type_task5)[0]
+            activity.tasks.add(task)
+        if type_task6 != '':
+            task = Task.objects.filter(pk=type_task6)[0]
+            activity.tasks.add(task)
+        if type_task7 != '':
+            task = Task.objects.filter(pk=type_task7)[0]
+            activity.tasks.add(task)
+        if type_task8 != '':
+            task = Task.objects.filter(pk=type_task8)[0]
+            activity.tasks.add(task)
+        if type_task9 != '':
+            task = Task.objects.filter(pk=type_task9)[0]
+            activity.tasks.add(task)
+        if type_task10 != '':
+            task = Task.objects.filter(pk=type_task10)[0]
+            activity.tasks.add(task)
+
+    contents =  Content.objects.filter(teacher=teacher).order_by('-id')
+    course = CourseTeacher.objects.filter(teacher=teacher).order_by('-id')
+    classes = ClassTeacher.objects.filter(teacher=teacher).order_by('-id')
+    tasks = Task.objects.filter(teacher=teacher).order_by('-id')
+    activities = ActivityTeacher.objects.filter(teacher=teacher).order_by('-id')
 
     context = {
-        'form': form
+        'teacher': teacher,
+        'tasks': tasks,
+        'contents': contents,
+        'classes': classes,
+        'courses': course,
+        'activities': activities
     }
+
     return render(request, 'content/ActivityTeacher.html',context)
 
 def ActivityView(request):

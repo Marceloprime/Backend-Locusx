@@ -6,113 +6,202 @@
     <head>
         <meta charset="UFT-8" >
         <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}">
-        <link rel="StylesSheets"  href="{% static 'css/location.css' %}">
+        <title>Atividades</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Atividades</title>
         {% bootstrap_css %}
     </head>
     <body>
         <header style="    
-              background-color: rgb(24, 62, 121);
-              width: 100%;
-              height: 60px;
-              color: #fff;
-              margin: 0;
-              padding-left: 10px;
-              padding-top: 12px;
-              top: 0;
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;">
-              <h2 style="                
-                  margin: 0;
-                  top: 25px;
-                  padding: 0;
-                  font-weight: bold;
-                  align-items: flex-end;">
+            background-color: rgb(24, 62, 121);
+            width: 100%;
+            height: 60px;
+            color: #fff;
+            margin: 0;
+            padding-left: 10px;
+            padding-top: 12px;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;">
+            <div  style="  
+                width: 100%;            
+                margin: 0;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                display: flex;
+                justify-content: center;
+                ">
+                <h1 style="font-weight: bold;">
                   Atividades
-              </h2>
-              <a href="{% url 'home' %}" style="  
-                  text-decoration: none;
-                  color: #fff;
-                  margin: 0;
-                  margin-right: 5%;
-                  top: 25px;
-                  padding: 0;
-                  align-items: flex-end;
-                  ">
-                  <h2>
-                      <i class="fa fa fa-home"></i>
-                  </h2>
-              </a>  
+                </h1>
+            </div>
+            <a href="{% url 'home' %}" style="  
+                text-decoration: none;
+                color: #fff;
+                margin: 0;
+                margin-right: 5%;
+                top: 25px;
+                padding: 0;
+                align-items: flex-end;
+                ">
+                <h2>
+                    <i class="fa fa fa-home"></i>
+                </h2>
+            </a>  
         </header>
-        <div class="container">
-            <h1>Atividade</h1>
-            {% bootstrap_messages %}
-            <div class="row align-items-start">
-                <div class="col">
-                    <form action="{% url 'activityTeacher' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary">
-                                Salvar
-                            </button> 
-                        {% endbuttons %}
-                    </form>
+        {% bootstrap_messages %}
+        <div class="row align-items-start">
+            <div class="col">
+                <div style="width: 100%;display: flex;justify-content: center;margin-top: 2%;">
+                    <h2 style="
+                        color: #0f6fc5;
+                        background-color: transparent;
+                        font-weight: bold;
+                        font-size: 20px;
+                    ">Criar Atividades</h2>
                 </div>
-                <div class="col-auto" style="font-weight: bold;font-size: 30px;">
-                    <div style="margin-top: 1275%;font-weight: bold;cursor: pointer;" onclick="document.getElementById('id01').style.display='block'">
-                        <i class="bi-plus"></i>
-                    </div>
-                    <div style="font-weight: bold;cursor: pointer;margin-top: 120%;" onclick="document.getElementById('id02').style.display='block'">
-                        <i class="bi-plus"></i>
-                    </div>
-                    <div style="font-weight: bold;cursor: pointer;margin-top: 120%;" onclick="document.getElementById('id03').style.display='block'">
-                        <i class="bi-plus"></i>
-                    </div>
-                    <div style="font-weight: bold;cursor: pointer;margin-top: 440%;" onclick="document.getElementById('id04').style.display='block'")">
-                        <i class="bi-plus"></i>
-                    </div>
-                </div>
+                <form action="{% url 'activityTeacher' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input style="margin-bottom: 2%;width: 80%;margin-left: 10%;" class="form-control"  type="text" name="title" id="title"  placeholder="Titulo" required>
+                    <textarea style="margin-bottom: 2%;width: 80%;margin-left: 10%;"  class="form-control" name="description" id="description" rows="3" placeholder="Descrição"></textarea>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Associe um curso ou disciplina abaixo:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_course" id="type_course" required>
+                      <option value=""></option>
+                      {% for course in courses %}
+                          <option value={{course.id}}>{{course.name}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Associe uma Turma abaixo:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_classe" id="type_classe" required>
+                      <option value=""></option>
+                      {% for classe in classes %}
+                          <option value={{classe.id}}>{{classe.name}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Associe um conteúdo:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_content" id="type_content" required>
+                      <option value=""></option>
+                      {% for content in contents %}
+                          <option value={{content.id}}>{{content.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Você pode associar até 10 tarefas por atividade:</label>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task" id="type_task" required>
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task2" id="type_task2" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task3" id="type_task3" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task4" id="type_task4" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task5" id="type_task5" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task6" id="type_task6" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task7" id="type_task7" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task8" id="type_task8" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task9" id="type_task9" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
+                    <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task10" id="type_task10" >
+                      <option value=""></option>
+                      {% for task in tasks %}
+                          <option value={{task.id}}>{{task.title}}</option>
+                      {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    <input class="btn btn-primary" style="width: 20%;margin-left: 40%;margin-bottom: 2%;" type="submit" value="Criar" >
+                </form>
             </div>
-            <div id="id01" class="w3-modal">
-                <div class="w3-modal-content">
-                  <div class="w3-container">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'content' %}" title="Conteúdos"></iframe>
-                  </div>
+            <div class="col" style="margin-top: 0.2%;display: flex;flex-direction: column;">
+              {% for activie in activities %}
+                <div style="width: 95%;margin-left: 2.5% ;border-radius: 3px;border: rgb(20, 19, 19) solid 1.2px; margin-bottom: 1%;">
+                    <div style="width: 100%;display: flex;justify-content: center;">
+                        <p style="
+                            color: #0f6fc5;
+                            background-color: transparent;
+                            font-weight: bold;
+                            font-size: 20px;
+                        ">{{activie.title}}</p>
+                    </div>
+                    <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                        <p>{{task.location}}</p>
+                    </div>
+                    <div style="width: 95%;margin-left: 2.5%;display: flex;justify-content: center;text-align: center;">
+                        <p>{{activie.description}}</p>
+                    </div>
+                    <div style="width: 100%;display: flex;justify-content: center;">
+                        <a style="
+                            text-decoration: none;
+                            width: 70%;
+                            margin-bottom: 2%;
+                            background-color: #ffb752;
+                            border-color: #ffb752;
+                            color: #22405a;
+                            cursor: pointer;
+                            display: inline-block;
+                            font-weight: 400;
+                            text-align: center;
+                            vertical-align: middle;
+                            transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+                        " href="{%  url 'answerTeacher' %}">
+                            Gerenciar atividades
+                        </a>
+                    </div>
+
                 </div>
-              </div>
-            </div>
-            <div id="id02" class="w3-modal">
-                <div class="w3-modal-content">
-                  <div class="w3-container">
-                    <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'courseTeacher' %}" title="Disciplinas"></iframe>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="id03" class="w3-modal">
-                <div class="w3-modal-content">
-                  <div class="w3-container">
-                    <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'classTeacher' %}" title="Classe"></iframe>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="id04" class="w3-modal">
-                <div class="w3-modal-content">
-                  <div class="w3-container">
-                    <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                    <iframe style="width: 100%;margin-top: 4.5%;height: 700px;" src="{% url 'task' %}" title="Tarefa"></iframe>
-                  </div>
-                </div>
-              </div>
+            {% endfor %}
             </div>
         </div>
     </body>

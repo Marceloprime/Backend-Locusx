@@ -125,7 +125,7 @@ class ActivityTeacher(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    taks = models.ManyToManyField(Task, verbose_name="taks")
+    tasks = models.ManyToManyField(Task, verbose_name="tasks")
     belongs_to_an_institution = models.BooleanField(default=False)
 
     def __str__(self):

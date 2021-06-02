@@ -322,20 +322,58 @@ def AnswerView(request):
     return render(request, 'content/Answer.html',context)
 
 def AnswerTeacherView(request):
-    if str(request.method) == 'POST':
-        form = AnswerTeacherModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'AnswerTeacher salvo com sucesso')
-            form = AnswerTeacherModelForm()
-        else:
-            messages.error(request, 'Erro ao salvar AnswerTeacher')
-    else:
-        form = AnswerTeacherModelForm()
+    teacher = Teacher.objects.filter(user=request.user)[0]
+    data = []
+    activities = ActivityTeacher.objects.filter(teacher=teacher).order_by('-id')
 
+    for activity in activities:
+        detail_students = []
+        detail_questions = []
+        detail_answer = []
+
+        classe = ClassTeacher.objects.filter(pk=activity.class_id_id)[0]
+        students = classe.students.all()
+
+        for student in students:
+            user = User.objects.filter(id=student.user_id)[0]
+        
+            getInfor = {
+                'name' : user.first_name + ' ' + user.last_name,
+                'email': user.email
+            }
+            detail_students.append(getInfor)
+
+        tasks = activity.tasks.all()
+        for task in tasks:
+            questions = task.questions.all()
+            aux = []
+            for question in questions:
+                getInfor = {
+                    'title' : question.title,
+                    'email': question.description,
+                    'is_openQuestion': question.is_openQuestion,
+                    'is_multipleChoiceQuestion': question.is_multipleChoiceQuestion
+                }
+                aux.append(getInfor)  
+            detail_questions.append(aux)          
+
+
+        realizations = ActivityRealizationTeacher.objects.filter(activity=activity.id)  
+        print(realizations)  
+
+        aux = {
+            'title' : activity.title,
+            'classeName' : classe.name,
+            'students' : detail_students,
+            'questions': detail_questions,
+        }
+
+        data.append(aux)
     context = {
-        'form': form
+        'activities': activities,
+        'data': data
     }
+    #print(context)
     return render(request, 'content/AnswerTeacher.html',context)
     
 def AnswerMultipleChoiceView(request):

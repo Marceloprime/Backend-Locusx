@@ -214,6 +214,7 @@ class Answer(models.Model):
         on_delete=models.CASCADE,
         related_name="Answer"
     )
+
     activityRealization = models.ForeignKey(
         ActivityRealization,
         on_delete=models.CASCADE,
@@ -227,6 +228,7 @@ class AnswerTeacher(models.Model):
         on_delete=models.CASCADE,
         related_name="AnswerTeacher"
     )
+
     activityRealization = models.ForeignKey(
         ActivityRealizationTeacher,
         on_delete=models.CASCADE,
@@ -251,6 +253,7 @@ class AnswerMultipleChoice(models.Model):
         related_name="AnswerMultipleChoice"
     )
 
+
 class AnswerTeacherMultipleChoice(models.Model):
     question = models.ForeignKey(
         Question,
@@ -268,3 +271,4 @@ class AnswerTeacherMultipleChoice(models.Model):
         on_delete=models.CASCADE,
         related_name="AnswerTeacherMultipleChoice"
     )
+

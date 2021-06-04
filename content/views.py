@@ -324,55 +324,58 @@ def AnswerView(request):
 def AnswerTeacherView(request):
     teacher = Teacher.objects.filter(user=request.user)[0]
     data = []
+    activity_data = []
     activities = ActivityTeacher.objects.filter(teacher=teacher).order_by('-id')
 
     for activity in activities:
-        detail_students = []
-        detail_questions = []
-        detail_answer = []
-
-        classe = ClassTeacher.objects.filter(pk=activity.class_id_id)[0]
-        students = classe.students.all()
-
-        for student in students:
-            user = User.objects.filter(id=student.user_id)[0]
-        
-            getInfor = {
-                'name' : user.first_name + ' ' + user.last_name,
-                'email': user.email
-            }
-            detail_students.append(getInfor)
-
-        tasks = activity.tasks.all()
-        for task in tasks:
-            questions = task.questions.all()
-            aux = []
-            for question in questions:
-                getInfor = {
-                    'title' : question.title,
-                    'email': question.description,
-                    'is_openQuestion': question.is_openQuestion,
-                    'is_multipleChoiceQuestion': question.is_multipleChoiceQuestion
-                }
-                aux.append(getInfor)  
-            detail_questions.append(aux)          
-
-
+        activity_data = []
         realizations = ActivityRealizationTeacher.objects.filter(activity=activity.id)  
-        print(realizations)  
+        for actRealization in realizations:
+            student = actRealization.student
+            activity = ActivityTeacher.objects.filter(pk=actRealization.activity_id)[0]
+            tasks = activity.tasks.all()
+            print('///////////////////////////////\n')
+            print(tasks)
+            print('///////////////////////////////\n')
+            for task in tasks:
+                questions = task.questions.all()
+                for question in questions:
+                    if question.is_openQuestion:
+ 
+                        answer = AnswerTeacher.objects.filter(question=question.id,activityRealization=actRealization.id)
+                        try: 
+                            answer_aux = answer[0].answer
+                        except:
+                            answer_aux = ''
+                        aux = {
+                            'student' : student,
+                            'task' : task,
+                            'question' : question,
+                            'answer': answer_aux,
+                            'activity': activity
+                        }
+                        activity_data.append(aux)
+                    if question.is_multipleChoiceQuestion:
+                        answer = AnswerTeacherMultipleChoice.objects.filter(question=question.id,activityRealization=actRealization.id)[0]
+                        print("\n\n\n\n")
+                        print(answer.alternative)
+                        print("\n\n\n\n")
+                        aux = {
+                            'student' : student,
+                            'task' : task,
+                            'question' : question,
+                            'answer': answer.alternative,
+                            'activity': activity
+                        }
+                        activity_data.append(aux)
+        data.append(activity_data)
 
-        aux = {
-            'title' : activity.title,
-            'classeName' : classe.name,
-            'students' : detail_students,
-            'questions': detail_questions,
-        }
-
-        data.append(aux)
+    print(data)
     context = {
-        'activities': activities,
-        'data': data
+        'data': data,
+        'activities': activities
     }
+    #print("\n\n\n\n\n\n\n\n\n\n")
     #print(context)
     return render(request, 'content/AnswerTeacher.html',context)
     

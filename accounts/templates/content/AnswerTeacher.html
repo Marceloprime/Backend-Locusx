@@ -12,7 +12,48 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         {% bootstrap_css %}
     </head>
-    <body>
+    <body onload="init()" style="background-color: rgb(220, 234, 247);">
+        <script>
+            function init(){
+                let lis = document.getElementsByClassName('classe')
+                let tables = document.getElementsByClassName('idtable')
+                let count = 0
+                let elem 
+                let elem2
+                for(li in lis){
+                    elem = document.getElementsByClassName('classe')[li]
+                    elem2 = document.getElementsByClassName('idtable')[count]
+                    elem.setAttribute('id',count.toString());
+                    elem2.setAttribute('id','t'+count.toString());
+                    count += 1
+                }
+
+                window.count = count
+            }
+
+
+            window.event = function event(event){
+                let elem = document.getElementById('t'+event.id).style.display
+                let tables = document.getElementsByClassName('table').length
+             
+                if(elem === 'block'){//hidden 
+
+                    for(let i=0;i<tables;i++){
+                        document.getElementById('t'+i.toString()).style.display = 'none'
+
+                    }
+                    document.getElementById('t'+event.id).style.display = 'none'
+                }
+                else{ //show
+  
+                    for(let i=0;i<tables;i++){
+                        document.getElementById('t'+i.toString()).style.display = 'none'
+                    }
+                    document.getElementById('t'+event.id).style.display = 'block'
+                }
+            }
+
+        </script>
         <header style="    
             background-color: rgb(24, 62, 121);
             width: 100%;
@@ -54,27 +95,36 @@
         </header>
         {% bootstrap_messages %}
         <div class="row align-items-start">
-            <div class="col">
-                <ul>
+            <div class="col-sm-2" style="margin-right: 1%;padding-bottom: 30%;">
+                <ul class="list-group">
                     {% for activity in activities %}
-                        <li>
-                            {{activity.title}}
+                        <li class="classe" class="list-group-item list-group-item-info" onclick="window.event(this)" style="cursor:pointer;border-style: ridge;  border: 2px solid rgb(31, 159, 182); border-radius: 8px;display: flex;justify-content: center;background-color: rgb(151, 248, 216);">
+                            <p style="margin-top: 2.5%;margin-bottom: 2.5%;">{{activity.title}}</p>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="col">
-                <ul>
-                    {% for info in  data%}
-                        {{info.title}}
-                        {{info.classeName}}
-                        {% for student in info.students%}
-                            <li>
-                                {{student.email}}
-                            </li>
+                {% for infos in data %}
+                <table class="table table-success table-striped idtable" style="width:100%;display: none;">
+                    <tr style="width:100%;">
+                        <th>Estudante</th>
+                        <th>Atividade</th>
+                        <th>Tarefa</th>
+                        <th>Questão</th>
+                        <th>Resposta</th>
+                    </tr>
+                        {% for info in infos %}
+                            <tr>
+                                <td>{{info.student}}</td>
+                                <td>{{info.activity}}</td>
+                                <td>{{info.task}}</td>
+                                <td>{{info.question}}</td>
+                                <td>{{info.answer}}</td>
+                            </tr>
                         {% endfor %}
-                    {% endfor %}
-                </ul>
+                </table>
+                {% endfor %}
             </div>
         </div>
     </body>

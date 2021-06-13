@@ -154,6 +154,73 @@ class ActivityTeacherViewSet(viewsets.ModelViewSet):
   serializer_class = ActivityTeacherSerializers
   queryset = ActivityTeacher.objects.all()
 
+  @action(methods=['get'],detail=False)
+  def get_student_activity(self,request):
+    data = []
+    dataAux = []
+    if request.user.is_student:
+      getUser = request.user
+      getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
+      classes = ClassTeacher.objects.filter(students=getStudent)
+      for class_ in classes:
+        activities = ActivityTeacher.objects.filter(class_id=class_.id)
+        for activity in activities:#Busca em cada atividade
+          tasks = activity.tasks.all()         
+          for task in tasks:
+            if task.status == False:
+              continue
+
+            questions = Task.objects.get(id=task.id).questions.all()
+            questionData = []
+            for question in questions:
+
+              multipleChoiceQuestions = Alternative.objects.filter(question=question.id)
+              alternatives = []
+              for multipleChoiceQuestion in multipleChoiceQuestions:
+                collect = {
+                  "id": str(multipleChoiceQuestion.id),
+                  "letter": str(multipleChoiceQuestion.letter),
+                  "description":str(multipleChoiceQuestion.description),
+                }
+                alternatives.append(collect)
+
+              aux = {
+                "id": str(question.id),
+                "title": str(question.title),
+                "description": str(question.description),
+                "is_openQuestion": str(question.is_openQuestion),
+                "is_multipleChoiceQuestion": str(question.is_multipleChoiceQuestion),
+                "link_multimedia": str(question.link_multimedia),
+                "alternatives": alternatives
+              }
+
+              questionData.append(aux)
+            aux = {
+              "title" : str(task.title),
+              "description" : str(task.description),
+              "questions" : questionData,
+              "location":str({
+                "id": str(task.location.id),
+                "name": str(task.location.name),
+                "description": str(task.location.description),
+                "latitude": str(task.location.latitude),
+                "longitude": str(task.location.longitude),
+              })
+            }
+            
+            dataAux.append(aux)
+
+          print(dataAux)  
+          print("\n\n\n") 
+          data.append({
+            "name" : activity.title,
+            "class" : class_.name,
+            "tasks": str(dataAux)
+          })
+  
+    #print(data)
+    return Response({"data": data})
+
 class ActivityViewSet(viewsets.ModelViewSet):
   #permission_classes = [permissions.IsAuthenticated]
   serializer_class = ActivitySerializers

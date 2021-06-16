@@ -213,6 +213,7 @@ class ActivityTeacherViewSet(viewsets.ModelViewSet):
           print(dataAux)  
           print("\n\n\n") 
           data.append({
+            "id": activity.id,
             "name" : activity.title,
             "class" : class_.name,
             "tasks": str(dataAux)

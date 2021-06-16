@@ -387,9 +387,24 @@ class ClassTeacherViewset(viewsets.ModelViewSet):
 
     
     for classe in classes:
-    
+      name = ''
+      listCourse = []
+      try:
+        user = User.objects.filter(email=classe.teacher)[0]
+        name = user.first_name + ' ' + user.last_name
+      except:
+        name = ''
+
+      try:
+        courses = CourseTeacher.objects.filter(classes=classe.id) 
+        for course in courses:
+          listCourse.append(str(course.name))
+      except: 
+        listCourse = ''
       DataJson = {
         "id" : classe.id,
+        "teacher": name,
+        "courses": listCourse,
         "name" : str(classe),
         "description" : str(classe.description),
         "program" : str(classe.program),

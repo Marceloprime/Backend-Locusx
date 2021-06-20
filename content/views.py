@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponse
 from .models import *
 from .forms import *
 
@@ -176,7 +177,8 @@ def TaskView(request):
         'tasks': tasks
     }
     return render(request, 'content/Task.html',context)
-    
+
+@login_required      
 def ActivityTeacherView(request):
     teacher = Teacher.objects.filter(user=request.user)[0]
     if request.POST:
@@ -253,6 +255,7 @@ def ActivityTeacherView(request):
 
     return render(request, 'content/ActivityTeacher.html',context)
 
+@login_required  
 def ActivityView(request):
     if str(request.method) == 'POST':
         form = ActivityModelForm(request.POST)
@@ -269,7 +272,8 @@ def ActivityView(request):
         'form': form
     }
     return render(request, 'content/Activity.html',context)
-    
+
+@login_required      
 def ActivityRealizationView(request):
     if str(request.method) == 'POST':
         form = ActivityRealizationModelForm(request.POST)
@@ -287,6 +291,7 @@ def ActivityRealizationView(request):
     }
     return render(request, 'content/ActivityRealization.html',context)
 
+@login_required  
 def ActivityRealizationTeacherView(request):
     if str(request.method) == 'POST':
         form = ActivityRealizationTeacherModelForm(request.POST)
@@ -303,7 +308,8 @@ def ActivityRealizationTeacherView(request):
         'form': form
     }
     return render(request, 'content/ActivityRealizationTeacher.html',context)
-    
+
+@login_required      
 def AnswerView(request):
     if str(request.method) == 'POST':
         form = AnswerModelForm(request.POST)
@@ -321,7 +327,9 @@ def AnswerView(request):
     }
     return render(request, 'content/Answer.html',context)
 
+@login_required  
 def AnswerTeacherView(request):
+
     teacher = Teacher.objects.filter(user=request.user)[0]
     data = []
     activity_data = []
@@ -375,10 +383,12 @@ def AnswerTeacherView(request):
         'data': data,
         'activities': activities
     }
+
     #print("\n\n\n\n\n\n\n\n\n\n")
     #print(context)
     return render(request, 'content/AnswerTeacher.html',context)
-    
+
+@login_required      
 def AnswerMultipleChoiceView(request):
     if str(request.method) == 'POST':
         form = AnswerMultipleChoiceModelForm(request.POST)
@@ -396,6 +406,7 @@ def AnswerMultipleChoiceView(request):
     }
     return render(request, 'content/AnswerMultipleChoice.html',context)
 
+@login_required  
 def AnswerTeacherMultipleChoiceView(request):
     if str(request.method) == 'POST':
         form = AnswerTeacherMultipleChoiceModelForm(request.POST)

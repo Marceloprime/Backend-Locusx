@@ -235,7 +235,7 @@ class ActivityRealizationViewSet(viewsets.ModelViewSet):
 class ActivityRealizationTeacherViewSet(viewsets.ModelViewSet):
   #permission_classes = [permissions.IsAuthenticated]
   serializer_class = ActivityRealizationTeacherSerializers
-  queryset = ActivityRealizationTeacher.objects.none()
+  queryset = ActivityRealizationTeacher.objects.all()
 
   @action(methods=['get'],detail=False)
   def get_ActivityRealizationTeacher(self, request):

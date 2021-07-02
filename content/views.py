@@ -364,18 +364,28 @@ def AnswerTeacherView(request):
                         }
                         activity_data.append(aux)
                     if question.is_multipleChoiceQuestion:
-                        answer = AnswerTeacherMultipleChoice.objects.filter(question=question.id,activityRealization=actRealization.id)[0]
-                        print("\n\n\n\n")
-                        print(answer.alternative)
-                        print("\n\n\n\n")
-                        aux = {
-                            'student' : student,
-                            'task' : task,
-                            'question' : question,
-                            'answer': answer.alternative,
-                            'activity': activity
-                        }
-                        activity_data.append(aux)
+                    	try:
+		                answer = AnswerTeacherMultipleChoice.objects.filter(question=question.id,activityRealization=actRealization.id)[0]
+		                print("\n\n\n\n")
+		                print(answer.alternative)
+		                print("\n\n\n\n")
+		                aux = {
+		                    'student' : student,
+		                    'task' : task,
+		                    'question' : question,
+		                    'answer': answer.alternative,
+		                    'activity': activity
+		                }
+		                activity_data.append(aux)
+		        except:
+		       	aux = {
+		                    'student' : student,
+		                    'task' : task,
+		                    'question' : question,
+		                    'answer': "",
+		                    'activity': activity
+		                }
+		        
         data.append(activity_data)
 
     print(data)

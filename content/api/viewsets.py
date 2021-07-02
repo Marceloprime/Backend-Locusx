@@ -258,7 +258,6 @@ class ActivityRealizationTeacherViewSet(viewsets.ModelViewSet):
           data.append(aux)
       except:
         data = []
-      print(data)
       return Response(data)
     else:
       return Response({"Data":[]})

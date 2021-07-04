@@ -168,7 +168,6 @@ def TaskView(request):
     locations = Location.objects.filter(teacher=teacher)
     questions = Question.objects.filter(teacher=teacher)
     tasks = Task.objects.filter(teacher=teacher).order_by('-id')
-    print(tasks[0].questions.all())
 
     context = {
         'teacher': teacher,

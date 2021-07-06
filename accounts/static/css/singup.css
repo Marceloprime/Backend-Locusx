@@ -94,6 +94,9 @@ header{
     cursor: pointer;
     outline: none;
 }
+#login-form-submit:hover{
+    background-color: #555151;
+}
 
 #reset-password{
     width: 100%;

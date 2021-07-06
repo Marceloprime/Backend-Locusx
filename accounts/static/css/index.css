@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+
 body{
+    background-image: url("http://locusx.herokuapp.com/static/images/book-1822474_1920.jpg");
     background-color: rgb(72, 110, 192);
-    margin-left: 0;
-    padding: 0;
+    background-repeat: no-repeat, repeat;
     display: flex;
     justify-content: center;
 }
@@ -26,7 +28,7 @@ header{
 
 #title{
     font-size: 90px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 #main-holder{
@@ -94,6 +96,10 @@ header{
     outline: none;
 }
 
+#login-form-submit:hover{
+    background-color: #555151;
+}
+
 #reset-password{
     width: 100%;
     border: none;
@@ -116,3 +122,6 @@ header{
     outline: none;
 }
 
+#btn-singUP:hover{
+    background-color: rgb(38, 148, 38);
+}

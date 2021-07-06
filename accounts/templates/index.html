@@ -36,8 +36,8 @@
             <input type="submit" value="Login" id="login-form-submit">
           </form>
           <!--a id="reset-password" href="#">Esqueci minha senha</a-->
-          <a style="color: black;" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-twitter">
-            <span class="btn-social-icon fa fa-google"></span> Logar com Google
+          <a style="background-color: rgb(89, 89, 219);width: 100%;color: #fff;" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-google">
+            <span class="btn-social-icon fa fa-google" style="color: #fff;"></span> Logar com Google
           </a>
           <button id="btn-singUP" onclick="redirect()" type="button" >Não tenho conta</button>
           <div id="login-error-msg-holder">
@@ -49,7 +49,6 @@
       <script>
         function redirect() {
           window.location = "{% url 'singup' %}"
-
         }
       </script>
     </body>

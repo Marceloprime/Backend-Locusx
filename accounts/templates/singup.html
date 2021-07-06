@@ -21,12 +21,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div class="container">
-            <header>
+        <div class="container" style="display: flex;background-color: rgb(53, 216, 238);margin-top: 2%;padding-bottom: 2%;width: 49%">
+            <header >
                 <h1 id="title">Locus X &#127758;</h1>
                 <h2 style="color: #fff;">Novo Usuário</h2>
             </header>
-            <main id="main-holder">
+            <main  id="main-holder">
                 <a style="color: #fff;" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-twitter">
                     <h3>
                         <span class="btn-social-icon fa fa-google"></span> Criar conta com o Google                        
@@ -46,7 +46,7 @@
                     <input type="submit" value="Criar" id="login-form-submit">
                 </form>
             </main>
-            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;color:#fff ;">Menu inicial</h5></a>
+            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;color:#fff ; margin-top: 5%;">Menu inicial</h5></a>
         </div>
     </body>
 </html>

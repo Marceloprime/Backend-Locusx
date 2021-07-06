@@ -1,7 +1,7 @@
 body{
-    background-color: rgb(47, 255, 210);
-    margin-left: 0;
-    padding: 0;
+    background-image: url("http://locusx.herokuapp.com/static/images/library-869061_1920.jpg");
+    background-color: rgb(72, 110, 192);
+    background-repeat: no-repeat, repeat;
     display: flex;
     justify-content: center;
 }

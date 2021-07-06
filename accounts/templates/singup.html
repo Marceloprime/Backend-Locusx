@@ -21,16 +21,16 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div class="container" style="display: flex;background-color: rgb(53, 216, 238);margin-top: 2%;padding-bottom: 2%;width: 49%;border-radius: 3%;">
+        <div class="container" style="display: flex;background-color: rgb(53, 216, 238);margin-top: 2%;padding-bottom: 1%;width: 49%;border-radius: 3%;">
             <header >
                 <h1 id="title">Locus X &#127758;</h1>
                 <h2 style="color: #fff;">Novo Usuário</h2>
             </header>
             <main  id="main-holder">
-                <a style="color: #fff;" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-twitter">
-                    <h3>
+                <a style="color: #fff;background-color: rgb(81, 81, 238);margin-bottom: 3%;padding-top: 3%;" href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-twitter">
+                    <h4>
                         <span class="btn-social-icon fa fa-google"></span> Criar conta com o Google                        
-                    </h3>
+                    </h4>
                 </a>
                 <form id="login-form" method="post" >
                     {% csrf_token %}
@@ -43,10 +43,10 @@
                       <option value="is_institution_adm">Administrador de instituição</option>
                     </select>
                     <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Senha">
-                    <input type="submit" value="Criar" id="login-form-submit">
+                    <input style="background-color: green;" type="submit" value="Criar" id="login-form-submit">
                 </form>
             </main>
-            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;color:#fff ; margin-top: 5%;">Menu inicial</h5></a>
+            <a id="link" href="{% url 'index' %}"><h5 style=" cursor: pointer; text-decoration: none;color:#fff ; margin-top: 5%;background-color: #3a3a3a;width: 50%;text-align: center;border-radius: 5%;padding-top: 1%;padding-bottom: 1%;">Menu inicial</a>
         </div>
         
     </body>

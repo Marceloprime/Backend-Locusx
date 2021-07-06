@@ -91,13 +91,13 @@ header{
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    background-color: #3a3a3a;
+    background-color: green;
     cursor: pointer;
     outline: none;
 }
 
 #login-form-submit:hover{
-    background-color: #555151;
+    background-color: rgb(38, 148, 38);
 }
 
 #reset-password{
@@ -117,11 +117,11 @@ header{
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    background-color: green;
+    background-color: rgb(29, 29, 189);
     cursor: pointer;
     outline: none;
 }
 
 #btn-singUP:hover{
-    background-color: rgb(38, 148, 38);
+    background-color: rgb(72, 72, 211);
 }

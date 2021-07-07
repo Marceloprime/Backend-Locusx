@@ -1,7 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
 
+@media screen and (max-width: 640px) {
+    body {
+        background-image: url("https://locusx.herokuapp.com/static/images/book-1.jpg");
+    }
+  }
+  
+@media screen and (max-width: 1280px) {
+    body {
+        background-image: url("https://locusx.herokuapp.com/static/images/book-2.jpg");
+    }
+}
+
+@media screen and (max-width: 1920px) {
+    body {
+        background-image: url("https://locusx.herokuapp.com/static/images/book-3.jpg");
+    }
+}
+
+
+@media screen and (max-width: 5821px) {
+    body {
+        background-image: url("https://locusx.herokuapp.com/static/images/book-4.jpg");
+    }
+}
+
+
+
 body{
-    background-image: url("http://locusx.herokuapp.com/static/images/book-3.jpg");
+    background-image: url("https://locusx.herokuapp.com/static/images/book-3.jpg");
     background-color: rgb(72, 110, 192);
     background-repeat: no-repeat, repeat;
     display: flex;

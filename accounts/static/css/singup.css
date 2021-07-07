@@ -73,7 +73,7 @@ header{
 .login-form-field {
     border: none;
     border-bottom: 1px solid #3a3a3a;
-    margin-bottom: 12px;
+    margin-bottom: 9px;
     border-radius: 3px;
     outline: none;
     padding: 0px 0px 7px 7px;
@@ -85,7 +85,7 @@ header{
     width: 100%;
     padding: 7px;
     margin-top: 12px;
-    margin-bottom: 7px;
+    margin-bottom: 4px;
     border: none;
     border-radius: 5px;
     color: white;
@@ -108,7 +108,7 @@ header{
 }
 #btn-singUP{
     width: 100%;
-    padding: 7px;
+    padding: 5px;
     margin-top: 15px;
     border: none;
     border-radius: 5px;

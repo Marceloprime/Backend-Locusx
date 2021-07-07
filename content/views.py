@@ -252,7 +252,7 @@ def ActivityTeacherView(request):
         'activities': activities
     }
 
-    return render(request, 'content/ActivityTeacher.html',context)
+    return render(request, 'content/Teacher/ActivityTeacher.html',context)
 
 @login_required  
 def ActivityView(request):
@@ -288,7 +288,7 @@ def ActivityRealizationView(request):
     context = {
         'form': form
     }
-    return render(request, 'content/ActivityRealization.html',context)
+    return render(request, 'content/Institution/ActivityRealization.html',context)
 
 @login_required  
 def ActivityRealizationTeacherView(request):
@@ -306,7 +306,7 @@ def ActivityRealizationTeacherView(request):
     context = {
         'form': form
     }
-    return render(request, 'content/ActivityRealizationTeacher.html',context)
+    return render(request, 'content/Teacher/ActivityRealizationTeacher.html',context)
 
 @login_required      
 def AnswerView(request):
@@ -396,7 +396,7 @@ def AnswerTeacherView(request):
 
     #print("\n\n\n\n\n\n\n\n\n\n")
     #print(context)
-    return render(request, 'content/AnswerTeacher.html',context)
+    return render(request, 'content/Teacher/AnswerTeacher.html',context)
 
 @login_required      
 def AnswerMultipleChoiceView(request):
@@ -414,7 +414,7 @@ def AnswerMultipleChoiceView(request):
     context = {
         'form': form
     }
-    return render(request, 'content/AnswerMultipleChoice.html',context)
+    return render(request, 'content/Institution/AnswerMultipleChoice.html',context)
 
 @login_required  
 def AnswerTeacherMultipleChoiceView(request):
@@ -432,4 +432,4 @@ def AnswerTeacherMultipleChoiceView(request):
     context = {
         'form': form
     }
-    return render(request, 'content/AnswerTeacherMultipleChoice.html',context)
+    return render(request, 'content/Teacher/AnswerTeacherMultipleChoice.html',context)

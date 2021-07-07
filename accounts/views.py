@@ -40,7 +40,7 @@ def index(request):
 def logout_view(request):
     logout(request)
     # Redirect to a success page
-    return redirect('index')
+    return render(request, 'index.html')
 
 @login_required
 def home(request):
@@ -274,7 +274,7 @@ def InstitutionView(request):
     context = {
         'form': form
     }
-    return render(request, 'accounts/Institution.html',context)
+    return render(request, 'accounts/Institution/Institution.html',context)
 
 @login_required
 def AddressView(request):
@@ -292,7 +292,7 @@ def AddressView(request):
     context = {
         'form': form
     }
-    return render(request, 'accounts/Address.html',context)
+    return render(request, 'accounts/Institution/Address.html',context)
 
 ###########################################################################
 #                       Instituicao                                       #
@@ -312,7 +312,7 @@ def ProgramView(request):
     context = {
         'form': form
     }
-    return render(request, 'accounts/Program.html',context)
+    return render(request, 'accounts/Institution/Program.html',context)
 
 @login_required
 def ClassView(request):
@@ -330,7 +330,7 @@ def ClassView(request):
     context = {
         'form': form
     }
-    return render(request, 'accounts/Class.html',context)
+    return render(request, 'accounts/Institution/Class.html',context)
 
 @login_required
 def CourseView(request):
@@ -348,7 +348,7 @@ def CourseView(request):
     context = {
         'form': form
     }
-    return render(request, 'accounts/Course.html',context)
+    return render(request, 'accounts/Institution/Course.html',context)
 
 ###########################################################################
 #                       Teacher   
@@ -369,7 +369,7 @@ def ProgramTeacherView(request):
     context = {
         'form': form
     }
-    return render(request, 'accounts/ProgramTeacher.html',context)
+    return render(request, 'accounts/Teacher/ProgramTeacher.html',context)
 
 @login_required
 def CreateclassTeacherView(request):
@@ -388,7 +388,7 @@ def CreateclassTeacherView(request):
             messages.success(request, 'Turma criada com sucesso, volte a página de aluno, para adicionar os estudantes.')
         except:
             messages.error(request, 'Erro na criação da Turma')
-    return render(request, 'accounts/CreateClassTeacher.html')
+    return render(request, 'accounts/Teacher/CreateClassTeacher.html')
 
 @login_required
 def ClassTeacherView(request):
@@ -445,7 +445,7 @@ def ClassTeacherView(request):
         'classes': classesTeacher,
         'students': students
     }
-    return render(request, 'accounts/ClassTeacher.html',context)
+    return render(request, 'accounts/Teacher/ClassTeacher.html',context)
 
 @login_required
 def CourseTeacherView(request):
@@ -468,4 +468,4 @@ def CourseTeacherView(request):
         'classes': classes,
         'courses': courses
     }
-    return render(request, 'accounts/CourseTeacher.html',context)
+    return render(request, 'accounts/Teacher/CourseTeacher.html',context)

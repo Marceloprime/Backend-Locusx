@@ -68,6 +68,7 @@
                     <input style="margin-bottom: 2%;width: 80%;margin-left: 10%;" class="form-control"  type="text" name="title" id="title"  placeholder="Titulo" required>
                     <textarea style="margin-bottom: 2%;width: 80%;margin-left: 10%;"  class="form-control" name="description" id="description" rows="3" placeholder="Descrição"></textarea>
                     <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Associe um curso ou disciplina abaixo:</label>
+                    <a style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;text-decoration: none;" href="{% url 'courseTeacher' %}">Criar disciplina</a>
                     <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_course" id="type_course" required>
                       <option value=""></option>
                       {% for course in courses %}
@@ -75,6 +76,7 @@
                       {% endfor %}
                     </select>
                     <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Associe uma Turma abaixo:</label>
+                    <a style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;text-decoration: none;" href="{% url 'classTeacher' %}">Gerenciar Turmas</a>
                     <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_classe" id="type_classe" required>
                       <option value=""></option>
                       {% for classe in classes %}
@@ -82,6 +84,7 @@
                       {% endfor %}
                     </select>
                     <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Associe um conteúdo:</label>
+                    <a style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;text-decoration: none;" href="{% url 'content' %}">Criar conteúdo</a>
                     <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_content" id="type_content" required>
                       <option value=""></option>
                       {% for content in contents %}
@@ -89,6 +92,7 @@
                       {% endfor %}
                     </select>
                     <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;">Você pode associar até 10 tarefas por atividade:</label>
+                    <a style="width: 80%;margin-left: 10%;margin-bottom: 2%;font-weight: bold;text-decoration: none;" href="{% url 'task' %}">Criar tarefa</a>
                     <label style="width: 80%;margin-left: 10%;margin-bottom: 2%;">Tarefa:</label>
                     <select style="width: 80%;margin-left: 10%;margin-bottom: 2%;" name="type_task" id="type_task" required>
                       <option value=""></option>

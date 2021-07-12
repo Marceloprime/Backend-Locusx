@@ -51,15 +51,20 @@ router.register(r'answerteacherMultipleChoice', AnswerTeacherMultipleChoiceViewS
 #location
 router.register(r'location', LocationViewSet, basename='LocationViewSet')
 
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', include('accounts.urls')),
     url(r'^auth/', include('rest_auth.urls')),#routar do login
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('socialogin/', include('allauth.urls')),
 ]
-
-
 
 #urlpatterns = [
     #path('admin/', admin.site.urls),

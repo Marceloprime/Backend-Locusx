@@ -36,6 +36,4 @@ urlpatterns = [
     path(r'answerTeacher/', AnswerTeacherView ,name='answerTeacher'), 
     path(r'answerMultipleChoice/', AnswerMultipleChoiceView ,name='answerMultipleChoice'), 
     path(r'answerTeacherMultipleChoice/', AnswerTeacherMultipleChoiceView ,name='answerTeacherMultipleChoice'), 
-
-    path('accounts/', include('allauth.urls')),
 ]

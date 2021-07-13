@@ -7,15 +7,12 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import  url,handler404
-#from accounts.socialLogin import  FacebookLogin
 from rest_framework import routers
 from accounts.api.viewsets import *
 from accounts.views import index
 from content.api.viewsets import *
 from location.api.viewsets import *
-from rest_framework_swagger.views import get_swagger_view
 
-schema_view = get_swagger_view(title='LocusX API')
 # Api router
 router = routers.DefaultRouter()
 #accounts

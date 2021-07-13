@@ -44,11 +44,10 @@ def index(request):
 
     return render(request, 'index.html')
 
-@login_required
 def logout_view(request):
     logout(request)
     # Redirect to a success page
-    return render(request, 'index.html')
+    return render(request, 'logout.html')
 
 @login_required
 def home(request):

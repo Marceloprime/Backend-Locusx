@@ -59,7 +59,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     url(r'^auth/', include('rest_auth.urls')),#routar do login
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('socialogin/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 #urlpatterns = [

@@ -37,3 +37,4 @@ urlpatterns = [
     path(r'answerMultipleChoice/', AnswerMultipleChoiceView ,name='answerMultipleChoice'), 
     path(r'answerTeacherMultipleChoice/', AnswerTeacherMultipleChoiceView ,name='answerTeacherMultipleChoice'), 
 ]
+

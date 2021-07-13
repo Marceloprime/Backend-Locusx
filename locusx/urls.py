@@ -6,11 +6,11 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import  url
+from django.conf.urls import  url,handler404
 #from accounts.socialLogin import  FacebookLogin
 from rest_framework import routers
-
 from accounts.api.viewsets import *
+from accounts.views import index
 from content.api.viewsets import *
 from location.api.viewsets import *
 from rest_framework_swagger.views import get_swagger_view
@@ -51,11 +51,7 @@ router.register(r'answerteacherMultipleChoice', AnswerTeacherMultipleChoiceViewS
 #location
 router.register(r'location', LocationViewSet, basename='LocationViewSet')
 
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
-from rest_auth.registration.views import SocialLoginView
-
-class FacebookLogin(SocialLoginView):
-    adapter_class = FacebookOAuth2Adapter
+handler500 = 'accounts.views.handler500'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,4 +1,5 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect, render_to_response
+from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,13 @@ from location.models import Location
 from content.models import *
 from .models import *
 from .forms import *
+
+def handler500(request, template_name='index.html'):
+    response = render_to_response(template_name)
+    response.status_code = 500
+    return response
+
+
 
 def index(request):
     if(str(request.user) != "AnonymousUser"):
@@ -196,7 +204,6 @@ def home(request):
             'user' : "NOT FOUND",
             'lang': lang
         }
-
     return render(request, 'home.html',context)
 
 

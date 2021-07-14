@@ -34,6 +34,9 @@
             <div class="container">
               <div class="side" style="width: 17%;">
                 <ul>
+                  <li style="color: #fff;">
+                    <p>{{user.email}} </p>
+                  </li>
                   <li style=" 
                     background-color: rgb(182, 51, 51);
                     padding-top: 7px;
@@ -92,19 +95,22 @@
                       {% trans 'Correção' %}
                     </a>
                   </li>
+                  <li>     
+                    <a href="#" >
+                      <i style="margin-left: 3px;margin-right: 6px;" class="fa fa 	fa fa-mortar-board"></i>
+                      {% trans 'Tutorial' %}
+                    </a>
+                  </li>
                 </ul>
-                <a style="margin-top: 95%" href="https://www.gov.br/cnpq/pt-br" target="blank_">
+                <a style="margin-top: 25%" href="https://www.gov.br/cnpq/pt-br" target="blank_">
                   <img style="width: 80%;margin-left: 10%;border-radius: 15px;cursor: pointer;" src="{% static 'images/cnpq.png' %}">
                 </a>
                 <a href="https://www5.usp.br/" target="blank_">
                   <img style="width: 80%;margin-left: 10%;border-radius: 15px;margin-top: 5%;cursor: pointer;" src="{% static 'images/usp-logo-azul.jpg' %}">
                 </a>
+                <p style="font-size: 12px;text-align: center;color: #fff;">&copy;	Autor: Marcelo Augusto dos Reis </p>
               </div>
               <div id="container-content">
-                <div class="label">
-                  <p class="attribute">Email:</p>
-                  <p>{{user.email}} </p>
-                </div>
                 <div>
                   <ul style="display: flex;flex-direction: row;width: 100%;margin-bottom: 0.2%;">
                       <li onclick="showlocations()" style="display: flex;justify-content: center;">     

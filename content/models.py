@@ -33,6 +33,7 @@ class Question(models.Model):
     is_openQuestion = models.BooleanField(default=False)
     is_multipleChoiceQuestion = models.BooleanField(default=False)
     link_multimedia = models.TextField(_('link multimedia'), blank=True, null=True)
+    correct_alternative = models.TextField(blank=True, null=True)
     teacher = models.ForeignKey(
         Teacher,
         on_delete=models.CASCADE,

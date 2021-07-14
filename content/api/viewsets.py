@@ -219,9 +219,10 @@ class ActivityTeacherViewSet(viewsets.ModelViewSet):
             "tasks": str(dataAux)
           })
   
-    #print(data)
-    return Response({"data": data})
-
+      #print(data)
+      return Response({"data": data})
+    else:
+      return Response({"message": "Você não está autorizado para essa requisição."})
 class ActivityViewSet(viewsets.ModelViewSet):
   #permission_classes = [permissions.IsAuthenticated]
   serializer_class = ActivitySerializers

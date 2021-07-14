@@ -52,30 +52,96 @@
                 </h2>
             </a>  
         </header>
-        {% bootstrap_messages %}
-        <div  class="row align-items-start" style="margin-top: 2%;background-color: rgb(220, 234, 247);" >
-            <div class="col" style="margin-top: 2%;">
-                <form style="display: flex;flex-direction: column;margin: 0;" action="{% url 'location' %}" method="POST"  enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
-                        Crie um nome ou apelido a essa localização. De preferência com algo relacionado a ela, como por exemplo: Jaula do Leão, Estátua do Dom Pedro etc.
-                    </label>
-                    <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="name" id="name"  placeholder="Nome" required>
-                    <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;" class="form-label">
-                        Use esse campo para descrever características que podem ser relevantes para sua tarefa ou aluno.
-                    </label>
-                    <input style="margin-bottom: 5%;height: 100px;width: 70%;margin-left: 2%;"  class="form-control" type="text" name="description"  placeholder="Descrição">
-                    <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
-                        Use o mapa ao lado para encontrar as coordenadas geográficas, clique em “Visualizar mapa ampliado” , será aberto em outra guia o Google Maps, use ele para encontrar a região da sua atividade, em seguida com a seta do mouse sobre a localização escolhida clique com o botão direito do mouse, será aberto uma janelinha clique na coordenada , ela será copiada para a área de transferência e em seguida volte para o Locus e cole no campo coordenadas.
-                    </label>
-                    <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="coordinates"  placeholder="Coordenadas" required>
-                    <input class="btn btn-primary" style="width: 20%;margin-left: 2%;" type="submit" value="Criar" >
-                </form>
+        <div style="    
+            background-color: rgb(63, 124, 216);
+            width: 100%;
+            height: 40px;
+            color: #fff;
+            margin: 0;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            ">
+            <div onclick="ShowContent1()" style="font-weight: bold;width: 50%;text-align: center;border: 2px solid #fff;cursor: pointer;">
+                <h2>
+                    Criação
+                </h2>
             </div>
-            <div  class="col-auto"  style="margin-right: 2%;border-style: solid;">
-                <div class="mapouter"><div class="gmap_canvas"><iframe width="379" height="550" id="gmap_canvas" src="https://maps.google.com/maps?q=USP%20S%C3%A3o%20Carlos&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.online-timer.net"></a><br><style>.mapouter{position:relative;text-align:right;height:550px;width:379px;}</style><a href="https://www.embedgooglemap.net">google maps code generator</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:550px;width:379px;}</style></div>
+            <div onclick="ShowContent2()" style="font-weight: bold;width: 50%;text-align: center;border: 2px solid #fff;cursor: pointer;">
+                <h2>
+                    Histórico
+                </h2>
+            </div>
+        </div>
+        {% bootstrap_messages %}
+        <div id="content-1" style="display: block;">
+                <div  class="row align-items-start" style="margin-top: 2%;background-color: rgb(220, 234, 247);" >
+                    <div class="col" style="margin-top: 2%;">
+                        <form style="display: flex;flex-direction: column;margin: 0;" action="{% url 'location' %}" method="POST"  enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                                Crie um nome ou apelido a essa localização. De preferência com algo relacionado a ela, como por exemplo: Jaula do Leão, Estátua do Dom Pedro etc.
+                            </label>
+                            <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="name" id="name"  placeholder="Nome" required>
+                            <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;" class="form-label">
+                                Use esse campo para descrever características que podem ser relevantes para sua tarefa ou aluno.
+                            </label>
+                            <input style="margin-bottom: 5%;height: 100px;width: 70%;margin-left: 2%;"  class="form-control" type="text" name="description"  placeholder="Descrição">
+                            <label style="margin-bottom: 1%;width: 70%;margin-left: 2%;"  class="form-label">
+                                Use o mapa ao lado para encontrar as coordenadas geográficas, clique em “Visualizar mapa ampliado” , será aberto em outra guia o Google Maps, use ele para encontrar a região da sua atividade, em seguida com a seta do mouse sobre a localização escolhida clique com o botão direito do mouse, será aberto uma janelinha clique na coordenada , ela será copiada para a área de transferência e em seguida volte para o Locus e cole no campo coordenadas.
+                            </label>
+                            <input style="margin-bottom: 5%;width: 70%;margin-left: 2%;" class="form-control"  type="text" name="coordinates"  placeholder="Coordenadas" required>
+                            <input class="btn btn-primary" style="width: 20%;margin-left: 2%;margin-left:25%;" type="submit" value="Criar" >
+                        </form>
+                    </div>
+                    <div  class="col-auto"  style="margin-right: 2%;border-style: solid;">
+                        <div class="mapouter"><div class="gmap_canvas"><iframe width="379" height="550" id="gmap_canvas" src="https://maps.google.com/maps?q=USP%20S%C3%A3o%20Carlos&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.online-timer.net"></a><br><style>.mapouter{position:relative;text-align:right;height:550px;width:379px;}</style><a href="https://www.embedgooglemap.net">google maps code generator</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:550px;width:379px;}</style></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content-2" style="display: none;">
+            <div  class="container" style="margin-top: 2%;" >
+                <table class="table" style="background-color: rgb(5, 134, 134);">
+                    <tr style="color: #fff;text-align: center;">
+                      <th  style="display: flex;justify-content: center;">Nome</th>
+                      <th>Descrição</th>
+                      <th>Latitude</th>
+                      <th>Longitude</th>
+                    </tr>
+                    {% for location in locations %}
+                    <tr style="background-color: rgb(171, 247, 247);text-align: center;">
+                      <td>{{location.name}}</td>
+                      <td>{{location.description}}</td>
+                      <td>{{location.latitude}}</td>
+                      <td>{{location.longitude}}</td>
+                    </tr>
+                    {% endfor %}
+                  </table>
             </div>
         </div>
     </body>
+    <script>
+        function ShowContent1(){
+            let status = document.getElementById('content-1').style.display
+            if(status === 'none'){
+                document.getElementById('content-1').style.display = 'block'
+                document.getElementById('content-2').style.display = 'none'
+            }
+            else{
+                document.getElementById('content-1').style.display = 'none'
+            }
+        }
+        function ShowContent2(){
+            let status = document.getElementById('content-2').style.display
+            if(status === 'none'){
+                document.getElementById('content-1').style.display = 'none'
+                document.getElementById('content-2').style.display = 'block'
+            }
+            else{
+                document.getElementById('content-2').style.display = 'none'
+            }
+        }
+    </script>
     {% bootstrap_javascript jquery='full' %}
 </html>

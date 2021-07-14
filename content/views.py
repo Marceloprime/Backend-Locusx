@@ -205,38 +205,48 @@ def ActivityTeacherView(request):
         type_task10 = request.POST['type_task10']
 
         activity = ActivityTeacher.objects.create(title=title,description=description,course=course,class_id=classe,content=content,teacher=teacher)
-
         if type_task != '':
-            task = Task.objects.filter(pk=type_task)[0]
-            activity.tasks.add(task)
+            try:
+                task = Task.objects.filter(pk=type_task)[0]
+                activity.tasks.add(task)
+            except:
+                type_task = ''
         if type_task2 != '':
             task = Task.objects.filter(pk=type_task2)[0]
             activity.tasks.add(task)
+            type_task2 = ''
         if type_task3 != '':
             task = Task.objects.filter(pk=type_task3)[0]
             activity.tasks.add(task)
+            type_task3 = ''
         if type_task4 != '':
             task = Task.objects.filter(pk=type_task4)[0]
-            activity.tasks.add(task)                                    
+            activity.tasks.add(task)  
+            type_task4 = ''                                  
         if type_task5 != '':
             task = Task.objects.filter(pk=type_task5)[0]
             activity.tasks.add(task)
+            type_task5 = ''
         if type_task6 != '':
             task = Task.objects.filter(pk=type_task6)[0]
             activity.tasks.add(task)
+            type_task6 = ''
         if type_task7 != '':
             task = Task.objects.filter(pk=type_task7)[0]
             activity.tasks.add(task)
+            type_task7 = ''
         if type_task8 != '':
             task = Task.objects.filter(pk=type_task8)[0]
             activity.tasks.add(task)
+            type_task8 = ''
         if type_task9 != '':
             task = Task.objects.filter(pk=type_task9)[0]
             activity.tasks.add(task)
+            type_task9 = ''
         if type_task10 != '':
             task = Task.objects.filter(pk=type_task10)[0]
             activity.tasks.add(task)
-
+            type_task10 = ''
     contents =  Content.objects.filter(teacher=teacher).order_by('-id')
     course = CourseTeacher.objects.filter(teacher=teacher).order_by('-id')
     classes = ClassTeacher.objects.filter(teacher=teacher).order_by('-id')
@@ -341,9 +351,9 @@ def AnswerTeacherView(request):
             student = actRealization.student
             activity = ActivityTeacher.objects.filter(pk=actRealization.activity_id)[0]
             tasks = activity.tasks.all()
-            print('///////////////////////////////\n')
-            print(tasks)
-            print('///////////////////////////////\n')
+            #print('///////////////////////////////\n')
+            #print(tasks)
+            #print('///////////////////////////////\n')
             for task in tasks:
                 questions = task.questions.all()
                 for question in questions:
@@ -365,9 +375,9 @@ def AnswerTeacherView(request):
                     if question.is_multipleChoiceQuestion:
                         try:
                             answer = AnswerTeacherMultipleChoice.objects.filter(question=question.id,activityRealization=actRealization.id)[0]
-                            print("\n\n\n\n")
-                            print(answer.alternative)
-                            print("\n\n\n\n")
+                            #print("\n\n\n\n")
+                            #print(answer.alternative)
+                            #print("\n\n\n\n")
                             aux = {
                                 'student' : student,
                                 'task' : task,

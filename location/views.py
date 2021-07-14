@@ -9,6 +9,12 @@ from .forms import *
 
 @login_required
 def LocationView(request):
+    user = request.user
+    teacher = Teacher.objects.filter(user=user)[0]
+    locations = Location.objects.filter(teacher=teacher).order_by('-modified_at')
+    context = {
+        'locations' : locations,
+    }
     if request.POST:
         user = request.user
         teacher = Teacher.objects.filter(user=user)[0]
@@ -23,8 +29,8 @@ def LocationView(request):
         except:
             messages.error(request,"Campos inválidos")
 
-        return render(request, 'location/Location.html')
+        return render(request, 'location/Location.html',context)
     else:
-        return render(request, 'location/Location.html')
+        return render(request, 'location/Location.html',context)
 
 

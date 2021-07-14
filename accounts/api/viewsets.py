@@ -1,5 +1,6 @@
 from accounts.models import *
 from rest_framework import viewsets
+from django.utils.datastructures import MultiValueDictKeyError
 from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -102,7 +103,17 @@ class UserViewSet(viewsets.ModelViewSet):
       else:
         print(request.user )
         return Response({"Messagem":"Usuário não atorizado, tente realizar o login ou crie uma conta"})
-      
+    
+    @action(methods=['POST'],detail=False)
+    def socialLogin(self, request):
+      try:
+        email = request.data["email"]
+
+        user = User.objects.filter(email=email)[0]
+        token = Token.objects.filter(user_id=user.id)[0]
+        return Response({"token": str(token)})
+      except:
+        return Response({"message":"Email ivalido"})
 ############################################################################################
 # Users
 

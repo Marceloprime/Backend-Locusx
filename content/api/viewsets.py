@@ -163,11 +163,15 @@ class ActivityTeacherViewSet(viewsets.ModelViewSet):
       getStudent = Student.objects.filter(user=getUser).values_list('id', flat = True)[0]
       classes = ClassTeacher.objects.filter(students=getStudent)
       for class_ in classes:
-        activities = ActivityTeacher.objects.filter(class_id=class_.id)
+        activities = ActivityTeacher.objects.filter(class_id=class_.id)#atividades por classe
         for activity in activities:#Busca em cada atividade
-          tasks = activity.tasks.all()         
+          tasks = activity.tasks.all()#todas as tarefas por classe         
           for task in tasks:
-            if task.status == False:
+            print(activity)
+            print(task.title)
+            print('\n\n')
+
+            if task.status == False:#caso a tarefa ja tenha sido feita
               continue
 
             questions = Task.objects.get(id=task.id).questions.all()
@@ -210,15 +214,15 @@ class ActivityTeacherViewSet(viewsets.ModelViewSet):
             
             dataAux.append(aux)
 
-          print(dataAux)  
-          print("\n\n\n") 
+          #print(dataAux)  
+          #print("\n\n\n") 
           data.append({
             "id": activity.id,
             "name" : activity.title,
             "class" : class_.name,
             "tasks": str(dataAux)
           })
-  
+          dataAux = []
       #print(data)
       return Response({"data": data})
     else:

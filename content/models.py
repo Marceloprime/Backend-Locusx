@@ -236,6 +236,9 @@ class AnswerTeacher(models.Model):
         related_name="AnswerTeacher"
     )
 
+    def __str__(self):
+        return f'{self.question}: {self.activityRealization}'
+
 
 class AnswerMultipleChoice(models.Model):
     question = models.ForeignKey(

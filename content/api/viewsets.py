@@ -274,7 +274,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
   queryset = Answer.objects.all()
 
 class AnswerTeacherViewSet(viewsets.ModelViewSet):
-  #permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
   serializer_class = AnswerTeacherSerializers
   queryset = AnswerTeacher.objects.all()
 

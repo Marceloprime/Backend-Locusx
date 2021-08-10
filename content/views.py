@@ -377,10 +377,9 @@ def AnswerTeacherView(request):
                     if question.is_multipleChoiceQuestion:
                         try:
                             answer = AnswerTeacherMultipleChoice.objects.filter(question=question.id,activityRealization=actRealization.id)[0]
-                            #print("\n\n\n\n")
-                            #print(answer.alternative)
-                            #print("\n\n\n\n")
-                            print(answer)
+                            print("\n\n\n\n")
+                            print(answer.alternative)
+                            print("\n\n\n\n")
                             aux = {
                                 'student' : student,
                                 'task' : task,

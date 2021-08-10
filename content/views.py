@@ -380,10 +380,7 @@ def AnswerTeacherView(request):
                             #print("\n\n\n\n")
                             #print(answer.alternative)
                             #print("\n\n\n\n")
-                            if answer == '':
-                                continue
-                            if answer == None:
-                                continue
+                            print(answer)
                             aux = {
                                 'student' : student,
                                 'task' : task,
@@ -404,7 +401,7 @@ def AnswerTeacherView(request):
 		        
         data.append(activity_data)
 
-    print(data)
+    #print(data)
     context = {
         'data': data,
         'activities': activities

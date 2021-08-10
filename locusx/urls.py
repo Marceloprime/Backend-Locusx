@@ -14,8 +14,8 @@ from content.api.viewsets import *
 from location.api.viewsets import *
 from rest_framework.documentation import include_docs_urls
 
-API_TITLE = 'API title'
-API_DESCRIPTION = '...'
+API_TITLE = 'Locus X'
+API_DESCRIPTION = 'Api do projeto Locus X'
 
 # Api router
 router = routers.DefaultRouter()

@@ -364,6 +364,8 @@ def AnswerTeacherView(request):
                             answer_aux = answer[0].answer
                         except:
                             answer_aux = ''
+                        if answer_aux == '':
+                            continue
                         aux = {
                             'student' : student,
                             'task' : task,

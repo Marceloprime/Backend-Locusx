@@ -58,7 +58,7 @@
                     document.getElementById('t'+event.id).style.display = 'block'
                     
                 }
-                document.getElementById(event.id).style.backgroundColor = "#c9a506"
+                document.getElementById(event.id).style.backgroundColor = "rgb(31, 159, 182)"
             }
 
         </script>
@@ -106,7 +106,7 @@
             <div class="col-sm-2" style="margin-right: 1%;padding-bottom: 30%;">
                 <ul class="list-group">
                     {% for activity in activities %}
-                        <li class="classe" class="list-group-item list-group-item-info" onclick="window.event(this)" style="cursor:pointer;border-style: ridge;  border: 2px solid rgb(31, 159, 182); border-radius: 8px;display: flex;justify-content: center;background-color: #e38d13;color: #fff;">
+                        <li class="classe" class="list-group-item list-group-item-info" onclick="window.event(this)" style="cursor:pointer;border-style: ridge;  border: 2px solid rgb(31, 159, 182); border-radius: 4px;display: flex;justify-content: center;background-color: #e38d13;color: #fff;margin-top: 2px;margin-left: 4px;">
                             <p style="margin-top: 2.5%;margin-bottom: 2.5%;">{{activity.title}}</p>
                         </li>
                     {% endfor %}
@@ -116,7 +116,7 @@
                 <button class="btn btn-primary" onclick="printPDF()">PDF</button>
                 {% for infos in data %}
                 <table class="table table-success table-striped idtable" style="width:100%;display: none;">
-                    <tr style="width:100%;">
+                    <tr>
                         <th>Estudante</th>
                         <th>Tarefa</th>
                         <th>Questão</th>

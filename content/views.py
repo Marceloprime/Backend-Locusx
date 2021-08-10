@@ -380,6 +380,10 @@ def AnswerTeacherView(request):
                             #print("\n\n\n\n")
                             #print(answer.alternative)
                             #print("\n\n\n\n")
+                            if answer.alternative == '':
+                                continue
+                            if answer.alternative == None:
+                                continue
                             aux = {
                                 'student' : student,
                                 'task' : task,
